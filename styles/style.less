@@ -667,9 +667,14 @@ li.menu-teacher-login {
   margin: 0;
   justify-content: center;
 
+  // Kontejner je roztažený přes celou šířku, takže svou neviditelnou
+  // plochou překrýval šipky a bral jim doteky. Klikací jsou jen tečky.
+  pointer-events: none;
+
   // Cílíme přes [data-bs-target], jinak vyhraje bootstrapovské
   // `.carousel-indicators [data-bs-target]` a z teček zůstanou čárky 30x3.
   [data-bs-target] {
+    pointer-events: auto;
     width: 9px;
     height: 9px;
     box-sizing: content-box;
