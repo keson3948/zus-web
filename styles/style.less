@@ -263,11 +263,19 @@ h1 em, h2 em, h3 em,
 
 #c-main {
   min-height: 95vh !important;
+
+  // Vzduch pod lištou. Dřív ho dělala třída mb-3 na <header>, jenže ta
+  // odsazovala i hero, které má na lištu navazovat.
+  padding-top: 3.5rem;
+
+  // Úvodní stránka: hero jde rovnou pod lištu, vlastní vnitřní odsazení
+  // už má v .hero-grid.
+  &.has-hero {
+    padding-top: 0;
+  }
 }
 
 main {
-  margin-top: 5%;
-
   // old_style sem věší lidový ornament po stranách. Kontejner ho ořezával
   // na náhodný proužek u kraje obsahu, takže je vypnutý.
   background-image: none;
@@ -278,6 +286,19 @@ main {
     &:visited { color: @primary; }
     &:hover   { color: @primary-soft; }
   }
+}
+
+// Text stránky z editoru Shipardu. Bootstrapový základ dává nadpisům
+// jen .5rem pod sebe, což je na patkové nadpisy málo.
+// Vybíráme jen přímé potomky, aby to nesahalo na sekce úvodní stránky
+// (ty jsou zabalené v <section> a odsazení si řeší samy).
+.e10w-content {
+  > h1, > h2, > h3, > h4 { margin-bottom: .9rem; }
+  > * + h2 { margin-top: 2.75rem; }
+  > * + h3 { margin-top: 2rem; }
+  > * + h4 { margin-top: 1.5rem; }
+  > p  { margin-bottom: 1.15rem; }
+  > ul, > ol { margin-bottom: 1.15rem; }
 }
 
 ::selection {
