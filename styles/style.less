@@ -1389,6 +1389,49 @@ div.contact-cards-a.hover-picture div.card-picture:hover {
 // 11. ANIMACE
 // ---------------------------------------------------------------------
 
+// Nálet hero po otevření stránky.
+//
+// Třídu hero-intro odebere skript v šabloně, jakmile animace doběhne.
+// Záměrně to není navázané na .active snímku karuselu: Bootstrap tu třídu
+// přidává až po dojetí přechodu, takže se animace při přepínání spouštěla
+// rozhozeně. Takhle proběhne přesně jednou, po načtení stránky.
+//
+// Po odebrání třídy zmizí i opacity: 0, takže prvky zůstanou viditelné
+// a nic neproblikne.
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-intro {
+  .carousel-item:first-child .hero-content > * {
+    opacity: 0;
+    animation: fadeUp .7s ease forwards;
+  }
+
+  .carousel-item:first-child .hero-content > *:nth-child(1) { animation-delay: .10s; }
+  .carousel-item:first-child .hero-content > *:nth-child(2) { animation-delay: .25s; }
+  .carousel-item:first-child .hero-content > *:nth-child(3) { animation-delay: .40s; }
+  .carousel-item:first-child .hero-content > *:nth-child(4) { animation-delay: .55s; }
+
+  .carousel-item:first-child .hero-poster {
+    opacity: 0;
+    animation: fadeUp .9s ease .35s forwards;
+  }
+
+  .hero-nav,
+  .hero-lines {
+    opacity: 0;
+    animation: fadeUp .6s ease .8s forwards;
+  }
+}
+
 @keyframes slideIn {
   from {
     transform: translateY(1rem);
@@ -1417,6 +1460,7 @@ div.contact-cards-a.hover-picture div.card-picture:hover {
   *::before,
   *::after {
     animation-duration: .01ms !important;
+    animation-delay: 0s !important;   // bez tohohle by obsah čekal na zpoždění
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
     scroll-behavior: auto !important;

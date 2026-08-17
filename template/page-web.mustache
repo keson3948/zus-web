@@ -333,7 +333,7 @@ border: 1px solid rgba(255, 255, 255, 0.32);">
     <!-- Karusel na úvodní stránce.
          Vlastnosti položek: _2a = plakát, _28 = video, _23/_24 = štítek,
          _22 = popisek, _25 = zobrazit tlačítko, _26 = text, _27 = odkaz. -->
-    <div class="hero carousel slide" id="heroCarousel" data-bs-ride="carousel" data-bs-interval="7000" data-bs-pause="hover">
+    <div class="hero hero-intro carousel slide" id="heroCarousel" data-bs-ride="carousel" data-bs-interval="7000" data-bs-pause="hover">
         <div class="hero-lines"></div>
 
         <div class="carousel-inner hero-items">
@@ -501,6 +501,16 @@ border: 1px solid rgba(255, 255, 255, 0.32);">
 <script defer src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.js"></script>
 <script defer src="{{templateRoot}}/cookieconsent-init.js?ver=5"></script>
 
+
+<script>
+// Nálet hero doběhne zhruba za 1,5 s. Pak třídu odebereme, aby se
+// animace nespouštěla znovu při přepínání snímků karuselu.
+(function () {
+	var hero = document.querySelector(".hero-intro");
+	if (!hero) return;
+	window.setTimeout(function () { hero.classList.remove("hero-intro"); }, 2500);
+})();
+</script>
 
 <script>
 // Bootstrap chce mít na jednom snímku třídu active. Mustache neumí
