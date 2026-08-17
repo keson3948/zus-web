@@ -656,14 +656,16 @@ li.menu-teacher-login {
 }
 
 // Tečky karuselu. Skládá je skript v šabloně, viz komentář u něj.
+// Tečky doprostřed. Dřív seděly vlevo s odsazením 4,1 rem, jenže dvojice
+// šipek je široká 96 px, takže první tečka ležela přímo na tlačítku.
 .hero-dots {
   position: absolute;
   left: 0;
-  right: auto;
+  right: 0;
   bottom: 1.3rem;
   z-index: 4;
-  margin: 0 0 0 4.1rem;   // vedle šipek
-  justify-content: flex-start;
+  margin: 0;
+  justify-content: center;
 
   // Cílíme přes [data-bs-target], jinak vyhraje bootstrapovské
   // `.carousel-indicators [data-bs-target]` a z teček zůstanou čárky 30x3.
@@ -1572,13 +1574,7 @@ div.contact-cards-a.hover-picture div.card-picture:hover {
     height: 38px;
   }
 
-  .hero-dots {
-    margin-left: 0;
-    justify-content: center;
-    left: 0;
-    right: 0;
-    bottom: 1.05rem;
-  }
+  .hero-dots { bottom: 1.05rem; }
 
   main {
     margin-top: 2rem;
