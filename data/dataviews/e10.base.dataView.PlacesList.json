@@ -1,27 +1,110 @@
 {
-  "_comment": "Testovací data pro lokální náhled výpisu poboček. Seznam odpovídá výběru poboček v přihlášce na zusmorava.cz. Na produkci data dodává Shipard.",
+  "_comment": "Skutečné pobočky a jejich URL stažené z /pracoviste na zusmorava.cz. Na produkci data dodává Shipard.",
   "places": [
-    { "name": "Zlín – Kotěrova", "address": "sídlo školy", "url": "/pobocky/zlin-koterova" },
-    { "name": "Zlín – Dům kultury", "address": "Zlín", "url": "/pobocky/zlin-dum-kultury" },
-    { "name": "Zlín – Církevní základní škola", "address": "Zlín", "url": "/pobocky/zlin-cirkevni-zs" },
-    { "name": "Zlín – Štípa", "address": "Zlín", "url": "/pobocky/zlin-stipa" },
-    { "name": "Zlín – Štípa, ZŠ", "address": "Zlín", "url": "/pobocky/zlin-stipa-zs" },
-    { "name": "Fryšták – ZUŠ", "address": "Fryšták", "url": "/pobocky/frystak-zus" },
-    { "name": "Fryšták – Základní škola", "address": "Fryšták", "url": "/pobocky/frystak-zs" },
-    { "name": "Bílovice", "address": "", "url": "/pobocky/bilovice" },
-    { "name": "Březolupy", "address": "", "url": "/pobocky/brezolupy" },
-    { "name": "Březůvky", "address": "", "url": "/pobocky/brezuvky" },
-    { "name": "Hošťálková", "address": "", "url": "/pobocky/hostalkova" },
-    { "name": "Hřivínův Újezd", "address": "", "url": "/pobocky/hrivinuv-ujezd" },
-    { "name": "Jasenná", "address": "", "url": "/pobocky/jasenna" },
-    { "name": "Kašava", "address": "", "url": "/pobocky/kasava" },
-    { "name": "Kateřinice", "address": "", "url": "/pobocky/katerinice" },
-    { "name": "Lípa", "address": "", "url": "/pobocky/lipa" },
-    { "name": "Liptál", "address": "", "url": "/pobocky/liptal" },
-    { "name": "Lukov", "address": "", "url": "/pobocky/lukov" },
-    { "name": "Provodov", "address": "", "url": "/pobocky/provodov" },
-    { "name": "Ratiboř", "address": "", "url": "/pobocky/ratibor" },
-    { "name": "Velký Ořechov", "address": "", "url": "/pobocky/velky-orechov" },
-    { "name": "Želechovice", "address": "", "url": "/pobocky/zelechovice" }
+    {
+      "name": "Zlín - Kotěrova ulice, sídlo školy",
+      "address": "",
+      "url": "/pobocky/zlin-koterova"
+    },
+    {
+      "name": "Zlín - Dům Kultury",
+      "address": "",
+      "url": "/pobocky/zlin-dk"
+    },
+    {
+      "name": "Zlín - Církevní základní škola",
+      "address": "",
+      "url": "/pobocky/zlin-cirkevni-zs"
+    },
+    {
+      "name": "Zlín - Štípa",
+      "address": "",
+      "url": "/pobocky/stipa"
+    },
+    {
+      "name": "Fryšták - Základní škola",
+      "address": "",
+      "url": "/pobocky/frystak-zs"
+    },
+    {
+      "name": "Fryšták - ZUŠ",
+      "address": "",
+      "url": "/pobocky/Frystak-zus"
+    },
+    {
+      "name": "Lukov",
+      "address": "",
+      "url": "/pobocky/lukov"
+    },
+    {
+      "name": "Kašava",
+      "address": "",
+      "url": "/pobocky/kasava"
+    },
+    {
+      "name": "Hošťálková",
+      "address": "",
+      "url": "/pobocky/hostalkova"
+    },
+    {
+      "name": "Ratiboř",
+      "address": "",
+      "url": "/pobocky/ratibor"
+    },
+    {
+      "name": "Kateřinice",
+      "address": "",
+      "url": "/pobocky/katerinice"
+    },
+    {
+      "name": "Liptál",
+      "address": "",
+      "url": "/pobocky/liptal"
+    },
+    {
+      "name": "Jasenná",
+      "address": "",
+      "url": "/pobocky/jasenna"
+    },
+    {
+      "name": "Lípa",
+      "address": "",
+      "url": "/pobocky/lipa"
+    },
+    {
+      "name": "Želechovice",
+      "address": "",
+      "url": "/pobocky/zelechovice"
+    },
+    {
+      "name": "Provodov",
+      "address": "",
+      "url": "/pobocky/provodov"
+    },
+    {
+      "name": "Březůvky",
+      "address": "",
+      "url": "/pobocky/brezuvky"
+    },
+    {
+      "name": "Hřivínův Újezd",
+      "address": "",
+      "url": "/pobocky/hrivinuv-ujezd"
+    },
+    {
+      "name": "Velký Ořechov",
+      "address": "",
+      "url": "/pobocky/velky-orechov"
+    },
+    {
+      "name": "Bílovice",
+      "address": "",
+      "url": "/pobocky/bilovice"
+    },
+    {
+      "name": "Březolupy",
+      "address": "",
+      "url": "/pobocky/brezolupy"
+    }
   ]
 }

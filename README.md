@@ -78,6 +78,24 @@ Co se nenajde v `public/`, `js/` ani `styles/`, se přesměruje na
 Skutečné hodnoty `scRoot` / `dsRoot` / `templateRoot` zjistíš ze
 „zobrazit zdroj stránky" na živém webu. Prázdný řetězec funguje taky.
 
+## Podstránky stažené z produkce
+
+Soubory v `pages/` (kromě `index`, `aktuality`, `skolne`) jsou **snímek
+vykresleného HTML** z zusmorava.cz, ne původní text z editoru Shipardu.
+Rozdíl je podstatný, když je budeš kopírovat zpátky:
+
+- `pracoviste.html` — vykreslený výpis poboček jsem nahradil zpátky
+  shortcodem `{{dataView;...}}`, aby šel testovat lokálně.
+- `prihlaska.html` — formulář generuje Shipard včetně recaptchy.
+  Neposílej ho zpátky, přepsal bys funkční formulář statickým HTML.
+- `vystavy.html` — obsahuje `card-deck`, který na produkci nejspíš
+  vyrábí dataView. Ověř si to v editoru, než budeš kopírovat.
+
+Ostatní stránky jsou obyčejný text a nadpisy, ty jsou v pořádku.
+
+Google mapa na `/pracoviste` hlásí lokálně chybu, protože `gmApiKey`
+v `data/base.json` je prázdný. Na produkci klíč je.
+
 ## Nová stránka
 
 ```
