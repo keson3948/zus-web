@@ -61,21 +61,22 @@
 //  2. PROMĚNNÉ
 // ---------------------------------------------------------------------
 
-// Značka
-@navy:            #151B54;   // hlavní barva školy
-@navy-soft:       #3B4285;   // světlejší odstín pro hover
-@navy-muted:      #c5c8db;   // odbarvený navy
-@bg:              #F4F8FC;   // pozadí stránky
-@surface:         #ffffff;   // karty, panely
-@text:            #151B54;
-@text-muted:      #5A6182;
+// --- Značka -----------------------------------------------------------
+// Primární je tmavá modř školy, sekundární k ní laděná světlejší modř.
+// Sekundární nese odkazy, verzálkové popisky a zvýrazněná tlačítka.
+@primary:          #151B54;
+@primary-soft:     #3B4285;   // hover primární
+@primary-muted:    #C5C8DB;   // odbarvená primární
 
-// Modrý akcent z návrhu (#5BB8F5). Na světlém pozadí je ale příliš
-// bledý na text, takže drobné popisky a odkazy berou tmavší @accent
-// a světlá varianta zůstává na dekoraci a hover.
-@accent:          #1273C4;
-@accent-light:    #5BB8F5;
-@hairline:        rgba(21, 27, 84, .12);   // vlasové linky mřížky
+@secondary:        #1273C4;
+@secondary-soft:   #0E5D9E;   // hover sekundární
+@secondary-light:  #5BB8F5;   // jen dekorace, na text je moc bledá
+
+@bg:               #F4F8FC;   // pozadí stránky
+@surface:          #FFFFFF;   // karty, panely
+@text:             @primary;
+@text-muted:       #5A6182;
+@hairline:         rgba(21, 27, 84, .12);   // vlasové linky mřížky
 
 // Obory
 @obor-hudebni-from:   #F49D84;
@@ -111,6 +112,32 @@
 
 
 // ---------------------------------------------------------------------
+//  2b. PROPOJENÍ S BOOTSTRAPEM
+//
+//  Bootstrap si barvy drží ve vlastních CSS proměnných. Bez tohohle by
+//  .text-primary, .bg-primary nebo .border-secondary v textech stránek
+//  svítily výchozí bootstrapovskou modrou #0d6efd.
+// ---------------------------------------------------------------------
+
+:root {
+  --bs-primary: @primary;
+  --bs-primary-rgb: 21, 27, 84;
+  --bs-secondary: @secondary;
+  --bs-secondary-rgb: 18, 115, 196;
+
+  --bs-link-color: @secondary;
+  --bs-link-color-rgb: 18, 115, 196;
+  --bs-link-hover-color: @primary;
+  --bs-link-hover-color-rgb: 21, 27, 84;
+
+  --bs-body-color: @text;
+  --bs-body-bg: @bg;
+  --bs-border-color: @hairline;
+  --bs-border-radius: @radius-sm;
+}
+
+
+// ---------------------------------------------------------------------
 //  3. ZÁKLAD A TYPOGRAFIE
 // ---------------------------------------------------------------------
 
@@ -118,8 +145,13 @@ html, body {
   font-family: @font-body;
   font-weight: 400;
   position: relative;
-  overflow-x: hidden;
   color: @text;
+
+  // clip, ne hidden: hidden dělá ze stránky scrollovací kontejner
+  // a tím rozbíjí position: sticky u navigace. clip jen ořízne přetečení.
+  // hidden zůstává jako záloha pro starší prohlížeče, kde clip nezná.
+  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -153,7 +185,7 @@ h1, h2, h3, h4, h5, h6,
 .uk-heading-2xlarge, .uk-heading-large, .uk-heading-medium,
 .uk-heading-small, .uk-heading-xlarge {
   font-family: @font-heading;
-  color: @navy;
+  color: @primary;
   font-weight: 700;
   letter-spacing: -.01em;
   line-height: 1.1;
@@ -167,7 +199,7 @@ h3 { font-size: clamp(1.3rem, 1.1rem + .8vw, 1.65rem); }
 h1 em, h2 em, h3 em,
 .hero-title em {
   font-style: italic;
-  color: @accent;
+  color: @secondary;
 }
 
 // Drobný verzálkový popisek s čárkou před sebou.
@@ -177,7 +209,7 @@ h1 em, h2 em, h3 em,
   align-items: center;
   gap: .7rem;
   margin-bottom: .7rem;
-  color: @accent;
+  color: @secondary;
   font-family: @font-body;
   font-size: .72rem;
   font-weight: 500;
@@ -189,7 +221,7 @@ h1 em, h2 em, h3 em,
     display: block;
     width: 24px;
     height: 1px;
-    background: @accent;
+    background: @secondary;
     flex: none;
   }
 }
@@ -212,7 +244,7 @@ h1 em, h2 em, h3 em,
   display: inline-flex;
   align-items: center;
   gap: .4rem;
-  color: @accent;
+  color: @secondary;
   font-size: .85rem;
   letter-spacing: .06em;
   text-decoration: none;
@@ -220,7 +252,7 @@ h1 em, h2 em, h3 em,
   transition: gap @ease;
 
   &::after { content: "\2192"; }
-  &:hover { gap: .7rem; color: @accent; text-decoration: none; }
+  &:hover { gap: .7rem; color: @secondary; text-decoration: none; }
 }
 
 .lead-muted {
@@ -241,15 +273,15 @@ main {
   background-image: none;
 
   a {
-    color: @navy;
+    color: @primary;
 
-    &:visited { color: @navy; }
-    &:hover   { color: @navy-soft; }
+    &:visited { color: @primary; }
+    &:hover   { color: @primary-soft; }
   }
 }
 
 ::selection {
-  background: @navy;
+  background: @primary;
   color: #fff;
 }
 
@@ -319,7 +351,7 @@ header {
 }
 
 .nav-link {
-  color: @navy;
+  color: @primary;
   font-size: .82rem;
   font-weight: 500;
   letter-spacing: .08em;
@@ -330,7 +362,7 @@ header {
   &:hover,
   &:focus-visible {
     opacity: 1;
-    color: @accent;
+    color: @secondary;
     text-decoration: none;
   }
 
@@ -342,12 +374,12 @@ header {
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link.show {
   opacity: 1;
-  color: @accent;
+  color: @secondary;
 }
 
 // Zvýrazněný odkaz na přihlášku
 .nav-cta {
-  background: @accent;
+  background: @primary;
   color: #fff !important;
   opacity: 1 !important;
   padding: .55rem 1.3rem !important;
@@ -357,7 +389,7 @@ header {
   transition: background-color @ease, transform @ease;
 
   &:hover {
-    background: @navy;
+    background: @secondary;
     color: #fff !important;
     transform: translateY(-1px);
   }
@@ -376,7 +408,7 @@ ul.menu-top-contacts {
 }
 
 .navbar-toggler {
-  border-color: @navy;
+  border-color: @primary;
 
   &:focus { box-shadow: none; }
 }
@@ -393,7 +425,7 @@ ul.menu-top-contacts {
 }
 
 .dropdown-item {
-  color: @navy;
+  color: @primary;
   border-radius: @radius-sm - 4px;
   padding: .5rem .75rem;
   transition: background-color @ease, color @ease;
@@ -401,7 +433,7 @@ ul.menu-top-contacts {
   &:hover {
     text-decoration: none;
     background: @bg;
-    color: @navy;
+    color: @primary;
   }
 }
 
@@ -438,25 +470,36 @@ li.menu-teacher-login {
 }
 
 .btn-primary {
-  background: @accent;
+  background: @primary;
   color: #fff;
 
   &:hover,
   &:focus {
-    background: @navy;
+    background: @primary-soft;
+    color: #fff;
+  }
+}
+
+.btn-secondary {
+  background: @secondary;
+  color: #fff;
+
+  &:hover,
+  &:focus {
+    background: @secondary-soft;
     color: #fff;
   }
 }
 
 .btn-light {
   background: @surface;
-  color: @navy;
+  color: @primary;
   border: 1px solid @hairline;
 
   &:hover,
   &:focus {
-    background: @navy;
-    border-color: @navy;
+    background: @primary;
+    border-color: @primary;
     color: #fff;
   }
 }
@@ -569,13 +612,13 @@ li.menu-teacher-login {
   border-radius: 50%;
   border: 1px solid @hairline;
   background: @surface;
-  color: @navy;
+  color: @primary;
   font-size: 1.1rem;
   transition: background-color @ease, color @ease, border-color @ease;
 
   &:hover {
-    background: @accent;
-    border-color: @accent;
+    background: @secondary;
+    border-color: @secondary;
     color: #fff;
   }
 }
@@ -625,7 +668,7 @@ li.menu-teacher-login {
 
 .hero-title {
   margin: 0 0 1rem;
-  color: @navy;
+  color: @primary;
   font-family: @font-heading;
   font-weight: 800;
   font-size: clamp(2.4rem, 1.2rem + 4vw, 4.6rem);
@@ -723,7 +766,7 @@ li.menu-teacher-login {
     right: 0;
     bottom: 0;
     height: 3px;
-    background: @accent;
+    background: @secondary;
     transform: scaleX(0);
     transform-origin: left;
     transition: transform .4s ease;
@@ -770,7 +813,7 @@ li.menu-teacher-login {
   font-family: @font-heading;
   font-size: 1.5rem;
   font-weight: 700;
-  color: @navy;
+  color: @primary;
   margin-bottom: .8rem;
 }
 
@@ -885,7 +928,7 @@ li.menu-teacher-login {
 }
 
 .news-tag {
-  color: @accent;
+  color: @secondary;
   font-size: .65rem;
   font-weight: 500;
   letter-spacing: .14em;
@@ -895,7 +938,7 @@ li.menu-teacher-login {
 
 .news-card .card-title,
 .news-title {
-  color: @navy;
+  color: @primary;
   font-family: @font-heading;
   font-size: 1.1rem;
   font-weight: 600;
@@ -961,7 +1004,7 @@ li.menu-teacher-login {
   font-family: @font-heading;
   font-size: 1.1rem;
   font-weight: 600;
-  color: @navy;
+  color: @primary;
 }
 
 .location-list {
@@ -983,7 +1026,7 @@ li.menu-teacher-login {
   transition: border-color @ease, background-color @ease;
 
   &:hover {
-    border-left-color: @accent;
+    border-left-color: @secondary;
     background: #FBFCFE;
     text-decoration: none;
   }
@@ -993,7 +1036,7 @@ li.menu-teacher-login {
   font-family: @font-heading;
   font-size: 1rem;
   font-weight: 600;
-  color: @navy;
+  color: @primary;
 }
 
 .location-address {
@@ -1038,7 +1081,7 @@ ul.pagination {
 #page-footer {
   margin-top: 5rem;
   padding: 0;
-  background: @navy;
+  background: @primary;
   color: rgba(255, 255, 255, .78);
   font-size: .95rem;
 
@@ -1181,7 +1224,7 @@ ul.pagination {
     &:hover,
     &:visited:hover {
       transform: translateY(-3px);
-      color: @navy;
+      color: @primary;
     }
   }
 
@@ -1223,7 +1266,7 @@ ul.pagination {
   background: none;
   border: 0;
   padding: 0;
-  color: @accent;
+  color: @secondary;
   text-decoration: none;
 
   &:hover { text-decoration: underline; }
@@ -1246,7 +1289,7 @@ ul.pagination {
 
 .uk-table-striped tbody tr:nth-of-type(odd) { background: @bg; }
 
-.uk-divider-vertical { border-left: 1px solid @navy-muted; }
+.uk-divider-vertical { border-left: 1px solid @primary-muted; }
 
 
 // ---------------------------------------------------------------------
