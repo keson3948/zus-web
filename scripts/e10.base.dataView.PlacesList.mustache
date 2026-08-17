@@ -1,8 +1,15 @@
 {{!
   Lokální náhrada za dataView poboček.
-  Na produkci si tenhle dataView vykresluje Shipard sám – proto tady
-  u něj NENÍ parametr webScript, ten by produkční vykreslení přebil.
-  Rozlišení mapa/seznam řeší příznaky showAsMap a showAsList z dev.js.
+
+  DŮLEŽITÉ: vypisuje schválně stejné HTML jako Shipard na produkci,
+  tedy <ul class="dataView-places-list"> s <li> a odkazem. Dřív tu byly
+  vlastní třídy .location-list / .location-item – vypadalo to dobře
+  lokálně, ale na produkci zůstal neostylovaný seznam s odrážkami,
+  protože takové třídy Shipard nevypisuje.
+
+  U tohohle dataView proto NENÍ parametr webScript, ten by produkční
+  vykreslení přebil. Mapu od seznamu rozlišují příznaky showAsMap
+  a showAsList z dev.js.
 }}
 {{#showAsMap}}
   <div class="location-map">
@@ -15,12 +22,5 @@
 {{/showAsMap}}
 
 {{^showAsMap}}
-  <div class="location-list">
-    {{#data.places}}
-      <a href="{{url}}" class="location-item">
-        <div class="location-city">{{name}}</div>
-        {{#address}}<div class="location-address">{{address}}</div>{{/address}}
-      </a>
-    {{/data.places}}
-  </div>
+  <div><ul class='dataView-places-list'>{{#data.places}}<li><a href='{{url}}'>{{name}}</a></li>{{/data.places}}</ul></div>
 {{/showAsMap}}

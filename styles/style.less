@@ -1112,42 +1112,54 @@ li.menu-teacher-login {
   color: @primary;
 }
 
-.location-list {
+// Seznam poboček. Třídu dataView-places-list vypisuje Shipard, proto na
+// ni cílíme přímo – vlastní třídy by na produkci nic nechytily.
+//
+// Zanořeno pod #c-main kvůli specificitě: old_style má
+// `div.pageText ul.dataView-places-list { column-count: 2..4 }`,
+// což by seznam rozlámalo do sloupců.
+#c-main ul.dataView-places-list {
   display: flex;
   flex-direction: column;
   gap: 1px;
+  margin: 0;
+  padding-left: 0;
+  column-count: auto;
   background: @hairline;
   border: 1px solid @hairline;
   max-height: 560px;
   overflow-y: auto;
-}
 
-.location-item {
-  display: block;
-  background: @surface;
-  padding: 1.1rem 1.4rem;
-  border-left: 2px solid transparent;
-  text-decoration: none;
-  transition: border-color @ease, background-color @ease;
+  li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 
-  &:hover {
-    border-left-color: @secondary;
-    background: #FBFCFE;
-    text-decoration: none;
+    &::before { content: none; }
   }
-}
 
-.location-city {
-  font-family: @font-heading;
-  font-size: 1rem;
-  font-weight: 600;
-  color: @primary;
-}
+  a {
+    display: block;
+    background: @surface;
+    padding: 1.05rem 1.4rem;
+    border-left: 2px solid transparent;
+    font-family: @font-heading;
+    font-size: 1rem;
+    font-weight: 600;
+    color: @primary;
+    text-decoration: none;
+    transition: border-color @ease, background-color @ease;
 
-.location-address {
-  color: @text-muted;
-  font-size: .8rem;
-  margin-top: .15rem;
+    &:visited { color: @primary; }
+
+    &:hover,
+    &:visited:hover {
+      border-left-color: @secondary;
+      background: #FBFCFE;
+      color: @primary;
+      text-decoration: none;
+    }
+  }
 }
 
 @media (max-width: @bp-lg - 1px) {

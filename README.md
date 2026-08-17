@@ -97,6 +97,20 @@ Ostatní stránky jsou obyčejný text a nadpisy, ty jsou v pořádku.
 Google mapa na `/pracoviste` hlásí lokálně chybu, protože `gmApiKey`
 v `data/base.json` je prázdný. Na produkci klíč je.
 
+## Atrapy dataView musí sedět s produkcí
+
+Šablony v `scripts/` pro dataView jsou lokální náhrady za to, co na
+produkci vykresluje Shipard. Musí vypisovat **stejné HTML**, jinak si
+lokálně naladíš styly na třídy, které na webu neexistují.
+
+Přesně to se stalo u poboček: atrapa vypisovala vlastní
+`.location-list`, kdežto Shipard vypisuje
+`<ul class="dataView-places-list">` s `<li>` a odkazem. Lokálně to
+vypadalo dobře, na produkci zůstal holý seznam s odrážkami.
+
+Když nevíš, jak výstup vypadá, stáhni si stránku z produkce a podívej
+se do zdroje.
+
 ## Nová stránka
 
 ```
