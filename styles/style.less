@@ -280,11 +280,16 @@ main {
   // na náhodný proužek u kraje obsahu, takže je vypnutý.
   background-image: none;
 
-  a {
-    color: @primary;
+  // Barvíme jen textové odkazy bez třídy.
+  // :not([class]) je tu zásadní: main a:visited má specificitu 0,1,1,
+  // kdežto .btn-primary jen 0,1,0. Bez té podmínky pravidlo přebilo
+  // tlačítka a navštívená vycházela tmavě modrá na tmavě modré.
+  // Tlačítka, karty a odkazy sekcí si barvu řeší samy.
+  a:not([class]) {
+    color: @secondary;
 
-    &:visited { color: @primary; }
-    &:hover   { color: @primary-soft; }
+    &:visited { color: @secondary; }
+    &:hover   { color: @primary; }
   }
 }
 
