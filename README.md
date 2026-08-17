@@ -1,0 +1,140 @@
+# Lokální vývoj webu ZUŠ Morava (Shipard + mustache)
+
+Upravuješ u sebe, vidíš výsledek hned, do Shipardu kopíruješ až hotovou verzi.
+
+```bash
+npm install
+npm start          # http://localhost:3000
+```
+
+## Kam co patří (mapa na soubory v Shipardu)
+
+| Shipard | Lokálně |
+|---|---|
+| `page-web.mustache` | `template/page-web.mustache` |
+| `e10.web.articles.mustache`, `e10.web.articleImage.mustache` (obsahové šablony) | `scripts/*.mustache` |
+| vlastní webScripty (např. „aktuality") | `scripts/*.mustache` |
+| `style.less`, `old_style.less`, `almanach_style.less`, `smycec_style.less`, `old_style.css` | `styles/` |
+| `script.js`, `cookieconsent-init.js` | `js/` |
+| obsah stránky (editor stránky) | `pages/<slug>.html` |
+| parametry stránky (homePage, smycec, almanachPage, layout) | `pages/<slug>.json` |
+| — | `data/base.json` (globální proměnné, karusel) |
+| — | `data/dataviews/<jmeno>.json` (testovací data pro dataView) |
+
+Vše se hlídá, prohlížeč se sám obnoví.
+
+## LESS
+
+`/style.css` se za běhu zkompiluje z `styles/style.less`. Stejně tak
+`/old_style.css`, `/almanach_style.css`, `/smycec_style.css`.
+Chyba v LESS se vypíše do konzole i jako komentář v CSS.
+
+Pozor: v Shipardu máš `smycec_style.less` třikrát a `old_style` jako `.less`
+i `.css`. Zjisti, který záznam je opravdu použitý, zbytek dej do archivu —
+jinak budeš lokálně ladit jiný soubor, než jaký je na webu.
+
+## Dva různé druhy šablon v `scripts/`
+
+**1) Obsahová šablona** – Shipard jí nechá vyrobit celý obsah stránky.
+Typicky `e10.web.articles.mustache` pro `/aktuality` a detail článku.
+Pracuje s `page.articles`, `page.article`, `page.needPagination`, `section.*`.
+
+Lokálně: stránka nemá `.html`, jen `.json` s klíčem `render`:
+
+```json
+{ "render": "e10.web.articles", "page": { "articles": [ ... ] } }
+```
+
+Viz `pages/aktuality.json` (výpis) a `pages/aktuality/1.json` (detail).
+Podsložky fungují, takže URL `/aktuality/1` = `pages/aktuality/1.json`.
+
+**2) webScript** – malý kus HTML vložený doprostřed běžné stránky
+přes shortcode `{{dataView;...}}`. Pracuje s `data.*`.
+
+## dataView / webScript
+
+Shortcode ve stránce:
+
+```
+{{dataView;classId:e10.web.dataView.Articles;urlPrefix:aktuality;maxCount:6;section:1,3;webScript:aktuality}}
+```
+
+Dev server ho rozbalí takto:
+
+1. šablona = `scripts/<webScript>.mustache`, jinak `scripts/<classId>.mustache`,
+   jinak `scripts/e10.web.Articles.mustache`, jinak `scripts/Articles.mustache`
+2. data = `data/dataviews/<stejná jména>.json`
+3. `maxCount` ořízne všechna pole v datech
+4. výsledek se vloží na místo shortcode
+
+Když šablona nebo data chybí, na stránce se objeví červený rámeček
+s výpisem, co přesně hledal.
+
+## Assety
+
+Co se nenajde v `public/`, `js/` ani `styles/`, se přesměruje na
+`https://zusmorava.cz` — obrázky z `/att/...` tedy fungují bez stahování.
+
+Skutečné hodnoty `scRoot` / `dsRoot` / `templateRoot` zjistíš ze
+„zobrazit zdroj stránky" na živém webu. Prázdný řetězec funguje taky.
+
+## Nová stránka
+
+```
+pages/hudebniobor.html          <- obsah
+pages/hudebniobor.json          <- { "page": { "pageTitle": "Hudební obor" } }
+```
+
+## Vzhled
+
+Písmo: **Poppins**, nahrané v Shipardu pod `/att/`. Žádné externí CDN.
+
+Aktuality jsou vyvěšované plakáty na A4, karta proto drží poměr 1 : 1,414
+a titulek je pod plakátem, ne přes něj. Dřív se plakát ořezával do vodorovné
+karty přes `cover`, takže z něj zbyl výřez uprostřed bez nadpisu i termínu.
+
+Seznam studijních zaměření na úvodní stránce (`pages/index.html`, sekce
+„Co se u nás dá studovat") odpovídá výběru v elektronické přihlášce.
+Když v Shipardu přibude nebo zmizí nástroj, uprav ho i tady.
+
+Barvy, poloměry a stíny jsou proměnné na začátku `styles/style.less`
+(sekce 2). Když chceš změnit barvu školy, měníš `@navy` na jednom místě,
+ne dvacetkrát po souboru.
+
+Lidový ornament (svislé pruhy po stranách) je vypnutý — v `styles/style.less`
+u pravidla `main`. Obrázek na něj věší `old_style`, ale kontejner ho ořezával
+na náhodný proužek u kraje obsahu. Když ho budeš chtít zpátky, smaž tam řádek
+`background-image: none`.
+
+Tlačítka mají `border-radius` s `!important` schválně — ve stránkách ze
+Shipardu jsou desítky odkazů s inline `style="border-radius: 0px"`, které by
+jinak nový vzhled přebily.
+
+## Opravené chyby
+
+Tyhle chyby ve stávajících souborech už jsou opravené, ale pokud budeš
+kopírovat starší verzi ze Shipardu, vrátí se:
+
+- `page-web.mustache`, karusel: `href="{{{properties.bd2gq4ckw_27.value}}"`
+  mělo tři otevírací a jen dvě zavírací závorky.
+- webScript aktuality: `<h4 class="card-title">{{title}}</h5>` — h4 uzavřené `</h5>`.
+- `e10.web.articles.mustache`, detail článku: datum a autor se vypisovaly
+  dvakrát — jednou natvrdo v `<span class="text-secondary">` a hned podruhé
+  v bloku `section.showDateOrAuthor`.
+- `UIkit.accordion(document.getElementById("uk-accordion"), ...)` spadlo
+  na stránkách, kde element s tím id není.
+- Naklápění karuselu volalo `.vanillaTilt.destroy()` na prvku bez tiltu,
+  takže na displejích pod 480 px spadl skript.
+- Odpočet k datu „March 26, 2024“ běžel `setInterval` každou vteřinu na všech
+  stránkách do prvku, který nikde nebyl. Odstraněno.
+
+## Drobnost, o kterou je snadné zakopnout
+
+Mustache tagy se vyhodnocují i uvnitř HTML komentářů. Zakomentovaný blok
+s otevřenou sekcí shodí render celé stránky.
+
+## Git
+
+```bash
+git init && git add . && git commit -m "init"
+```

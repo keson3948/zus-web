@@ -1,0 +1,62 @@
+{
+  "_comment": "Skutečné hodnoty scRoot/dsRoot/templateRoot zjistíš přes 'zobrazit zdroj stránky' na zusmorava.cz – podívej se, jaká cesta je v <link href=...>. Prázdný řetězec funguje taky: nenalezené soubory se přesměrují na produkci.",
+  "scRoot": "/www-root/sc",
+  "dsRoot": "",
+  "templateRoot": "",
+  "serverRoot": "",
+  "urlRoot": "",
+  "urlServer": "https://zusmorava.cz",
+  "serverInfo": {
+    "templateStylePath": "www-root/templates/web/looks",
+    "look": "default",
+    "lookVersion": {
+      "web": "1"
+    },
+    "gmApiKey": ""
+  },
+  "headMetaTags": "",
+  "googleAnalytics": "",
+  "userAuthenticated": false,
+  "page": {
+    "pageTitle": "ZUŠ Morava – lokální náhled",
+    "bodyClasses": "",
+    "bodyEditParams": "",
+    "mainTextClass": "",
+    "footerFull": "<footer id=\"page-footer\">\n\n  <div class=\"container footer-main\">\n    <div class=\"row g-4\">\n\n      <div class=\"col-12 col-lg-4\">\n        <a class=\"footer-logo\" href=\"/\">\n          <img src=\"/att/2026/07/27/e10.base.templates/zusmorava_2101ynw-1gihm3q.svg\" alt=\"ZUŠ Morava\">\n        </a>\n        <ul class=\"footer-contact\">\n          <li><i class=\"fa fa-fw fa-map-marker\"></i> <span>Kotěrova 4395, Zlín 760 01</span></li>\n          <li><i class=\"fa fa-fw fa-phone\"></i> <a href=\"tel:+420577018897\">577 018 897</a></li>\n          <li><i class=\"fa fa-fw fa-envelope\"></i> <a href=\"mailto:info@zusmorava.cz\">info@zusmorava.cz</a></li>\n        </ul>\n        <div class=\"footer-social\">\n          <a href=\"https://www.facebook.com/zusmorava/\" target=\"_blank\" rel=\"noopener\" title=\"Facebook\" aria-label=\"Facebook\"><i class=\"fa fa-facebook\"></i></a>\n          <a href=\"https://www.youtube.com/channel/UCpN6CL4G1X9qcipCf-WZeuA/videos\" target=\"_blank\" rel=\"noopener\" title=\"YouTube\" aria-label=\"YouTube\"><i class=\"fa fa-youtube-play\"></i></a>\n          <a href=\"https://www.instagram.com/zusmorava/\" target=\"_blank\" rel=\"noopener\" title=\"Instagram\" aria-label=\"Instagram\"><i class=\"fa fa-instagram\"></i></a>\n        </div>\n      </div>\n\n      <div class=\"col-6 col-lg-2\">\n        <div class=\"footer-title\">Obory</div>\n        <ul>\n          <li><a href=\"/hudebniobor\">Hudební obor</a></li>\n          <li><a href=\"/vytvarnyobor\">Výtvarný obor</a></li>\n          <li><a href=\"/litdramobor\">Literárně-dramatický obor</a></li>\n          <li><a href=\"/prihlaska\">Přihláška</a></li>\n        </ul>\n      </div>\n\n      <div class=\"col-6 col-lg-3\">\n        <div class=\"footer-title\">Pro žáky a rodiče</div>\n        <ul>\n          <li><a href=\"https://ezk.zusmorava.cz/\">Elektronická žákovská knížka</a></li>\n          <li><a href=\"/zapiszari\">Zápis žáků</a></li>\n          <li><a href=\"/skolne\">Školné</a></li>\n          <li><a href=\"/organizaceroku\">Organizace školního roku</a></li>\n          <li><a href=\"/att/2023/11/04/e10.web.pages/Zadost-o-ukonceni-studia-1otbokj.pdf\">Žádost o ukončení studia</a></li>\n        </ul>\n      </div>\n\n      <div class=\"col-12 col-lg-3\">\n        <div class=\"footer-title\">Škola</div>\n        <ul>\n          <li><a href=\"/oskole\">O škole</a></li>\n          <li><a href=\"/pracoviste\">Pracoviště</a></li>\n          <li><a href=\"/kontakty\">Kontakty</a></li>\n          <li><a href=\"/dokumenty\">Dokumenty</a></li>\n          <li><a href=\"/vystavy\">Online výstavy</a></li>\n          <li><a href=\"/liptalskysmycec\">Liptálský smyčec</a></li>\n          <li><a href=\"https://spolek.zusmorava.cz\">Společnost přátel ZUŠ Morava</a></li>\n          <li><a href=\"/ke-stazeni\">Ke stažení</a></li>\n          <li><a href=\"/cookies-policy\">Cookies</a></li>\n        </ul>\n      </div>\n\n    </div>\n  </div>\n\n  <div class=\"footer-partners\">\n    <div class=\"container\">\n\n      <div class=\"footer-partners-title\">Podpořili nás</div>\n      <div class=\"footer-logos\">\n        <img src=\"https://zus-morava.shipard.app/att/2019/10/10/e10.web.urldecorations/Logolink_OP_VVV_hor_barva_cz-1s284ik.jpg\" alt=\"OP VVV\">\n        <img src=\"https://zus-morava.shipard.app/att/2019/10/11/e10.web.urldecorations/i-1cp5u52.png\" alt=\"Spolufinancováno Evropskou unií\">\n        <img src=\"/att/2023/02/02/e10.web.urldecorations/logo-1hyb56l.png\" alt=\"SSŠČMS\">\n        <img src=\"/att/2023/02/02/e10.web.urldecorations/zlin700-kombinace-1lgtnf3.png\" alt=\"Zlín 700\">\n        <img src=\"/att/2022/11/10/e10.base.templates/cz-zk-1gp8sop.png\" alt=\"Zlínský kraj\">\n        <img src=\"/att/2022/04/14/e10.web.urldecorations/unnamed-1pb1de3.jpg\" alt=\"Violin Schönbach\">\n        <a href=\"https://kulturnimapa.cz\" target=\"_blank\" rel=\"noopener\"><img src=\"https://kulturnimapa.cz/images/kulturni-mapa-logo-small.png\" alt=\"KulturniMapa.cz\"></a>\n        <a href=\"https://www.kudyznudy.cz/?utm_source=kzn&amp;utm_medium=partneri_kzn&amp;utm_campaign=banner\" target=\"_blank\" rel=\"noopener\" title=\"Kudyznudy.cz - tipy na výlet\"><img src=\"https://www.kudyznudy.cz/getmedia/11286cda-6f84-4a2c-8142-9ffc2bc9d0ce/KzN_banner_250x250.jpg.aspx\" alt=\"Kudyznudy.cz\"></a>\n      </div>\n\n      <div class=\"footer-partners-title mt-4\">Povinná publicita</div>\n      <div class=\"footer-posters\">\n        <a href=\"/att/2024/09/11/e10.web.urldecorations/Plakat_povinne_publicity_page_0001_2-1qhl18v.jpg\" target=\"_blank\" rel=\"noopener\">\n          <img src=\"/att/2024/09/11/e10.web.urldecorations/Plakat_povinne_publicity_page_0001_2-1qhl18v.jpg\" alt=\"Místní akční plán rozvoje vzdělávání v ORP Zlín IV\">\n          <span>Místní akční plán rozvoje vzdělávání v ORP Zlín IV</span>\n        </a>\n        <a href=\"/att/2026/01/12/e10.web.urldecorations/2601120943_a3vertical_page_0001-11q3x66.jpg\" target=\"_blank\" rel=\"noopener\">\n          <img src=\"/att/2026/01/12/e10.web.urldecorations/2601120943_a3vertical_page_0001-11q3x66.jpg\" alt=\"Rozvíjíme místní kulturu II.\">\n          <span>Rozvíjíme místní kulturu II.</span>\n        </a>\n        <a href=\"/att/2023/06/22/e10.web.urldecorations/A3-plakat-publicita-1nypwdp.jpg\" target=\"_blank\" rel=\"noopener\">\n          <img src=\"/att/2023/06/22/e10.web.urldecorations/A3-plakat-publicita-1nypwdp.jpg\" alt=\"JAK_Rozvíjíme místní kulturu\">\n          <span>JAK_Rozvíjíme místní kulturu</span>\n        </a>\n      </div>\n\n    </div>\n  </div>\n\n  <hr>\n\n  <div class=\"container footer-bottom\">\n    <div class=\"row g-2\">\n      <div class=\"col-12 col-md-6\">&copy; 2026 &ndash; Základní umělecká škola MORAVA, spol. s r. o.</div>\n      <div class=\"col-12 col-md-6 text-md-end\">Webdesign Petr Nosek</div>\n    </div>\n  </div>\n\n</footer>",
+    "params": {
+      "homePage": false,
+      "almanachPage": false,
+      "almanachCover": false,
+      "smycec": false,
+      "myMain": false,
+      "myLayout": false,
+      "recaptcha-v3-site-key": false
+    }
+  },
+  "webBlocks": {
+    "kolotoc": {
+      "items": [
+        {
+          "title": "Testovací slide",
+          "pictureUrl": "2022/03/24/e10.base.templates/steve-johnson-3Sf_G9m0gcQ-unsplash-2-wn34xd.jpg",
+          "properties": {
+            "bd2gq4ckw_22": {
+              "value": "Popisek pod nadpisem."
+            },
+            "bd2gq4ckw_23": true,
+            "bd2gq4ckw_24": {
+              "value": "Novinka"
+            },
+            "bd2gq4ckw_25": true,
+            "bd2gq4ckw_26": {
+              "value": "Zjistit více"
+            },
+            "bd2gq4ckw_27": {
+              "value": "/prihlaska"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

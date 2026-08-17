@@ -1,0 +1,19 @@
+{
+  "_comment": "Detail článku – URL /aktuality/1. Stejná obsahová šablona, jiná data.",
+  "render": "e10.web.articles",
+  "page": {
+    "pageTitle": "Zápis do školního roku 2026/2027",
+    "title": "Zápis do školního roku 2026/2027",
+    "article": {
+      "datePub": "12. 5. 2026",
+      "authorFirstName": "Petr",
+      "authorLastName": "Novák",
+      "text": "<p>Zápis probíhá od 25. do 29. května na všech pobočkách.</p><p>Přihlášku vyplníte online.</p>"
+    }
+  },
+  "section": {
+    "showDate": true,
+    "showAuthor": true,
+    "showDateOrAuthor": true
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "_comment": "Výpis článků. Obsah stránky negeneruje HTML z editoru, ale obsahová šablona scripts/e10.web.articles.mustache.",
+  "render": "e10.web.articles",
+  "page": {
+    "pageTitle": "Aktuality – ZUŠ Morava",
+    "needPagination": true,
+    "pageNext": "/aktuality?page=2",
+    "pagePrev": "",
+    "articles": [
+      {
+        "title": "Zápis do školního roku 2026/2027",
+        "url": "/aktuality/1",
+        "datePub": "12. 5. 2026",
+        "authorFirstName": "Petr",
+        "authorLastName": "Novák",
+        "text": "<p>Zápis probíhá od 25. do 29. května na všech pobočkách.</p>"
+      },
+      {
+        "title": "Adventní koncert v Liptále",
+        "url": "/aktuality/2",
+        "datePub": "3. 12. 2025",
+        "authorFirstName": "Jana",
+        "authorLastName": "Svobodová",
+        "text": "<p>Tradiční koncert v kostele sv. Petra a Pavla.</p>"
+      }
+    ]
+  },
+  "section": {
+    "showDate": true,
+    "showAuthor": true,
+    "showDateOrAuthor": true
+  }
+}

@@ -1,0 +1,50 @@
+{{#page.articles}}
+	<article class='article pageText'>
+		<div class='article-header'>
+			<h3>| <a href="{{url}}">{{title}}</a></h3>
+
+			{{#section.showDateOrAuthor}}
+				<span>
+					{{#section.showDate}}{{#datePub}}<i class='fa fa-calendar'></i>&nbsp;{{datePub}}{{/datePub}}{{/section.showDate}}
+					{{#section.showAuthor}}{{#authorLastName}}<i class='fa fa-user'></i>&nbsp;{{authorFirstName}}&nbsp;{{authorLastName}}{{/authorLastName}}{{/section.showAuthor}}
+				</span>
+			{{/section.showDateOrAuthor}}
+		</div>
+		{{{text}}}
+		<div class="article-end"></div>
+	</article>
+{{/page.articles}}
+{{#page.article}}
+	<article class='pageText'>
+		<div class='article-header'>
+			<div class="blog-home-link">
+      	<a href="/aktuality"><i class="fa fa-arrow-left"></i>&nbsp; Zpět na aktuality</a>
+      </div>
+			<h2 class="mt-3">{{page.title}}</h2>
+			{{! Datum a autor jen jednou – řídí je nastavení sekce.
+			    Dřív tu byl ještě druhý, natvrdo napsaný řádek. }}
+			{{#section.showDateOrAuthor}}
+				<span class="text-secondary">
+					{{#section.showDate}}{{#datePub}}<i class='fa fa-calendar'></i>&nbsp;{{datePub}}{{/datePub}}{{/section.showDate}}
+					{{#section.showAuthor}}{{#authorLastName}}<i class='fa fa-user'></i>&nbsp;{{authorFirstName}}&nbsp;{{authorLastName}}{{/authorLastName}}{{/section.showAuthor}}
+				</span>
+			{{/section.showDateOrAuthor}}
+		</div>
+			<hr class="mt-0">
+		{{{text}}}
+		<div class="article-end">	
+		</div>
+	</article>
+{{/page.article}}
+{{#page.needPagination}}
+	<nav aria-label="Stránkování článků">
+		<ul class="pagination justify-content-center">
+			{{#page.pagePrev}}
+				<li class="page-item previous"><a class="page-link" href="{{{page.pagePrev}}}">&lsaquo; Novější články</a></li>
+			{{/page.pagePrev}}
+			{{#page.pageNext}}
+				<li class="page-item next"><a class="page-link" href="{{{page.pageNext}}}">Starší články &rsaquo;</a></li>
+			{{/page.pageNext}}
+		</ul>
+	</nav>
+{{/page.needPagination}}

@@ -1,0 +1,42 @@
+{
+  "_comment": "Testovací data pro {{dataView;classId:e10.web.dataView.Articles;webScript:aktuality}}. Struktura musí odpovídat tomu, co používáš v scripts/aktuality.mustache.",
+  "data": {
+    "persons": [
+      {
+        "title": "Zápis do školního roku 2026/2027",
+        "url": "/aktuality/1",
+        "image": { "smallImage": "https://picsum.photos/seed/zus1/600/400" }
+      },
+      {
+        "title": "Adventní koncert v Liptále",
+        "url": "/aktuality/2",
+        "image": { "smallImage": "https://picsum.photos/seed/zus2/600/400" }
+      },
+      {
+        "title": "Liptálský smyčec – výsledky",
+        "url": "/aktuality/3",
+        "image": { "smallImage": "https://picsum.photos/seed/zus3/600/400" }
+      },
+      {
+        "title": "Letní múzický tábor",
+        "url": "/aktuality/4",
+        "image": { "smallImage": "https://picsum.photos/seed/zus4/600/400" }
+      },
+      {
+        "title": "Výstava výtvarného oboru",
+        "url": "/aktuality/5",
+        "image": { "smallImage": "https://picsum.photos/seed/zus5/600/400" }
+      },
+      {
+        "title": "Nový školní rok začíná",
+        "url": "/aktuality/6",
+        "image": { "smallImage": "https://picsum.photos/seed/zus6/600/400" }
+      },
+      {
+        "title": "Sedmá – neměla by se zobrazit (maxCount:6)",
+        "url": "/aktuality/7",
+        "image": { "smallImage": "https://picsum.photos/seed/zus7/600/400" }
+      }
+    ]
+  }
+}

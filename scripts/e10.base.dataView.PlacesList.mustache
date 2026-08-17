@@ -1,0 +1,16 @@
+{{!
+  Lokální náhrada za mapu poboček.
+  Na produkci tenhle dataView vykresluje Shipard sám (showAs:map).
+  Tady jen vypíšeme pobočky ze souboru data/dataviews/, ať je vidět
+  rozmístění a styl bloku.
+}}
+<div class="row g-3">
+  {{#data.places}}
+    <div class="col-12 col-sm-6 col-lg-4">
+      <a href="{{url}}" class="panel-card d-block h-100 p-4 text-decoration-none">
+        <h3 class="h5 mb-2">{{name}}</h3>
+        {{#address}}<div class="lead-muted mb-0" style="font-size: .95rem">{{address}}</div>{{/address}}
+      </a>
+    </div>
+  {{/data.places}}
+</div>
