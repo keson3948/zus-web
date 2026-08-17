@@ -126,7 +126,14 @@ function renderDataViews(html, baseView) {
       }
     }
 
-    const view = { ...baseView, ...params, data, params };
+    // Mustache neumí porovnávat, takže showAs převedeme na příznaky
+    // (showAsMap / showAsList). Šablona pak umí rozlišit mapu od seznamu.
+    const showAs = {};
+    if (params.showAs) {
+      showAs["showAs" + params.showAs[0].toUpperCase() + params.showAs.slice(1)] = true;
+    }
+
+    const view = { ...baseView, ...params, ...showAs, data, params };
     try {
       return Mustache.render(normalize(read(tplPath), tplPath), view);
     } catch (err) {

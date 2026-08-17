@@ -1,22 +1,19 @@
 {{!
   Karty aktualit na úvodní stránce.
   Obrázky jsou vyvěšované plakáty na A4, karta proto drží poměr A4
-  a titulek je pod plakátem, ne přes něj.
+  a text je pod plakátem, ne přes něj.
 }}
-<div class="my-4">
-  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-    {{#data.persons}}
-      <div class="col">
-        <a href="{{url}}" class="news-card">
-          <div class="news-card-media">
-            <img src="{{image.smallImage}}" alt="{{title}}" loading="lazy">
-          </div>
-          <div class="card-body">
-            {{#datePub}}<div class="news-card-date">{{datePub}}</div>{{/datePub}}
-            <h3 class="card-title">{{title}}</h3>
-          </div>
-        </a>
+<div class="news-grid my-4">
+  {{#data.persons}}
+    <a href="{{url}}" class="news-card">
+      <div class="news-card-media">
+        {{#datePub}}<span class="news-date-badge">{{datePub}}</span>{{/datePub}}
+        <img src="{{image.smallImage}}" alt="{{title}}" loading="lazy">
       </div>
-    {{/data.persons}}
-  </div>
+      <div class="news-body">
+        <div class="news-tag">Aktualita</div>
+        <h3 class="news-title">{{title}}</h3>
+      </div>
+    </a>
+  {{/data.persons}}
 </div>

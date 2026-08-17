@@ -89,11 +89,11 @@
 @font-heading: 'Playfair Display', Georgia, serif;
 @font-body:    'Poppins', sans-serif;
 
-// Poloměry
-@radius-sm:  10px;
-@radius:     16px;
-@radius-lg:  24px;
-@radius-pill: 999px;
+// Poloměry – návrh je záměrně hranatý, zaoblení jen naznačené
+@radius-sm:  2px;
+@radius:     3px;
+@radius-lg:  4px;
+@radius-pill: 2px;
 
 // Stíny
 @shadow-sm: 0 2px 8px rgba(21, 27, 84, .06);
@@ -423,42 +423,40 @@ li.menu-teacher-login {
 
 .btn {
   border: 0;
-  border-radius: @radius-pill !important;
+  border-radius: @radius-sm !important;
   font-family: @font-body;
-  font-weight: 600;
-  padding: .6rem 1.5rem;
-  transition: transform @ease, box-shadow @ease, background-color @ease, color @ease;
+  font-size: .85rem;
+  font-weight: 500;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  padding: .85rem 2rem;
+  transition: transform @ease, background-color @ease, color @ease;
 
-  &:hover {
-    transform: translateY(-2px);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
+  &:hover  { transform: translateY(-1px); }
+  &:active { transform: translateY(0); }
 }
 
 .btn-primary {
-  background: @navy;
+  background: @accent;
   color: #fff;
 
   &:hover,
   &:focus {
-    background: @navy-soft;
+    background: @navy;
     color: #fff;
-    box-shadow: @shadow;
   }
 }
 
 .btn-light {
-  background: #fff;
+  background: @surface;
   color: @navy;
+  border: 1px solid @hairline;
 
   &:hover,
   &:focus {
-    background: #fff;
-    color: @navy;
-    box-shadow: @shadow;
+    background: @navy;
+    border-color: @navy;
+    color: #fff;
   }
 }
 
@@ -493,25 +491,49 @@ li.menu-teacher-login {
   position: relative;
   margin-bottom: 5rem;
   overflow: hidden;
+
+  // Barevná mlha z návrhu, jen výrazně světlejší. Roztažená přes celou
+  // šířku okna, i když hero sedí v kontejneru.
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 55% 65% at 72% 42%, rgba(91, 184, 245, .22) 0%, transparent 62%),
+      radial-gradient(ellipse 45% 60% at 12% 78%, rgba(18, 115, 196, .12) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 50% at 95% 95%, rgba(235, 93, 53, .07) 0%, transparent 60%),
+      linear-gradient(180deg, #FBFDFF 0%, @bg 100%);
+  }
 }
 
 // Notová osnova na pozadí – jemná dekorace z návrhu
 .hero-lines {
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
   pointer-events: none;
   z-index: 0;
+  overflow: hidden;
 
   &::before {
     content: "";
     position: absolute;
-    top: 28%;
+    top: 26%;
     left: 0;
     right: 0;
-    height: 120px;
+    height: 138px;
     background: repeating-linear-gradient(
       transparent, transparent 22px,
-      rgba(18, 115, 196, .10) 22px, rgba(18, 115, 196, .10) 23px
+      rgba(21, 27, 84, .07) 22px, rgba(21, 27, 84, .07) 23px
     );
   }
 }
@@ -625,172 +647,127 @@ li.menu-teacher-login {
 // ---------------------------------------------------------------------
 
 .obory {
-  margin-bottom: 4.5rem;
+  margin-bottom: 5rem;
+}
+
+// Mřížka drží pohromadě vlasovými linkami: pozadí prosvítá mezerou
+// mezi buňkami, takže není potřeba řešit dvojité okraje.
+.obory-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: @hairline;
+  border: 1px solid @hairline;
 }
 
 .obor-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  min-height: 340px;
-  padding: 2.25rem 2rem 2rem;
-  border-radius: @radius-lg;
-  color: #fff;
+  background: @surface;
+  padding: 2.75rem 2.25rem;
   overflow: hidden;
   text-decoration: none;
-  box-shadow: @shadow;
-  transition: transform @ease, box-shadow @ease;
+  transition: background-color @ease;
 
-  &:hover {
-    transform: translateY(-6px);
-    box-shadow: @shadow-lg;
-    color: #fff;
-    text-decoration: none;
-  }
-
-  // Jemný lesk přes celou kartu
-  &::before {
+  // Barevné podtržení vyjíždí zleva při najetí
+  &::after {
     content: "";
     position: absolute;
-    inset: 0;
-    background: radial-gradient(120% 80% at 100% 0%, rgba(255,255,255,.22), transparent 60%);
-    pointer-events: none;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background: @accent;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .4s ease;
   }
 
-  h3 {
-    position: relative;
-    color: #fff;
-    font-size: 1.7rem;
-    margin-bottom: 1rem;
-  }
+  &:hover {
+    background: #FBFCFE;
+    text-decoration: none;
 
-  p {
-    position: relative;
-    color: rgba(255, 255, 255, .95);
-    font-size: 1.02rem;
-    line-height: 1.65;
-    margin-bottom: 1.75rem;
+    &::after { transform: scaleX(1); }
+
+    .obor-link { gap: .9rem; }
   }
 }
 
-.obor-card-body {
+// Akcent oboru: podtržení, kroužek ikony a odkaz
+.obor-hudebni::after  { background: #C0392B; }
+.obor-vytvarny::after { background: #2D9970; }
+.obor-litdram::after  { background: #2B6CB0; }
+
+.obor-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.8rem;
+  border: 1px solid @hairline;
+  background: @bg;
+
+  img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+  }
+}
+
+.obor-hudebni  .obor-icon { background: rgba(192, 57, 43, .08);  border-color: rgba(192, 57, 43, .25); }
+.obor-vytvarny .obor-icon { background: rgba(45, 153, 112, .08); border-color: rgba(45, 153, 112, .25); }
+.obor-litdram  .obor-icon { background: rgba(43, 108, 176, .08); border-color: rgba(43, 108, 176, .25); }
+
+.obor-name {
+  position: relative;
+  font-family: @font-heading;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: @navy;
+  margin-bottom: .8rem;
+}
+
+.obor-desc {
   position: relative;
   flex: 1 1 auto;
-}
-
-.obor-card-cta {
-  position: relative;
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  gap: .45rem;
-  padding: .6rem 1.35rem;
-  border-radius: @radius-pill;
-  background: #fff;
-  color: @navy;
-  font-weight: 600;
-  font-size: .95rem;
-  text-decoration: none;
-  transition: gap @ease, box-shadow @ease;
-
-  &::after {
-    content: "\f105";
-    font-family: FontAwesome;
-  }
-}
-
-.obor-card:hover .obor-card-cta {
-  gap: .8rem;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
-}
-
-// Ikona oboru: velký vodoznak v rohu, přetéká přes okraj karty.
-// Leží pod textem (z-index 0 vs. obsah 1), takže do něj text může sahat.
-.obor-card-icon {
-  position: absolute;
-  right: -1.5rem;
-  bottom: -1.5rem;
-  width: 170px;
-  z-index: 0;
-  opacity: .22;
-  pointer-events: none;
-  transition: transform @ease, opacity @ease;
-
-  img { width: 100%; }
-}
-
-.obor-card:hover .obor-card-icon {
-  transform: scale(1.08) rotate(-4deg);
-  opacity: .3;
-}
-
-.obor-hudebni  { background: linear-gradient(300deg, @obor-hudebni-from 0%, @obor-hudebni-to 70%); }
-.obor-vytvarny { background: linear-gradient(309deg, @obor-vytvarny-from 0%, @obor-vytvarny-to 59%); }
-.obor-litdram  { background: linear-gradient(309deg, @obor-litdram-from 0%, @obor-litdram-to 59%); }
-
-
-// --- Studijní zaměření (co se dá studovat) ---------------------------
-
-.zamereni {
-  margin-bottom: 4.5rem;
-}
-
-// Pozor: bez height:100%. V pravém sloupci jsou dva panely pod sebou
-// a při 100 % výšky se navzájem přetahovaly a přelézaly do další sekce.
-.zamereni-panel {
-  background: @surface;
-  border-radius: @radius-lg;
-  box-shadow: @shadow-sm;
-  padding: 2rem;
-  border-top: 5px solid transparent;
-
-  &.is-hudebni  { border-top-color: @obor-hudebni-to; }
-  &.is-vytvarny { border-top-color: @obor-vytvarny-to; }
-  &.is-litdram  { border-top-color: @obor-litdram-to; }
-}
-
-// Skupina nástrojů (dechové, smyčcové…)
-.zamereni-group {
-  & + & { margin-top: 1.5rem; }
-
-  h4 {
-    // Je to štítek skupiny, ne nadpis – patkové písmo sem nepatří
-    font-family: @font-body;
-    font-size: .74rem;
-    font-weight: 600;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: @text-muted;
-    margin-bottom: .6rem;
-  }
-}
-
-// Nástroje jako štítky
-.zamereni-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .45rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-
-  li {
-    padding: .34rem .8rem;
-    border-radius: @radius-pill;
-    background: @bg;
-    color: @navy;
-    font-size: .92rem;
-    line-height: 1.4;
-  }
-}
-
-.zamereni-note {
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(21, 27, 84, .1);
+  font-size: .9rem;
+  line-height: 1.75;
   color: @text-muted;
-  font-size: .88rem;
+  margin-bottom: 1.8rem;
+}
+
+.obor-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .78rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transition: gap @ease;
+
+  &::after { content: "\2192"; }
+}
+
+.obor-hudebni  .obor-link { color: #C0392B; }
+.obor-vytvarny .obor-link { color: #2D9970; }
+.obor-litdram  .obor-link { color: #2B6CB0; }
+
+// Velké číslo oboru jako vodoznak v rohu
+.obor-bg-num {
+  position: absolute;
+  right: -.75rem;
+  bottom: -2.5rem;
+  font-family: @font-heading;
+  font-size: 9rem;
+  font-weight: 800;
+  line-height: 1;
+  color: rgba(21, 27, 84, .04);
+  user-select: none;
+  pointer-events: none;
 }
 
 
@@ -798,27 +775,31 @@ li.menu-teacher-login {
 //  8. AKTUALITY
 // ---------------------------------------------------------------------
 
-// Aktuality jsou vyvěšované plakáty na A4. Dřív se ořezávaly do
-// vodorovné karty přes `cover`, takže z plakátu zbyl výřez uprostřed –
-// bez nadpisu i termínu. Teď drží kartu poměr A4 a plakát je vidět celý,
-// text je pod ním, ne přes něj.
+// Aktuality jsou vyvěšované plakáty na A4, karta proto drží poměr A4
+// a plakát je vidět celý. Mřížka je stejná jako u oborů – buňky drží
+// pohromadě vlasovými linkami.
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: @hairline;
+  border: 1px solid @hairline;
+}
+
 .news-card {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  border-radius: @radius !important;
-  overflow: hidden;
   background: @surface;
+  border-radius: 0 !important;
+  overflow: hidden;
   text-decoration: none;
-  box-shadow: @shadow-sm;
-  transition: transform @ease, box-shadow @ease;
+  transition: background-color @ease;
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: @shadow-lg;
+    background: #FBFCFE;
     text-decoration: none;
 
-    .news-card-media img { transform: scale(1.04); }
+    .news-card-media img { transform: scale(1.03); }
   }
 }
 
@@ -837,24 +818,50 @@ li.menu-teacher-login {
   }
 }
 
-.news-card .card-body {
-  padding: 1.1rem 1.2rem 1.3rem;
+// Datum jako štítek přes roh plakátu
+.news-date-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+  padding: .3rem .7rem;
+  border-radius: @radius-sm;
+  background: rgba(21, 27, 84, .78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .08em;
 }
 
-.news-card .card-title {
+.news-body {
+  padding: 1.5rem;
+}
+
+.news-tag {
+  color: @accent;
+  font-size: .65rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: .5rem;
+}
+
+.news-card .card-title,
+.news-title {
   color: @navy;
   font-family: @font-heading;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  line-height: 1.35;
+  line-height: 1.4;
   margin: 0;
 }
 
-.news-card-date {
+.news-meta {
   color: @text-muted;
-  font-size: .84rem;
-  font-weight: 500;
-  margin-bottom: .3rem;
+  font-size: .78rem;
+  margin-top: .5rem;
 }
 
 // Starší prohlížeče bez aspect-ratio
@@ -866,6 +873,94 @@ li.menu-teacher-login {
     img { position: absolute; inset: 0; }
   }
 }
+
+
+// --- Pobočky ---------------------------------------------------------
+
+.locations-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 3rem;
+  align-items: start;
+}
+
+// Náhrada mapy v lokálním náhledu
+.location-map {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  display: grid;
+  place-items: center;
+  background: @surface;
+  border: 1px solid @hairline;
+  overflow: hidden;
+}
+
+.map-grid {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(21,27,84,.05) 39px, rgba(21,27,84,.05) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(21,27,84,.05) 39px, rgba(21,27,84,.05) 40px);
+}
+
+.map-label {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: @text-muted;
+
+  p { margin-top: .35rem; font-size: .8rem; }
+}
+
+.map-label-title {
+  font-family: @font-heading;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: @navy;
+}
+
+.location-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: @hairline;
+  border: 1px solid @hairline;
+  max-height: 560px;
+  overflow-y: auto;
+}
+
+.location-item {
+  display: block;
+  background: @surface;
+  padding: 1.1rem 1.4rem;
+  border-left: 2px solid transparent;
+  text-decoration: none;
+  transition: border-color @ease, background-color @ease;
+
+  &:hover {
+    border-left-color: @accent;
+    background: #FBFCFE;
+    text-decoration: none;
+  }
+}
+
+.location-city {
+  font-family: @font-heading;
+  font-size: 1rem;
+  font-weight: 600;
+  color: @navy;
+}
+
+.location-address {
+  color: @text-muted;
+  font-size: .8rem;
+  margin-top: .15rem;
+}
+
+@media (max-width: @bp-lg - 1px) {
+  .locations-layout { grid-template-columns: 1fr; gap: 2rem; }
+}
+
 
 // Karty článků z e10 šablony
 .card {
@@ -1208,6 +1303,22 @@ div.contact-cards-a.hover-picture div.card-picture:hover {
 
 // Tablety a méně
 @media (max-width: @bp-lg - 1px) {
+  .obory-grid,
+  .news-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2.5rem 0 3.5rem;
+  }
+
+  .hero-visual { order: -1; }
+  .hero-poster { max-width: 320px; }
+  .hero-items { min-height: 0; }
+  .hero-nav { position: static; margin-top: 1.5rem; }
+
   main {
     margin-top: 2rem;
   }
@@ -1226,18 +1337,6 @@ div.contact-cards-a.hover-picture div.card-picture:hover {
     padding: 1.75rem;
   }
 
-  .obor-card {
-    padding: 1.75rem 1.5rem 1.5rem;
-  }
-
-  .obor-card-icon {
-    width: 76px;
-  }
-
-  .news-card {
-    height: 340px;
-  }
-
   #watermark {
     display: none;
   }
@@ -1249,6 +1348,13 @@ div.contact-cards-a.hover-picture div.card-picture:hover {
 
 // Telefony
 @media (max-width: @bp-md - 1px) {
+  .obory-grid,
+  .news-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .obor-card { padding: 2rem 1.5rem; }
+
   body {
     font-size: .98rem;
   }
@@ -1274,15 +1380,6 @@ div.contact-cards-a.hover-picture div.card-picture:hover {
 
   .uk-padding-large {
     padding: 0;
-  }
-
-  .news-card {
-    height: 300px;
-  }
-
-  .obor-card-icon {
-    width: 64px;
-    opacity: .75;
   }
 
   .navbar-brand img {
