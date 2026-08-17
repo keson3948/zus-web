@@ -113,6 +113,11 @@
 @bleed-x-md: 2rem;
 @bleed-x-sm: 1.25rem;
 
+// Seznam bloků, které jdou přes celou šířku. Je tu jednou a používá se
+// ve všech breakpointech – když přibude další celoplošný pruh, přidej
+// ho sem, ne na tři místa.
+@bleed-sel: ~"#c-main, header .navbar > .container, .social-strip > .container, #page-footer > .container, #page-footer .footer-partners > .container";
+
 // Breakpointy (drží se Bootstrapu, ať se to nerozjíždí)
 @bp-sm: 576px;
 @bp-md: 768px;
@@ -276,10 +281,7 @@ h1 em, h2 em, h3 em,
 // Rozvržení do krajů. Bootstrapový .container by obsah stáhl na 1320 px
 // a vycentroval; tady mu bereme max-width a necháváme jen odsazení.
 // Cílíme jmenovitě, ať se nerozbijí .container uvnitř obsahu stránek.
-#c-main,
-header .navbar > .container,
-#page-footer > .container,
-#page-footer .footer-partners > .container {
+@{bleed-sel} {
   max-width: none;
   width: 100%;
   padding-left: @bleed-x;
@@ -1618,10 +1620,7 @@ div.contact-cards-a.hover-picture div.card-picture:hover {
 
 // Tablety a méně
 @media (max-width: @bp-lg - 1px) {
-  #c-main,
-  header .navbar > .container,
-  #page-footer > .container,
-  #page-footer .footer-partners > .container {
+  @{bleed-sel} {
     padding-left: @bleed-x-md;
     padding-right: @bleed-x-md;
   }
@@ -1706,10 +1705,7 @@ div.contact-cards-a.hover-picture div.card-picture:hover {
 
 // Telefony
 @media (max-width: @bp-md - 1px) {
-  #c-main,
-  header .navbar > .container,
-  #page-footer > .container,
-  #page-footer .footer-partners > .container {
+  @{bleed-sel} {
     padding-left: @bleed-x-sm;
     padding-right: @bleed-x-sm;
   }
