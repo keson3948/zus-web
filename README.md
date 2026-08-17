@@ -128,6 +128,27 @@ Tlačítka mají `border-radius` s `!important` schválně — ve stránkách ze
 Shipardu jsou desítky odkazů s inline `style="border-radius: 0px"`, které by
 jinak nový vzhled přebily.
 
+## UIkit je pryč
+
+Web jede čistě na Bootstrapu 5. UIkit (CSS i JS) byl ze šablony odstraněn:
+
+- karusel na úvodní stránce je Bootstrap carousel
+- titulní blok almanachu byl karusel o jednom snímku, teď je to obyčejný blok
+- skript na `UIkit.accordion` byl mrtvý – element s `id="uk-accordion"`
+  není na webu nikde, volal se naprázdno na každé stránce
+
+V textech stránek v Shipardu ale pár `uk-` tříd zůstalo: `uk-container`
+(almanach), `uk-padding-remove-bottom`, `uk-button-link` a `uk-table`.
+Ty drží při životě sekce **9b** ve `styles/style.less`. Až je z obsahu
+vyčistíš, může celá sekce pryč.
+
+Bootstrap carousel potřebuje na jednom snímku třídu `active`. Mustache
+neumí poznat první prvek smyčky, takže ji doplňuje krátký skript
+v šabloně – nemaž ho, jinak karusel zůstane prázdný.
+
+Naklápění hero podle pohybu myši (vanilla-tilt) je odstraněné včetně
+jeho CDN.
+
 ## Opravené chyby
 
 Tyhle chyby ve stávajících souborech už jsou opravené, ale pokud budeš

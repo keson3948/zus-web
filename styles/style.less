@@ -134,9 +134,18 @@ body {
   line-height: 1.65;
 }
 
-.container,
+.container {
+  font-family: @font-body;
+}
+
+// uk-container zůstal v textech stránek (almanach); bez UIkitu ho musíme
+// dorovnat sami, jinak by obsah tekl přes celou šířku okna.
 .uk-container {
   font-family: @font-body;
+  width: 100%;
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: .75rem;
 }
 
 h1, h2, h3, h4, h5, h6,
@@ -404,14 +413,6 @@ li.menu-teacher-login {
   &:hover { opacity: 1; }
 }
 
-.uk-navbar-nav > li > a {
-  text-transform: unset !important;
-  color: @navy;
-  font-weight: 400;
-  font-size: 1em;
-  font-family: @font-body;
-}
-
 
 // ---------------------------------------------------------------------
 //  5. TLAČÍTKA
@@ -487,10 +488,12 @@ li.menu-teacher-login {
 //  Dřív byl nadpis v bílém boxu – proto ta „nálepka“ přes obrázek.
 // ---------------------------------------------------------------------
 
+// Pozor: žádné overflow: hidden. Pozadí i notová osnova se roztahují
+// na 100vw, aby šly od kraje k kraji – overflow je ořezával na šířku
+// kontejneru, ve kterém hero sedí.
 .hero {
   position: relative;
   margin-bottom: 5rem;
-  overflow: hidden;
 
   // Barevná mlha z návrhu, jen výrazně světlejší. Roztažená přes celou
   // šířku okna, i když hero sedí v kontejneru.
@@ -541,7 +544,68 @@ li.menu-teacher-login {
 .hero-items {
   position: relative;
   z-index: 1;
+}
+
+// Bootstrap carousel skrývá neaktivní snímky přes display, takže výšku
+// drží ten aktivní. Bez minimální výšky by stránka při přepnutí poskakovala.
+.hero .carousel-item {
   min-height: 560px;
+}
+
+.hero .carousel-item.active,
+.hero .carousel-item-next,
+.hero .carousel-item-prev {
+  display: block;
+}
+
+// Šipky karuselu
+.hero-nav button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid @hairline;
+  background: @surface;
+  color: @navy;
+  font-size: 1.1rem;
+  transition: background-color @ease, color @ease, border-color @ease;
+
+  &:hover {
+    background: @accent;
+    border-color: @accent;
+    color: #fff;
+  }
+}
+
+// Titulní blok almanachu (býval karusel o jednom snímku)
+.almanach-cover {
+  position: relative;
+  overflow: hidden;
+  border-radius: @radius;
+  min-height: 320px;
+  max-height: 500px;
+
+  video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.almanach-cover-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  padding: 2rem;
 }
 
 // Text vlevo, plakát vpravo
@@ -620,25 +684,6 @@ li.menu-teacher-login {
   bottom: 1.25rem;
   display: flex;
   gap: .5rem;
-
-  a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 1px solid @hairline;
-    background: @surface;
-    color: @navy;
-    transition: background-color @ease, color @ease, border-color @ease;
-
-    &:hover {
-      background: @accent;
-      border-color: @accent;
-      color: #fff;
-    }
-  }
 }
 
 
@@ -1165,6 +1210,46 @@ ul.pagination {
 
 
 // ---------------------------------------------------------------------
+//  9b. NÁHRADY ZA UIKIT
+//
+//  UIkit byl z webu odstraněn, jede se čistě na Bootstrapu. Tyhle třídy
+//  ale zůstaly v textech stránek v Shipardu, takže je držíme naživu.
+//  Až je z obsahu vyčistíš, může celá sekce pryč.
+// ---------------------------------------------------------------------
+
+.uk-padding-remove-bottom { padding-bottom: 0 !important; }
+
+.uk-button-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: @accent;
+  text-decoration: none;
+
+  &:hover { text-decoration: underline; }
+}
+
+.uk-table {
+  width: 100%;
+  margin-bottom: 1rem;
+  border-collapse: collapse;
+
+  th, td {
+    padding: .6rem .75rem;
+    border-bottom: 1px solid @hairline;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th { font-weight: 600; }
+}
+
+.uk-table-striped tbody tr:nth-of-type(odd) { background: @bg; }
+
+.uk-divider-vertical { border-left: 1px solid @navy-muted; }
+
+
+// ---------------------------------------------------------------------
 // 10. OSTATNÍ KOMPONENTY
 // ---------------------------------------------------------------------
 
@@ -1183,29 +1268,6 @@ div.sidebar {
     list-style: none;
     padding-left: 1rem;
   }
-}
-
-.uk-accordion-title {
-  color: @navy;
-  font-weight: 600;
-  font-size: 1.5rem;
-
-  &:hover,
-  &:focus { color: @navy-soft; }
-}
-
-.uk-divider-vertical {
-  border-left: 1px solid @navy-muted;
-}
-
-.uk-button-primary {
-  background-color: @navy;
-  color: #fff;
-}
-
-.uk-table-striped tbody tr:nth-of-type(odd),
-.uk-table-striped > tr:nth-of-type(odd) {
-  border: 0 solid #fff;
 }
 
 .alert {
@@ -1328,11 +1390,6 @@ div.contact-cards-a.hover-picture div.card-picture:hover {
     border-radius: @radius;
   }
 
-  .uk-slideshow-items {
-    height: 60vh;
-    border-radius: @radius;
-  }
-
   .hero-content {
     padding: 1.75rem;
   }
@@ -1359,11 +1416,6 @@ div.contact-cards-a.hover-picture div.card-picture:hover {
     font-size: .98rem;
   }
 
-  .uk-slideshow-items {
-    height: 52vh;
-    min-height: 380px;
-  }
-
   .hero-content {
     padding: 1.25rem;
   }
@@ -1376,10 +1428,6 @@ div.contact-cards-a.hover-picture div.card-picture:hover {
   .hero-actions .btn {
     width: 100%;
     text-align: center;
-  }
-
-  .uk-padding-large {
-    padding: 0;
   }
 
   .navbar-brand img {
