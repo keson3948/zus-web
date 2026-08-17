@@ -107,6 +107,12 @@
 // Přechod
 @ease: .25s cubic-bezier(.4, 0, .2, 1);
 
+// Web jde do krajů: obsah není centrovaný do pevné šířky, drží ho jen
+// boční odsazení. Viz sekce 3, pravidlo pro #c-main a spol.
+@bleed-x:    4rem;
+@bleed-x-md: 2rem;
+@bleed-x-sm: 1.25rem;
+
 // Breakpointy (drží se Bootstrapu, ať se to nerozjíždí)
 @bp-sm: 576px;
 @bp-md: 768px;
@@ -265,6 +271,19 @@ h1 em, h2 em, h3 em,
   color: @text-muted;
   font-size: 1.1rem;
   max-width: 62ch;
+}
+
+// Rozvržení do krajů. Bootstrapový .container by obsah stáhl na 1320 px
+// a vycentroval; tady mu bereme max-width a necháváme jen odsazení.
+// Cílíme jmenovitě, ať se nerozbijí .container uvnitř obsahu stránek.
+#c-main,
+header .navbar > .container,
+#page-footer > .container,
+#page-footer .footer-partners > .container {
+  max-width: none;
+  width: 100%;
+  padding-left: @bleed-x;
+  padding-right: @bleed-x;
 }
 
 #c-main {
@@ -630,7 +649,7 @@ li.menu-teacher-login {
 // Bootstrap carousel skrývá neaktivní snímky přes display, takže výšku
 // drží ten aktivní. Bez minimální výšky by stránka při přepnutí poskakovala.
 .hero .carousel-item {
-  min-height: 560px;
+  min-height: 680px;
 }
 
 .hero .carousel-item.active,
@@ -736,9 +755,9 @@ li.menu-teacher-login {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 3rem;
+  gap: 4rem;
   height: 100%;
-  padding: 3.5rem 0 4.5rem;
+  padding: 4.5rem 0 5.5rem;
 }
 
 .hero-content {
@@ -786,7 +805,7 @@ li.menu-teacher-login {
 
 .hero-poster {
   width: 100%;
-  max-width: 420px;
+  max-width: 480px;
   aspect-ratio: 1 / 1.24;
   background: @surface;
   border-radius: @radius;
@@ -1161,22 +1180,85 @@ ul.pagination {
 //  9. PATIČKA
 // ---------------------------------------------------------------------
 
-// Tmavá patička stránku ukotví – bílá splývala s obsahem.
-#page-footer {
-  margin-top: 5rem;
-  padding: 0;
+// Pruh se sociálními sítěmi navazuje na obsah a uvozuje patičku.
+// Je součástí patičky, takže se objeví na všech stránkách.
+.social-strip {
   background: @primary;
   color: rgba(255, 255, 255, .78);
-  font-size: .95rem;
+  padding: 4rem 0;
+
+  .section-label {
+    color: @secondary-light;
+
+    &::before { background: @secondary-light; }
+  }
+}
+
+.social-strip-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.social-title {
+  color: #fff;
+  font-family: @font-heading;
+  font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2rem);
+  font-weight: 700;
+  margin: 0;
+}
+
+.social-text {
+  max-width: 420px;
+
+  p {
+    font-size: .95rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-btn {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .3);
+  border-radius: @radius-sm;
+  color: #fff !important;
+  font-size: 1.05rem;
+  text-decoration: none;
+  transition: background-color @ease, border-color @ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, .12);
+    border-color: #fff;
+  }
+}
+
+
+// Patička je tmavší než pruh nad ní, aby stránku ukotvila.
+#page-footer {
+  background: #0F1440;
+  color: rgba(255, 255, 255, .68);
+  font-size: .9rem;
+  padding: 0;
 
   a {
-    color: rgba(255, 255, 255, .78);
+    color: rgba(255, 255, 255, .68);
     text-decoration: none;
     transition: color @ease;
 
+    &:visited { color: rgba(255, 255, 255, .68); }
     &:hover,
     &:visited:hover { color: #fff; }
-    &:visited { color: rgba(255, 255, 255, .78); }
   }
 
   ul {
@@ -1184,77 +1266,79 @@ ul.pagination {
     margin-bottom: 0;
   }
 
-  li {
-    list-style: none;
-    margin-bottom: .45rem;
-  }
-
-  hr {
-    margin: 0;
-    border: 0;
-    border-top: 1px solid rgba(255, 255, 255, .14);
-  }
+  li { list-style: none; }
 }
 
-// Pozor na zkratku: `padding: 3.5rem 0 2.5rem` nulovala i boční odsazení,
-// které si nese bootstrapový .container. Na mobilu pak obsah lepil na kraj.
-.footer-main {
-  padding-top: 3.5rem;
-  padding-bottom: 2.5rem;
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.2fr 1fr 1fr;
+  gap: 3rem;
+  padding-top: 4rem;
+  padding-bottom: 3rem;
 }
 
-.footer-title {
-  color: #fff;
-  font-family: @font-heading;
-  font-size: .82rem;
-  font-weight: 600;
-  letter-spacing: .09em;
-  text-transform: uppercase;
-  margin-bottom: 1.1rem;
+.footer-about p {
+  font-size: .85rem;
+  line-height: 1.8;
+  margin: 1.25rem 0 0;
 }
 
 .footer-logo {
-  display: block;
-  margin-bottom: 1.25rem;
+  display: inline-block;
 
   img {
-    width: 160px;
+    width: 150px;
     max-width: 100%;
-    // Logo je tmavé, na modré by zaniklo
+    // Značka je tmavá, na tmavém podkladu by zanikla
     filter: brightness(0) invert(1);
   }
+}
+
+.footer-col-title {
+  color: @secondary-light;
+  font-family: @font-body;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.footer-links li {
+  margin-bottom: .5rem;
+  font-size: .85rem;
+  line-height: 1.6;
+}
+
+// Odkazy jsou obyčejný text, na dotyk vycházely pod 24 px
+#page-footer .footer-links a {
+  display: inline-block;
+  padding-block: .18rem;
 }
 
 .footer-contact li {
   display: flex;
   align-items: flex-start;
-  gap: .6rem;
+  gap: .55rem;
 
-  i { margin-top: .3rem; opacity: .7; }
+  i { margin-top: .35rem; opacity: .7; }
 }
 
-// Kolečka sociálních sítí
-.footer-social {
+.footer-bottom {
   display: flex;
-  gap: .5rem;
-  margin-top: 1.25rem;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255, 255, 255, .08);
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
+}
 
-  a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, .1);
-    font-size: 1.05rem;
-    transition: background-color @ease, transform @ease;
-
-    &:hover {
-      background: rgba(255, 255, 255, .22);
-      transform: translateY(-2px);
-    }
-  }
+.footer-copy {
+  font-size: .78rem;
+  color: rgba(255, 255, 255, .5);
+  margin: 0;
 }
 
 // Loga partnerů a povinná publicita.
@@ -1320,35 +1404,16 @@ ul.pagination {
     display: block;
     width: 100%;
     height: auto;
-    border: 1px solid rgba(21, 27, 84, .12);
+    border: 1px solid @hairline;
     border-radius: @radius-sm;
     margin-bottom: .5rem;
   }
 }
 
-// Odkazy v patičce jsou obyčejný text, na dotyk ale vycházely 21 px.
-// Odsazení je dorovná na pohodlnou plochu, aniž by se rozjel vzhled.
-#page-footer .footer-main li a,
-#page-footer .footer-main .footer-contact a {
-  display: inline-block;
-  padding-block: .18rem;
-}
-
-.section-link {
-  padding-block: .2rem;
-}
-
-.footer-bottom {
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
-  font-size: .88rem;
-  color: rgba(255, 255, 255, .6);
-}
-
 * + hr {
   margin: 25px 0;
   border: 0;
-  border-top: 1px solid rgba(21, 27, 84, .12);
+  border-top: 1px solid @hairline;
   height: 0;
 }
 
@@ -1553,6 +1618,23 @@ div.contact-cards-a.hover-picture div.card-picture:hover {
 
 // Tablety a méně
 @media (max-width: @bp-lg - 1px) {
+  #c-main,
+  header .navbar > .container,
+  #page-footer > .container,
+  #page-footer .footer-partners > .container {
+    padding-left: @bleed-x-md;
+    padding-right: @bleed-x-md;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+
+  .footer-about { grid-column: 1 / -1; }
+
+  .social-strip { padding: 3rem 0; }
+
   .obory-grid,
   .news-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1624,6 +1706,24 @@ div.contact-cards-a.hover-picture div.card-picture:hover {
 
 // Telefony
 @media (max-width: @bp-md - 1px) {
+  #c-main,
+  header .navbar > .container,
+  #page-footer > .container,
+  #page-footer .footer-partners > .container {
+    padding-left: @bleed-x-sm;
+    padding-right: @bleed-x-sm;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding-top: 2.5rem;
+  }
+
+  .social-strip { padding: 2.5rem 0; }
+  .social-strip-inner { gap: 1.75rem; }
+  .footer-bottom { justify-content: flex-start; }
+
   // Obory mají hodně textu, ty se skládají pod sebe.
   // Aktuality jsou plakáty, ty ve dvou sloupcích drží dobře a stránka
   // se tím výrazně zkrátí.

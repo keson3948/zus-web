@@ -124,6 +124,15 @@ u pravidla `main`. Obrázek na něj věší `old_style`, ale kontejner ho ořez�
 na náhodný proužek u kraje obsahu. Když ho budeš chtít zpátky, smaž tam řádek
 `background-image: none`.
 
+Web jde do krajů: bootstrapový `.container` má u lišty, obsahu a patičky
+zrušenou `max-width` a drží ho jen boční odsazení (`@bleed-x` v sekci 2).
+Pravidlo cílí jmenovitě na `#c-main` a spol., aby se nerozbily `.container`
+uvnitř textů stránek.
+
+Pruh se sociálními sítěmi je součástí patičky (`page.footerFull`
+v `data/base.json`), takže je na všech stránkách. Na úvodní stránce už
+proto samostatná sekce není.
+
 Tlačítka mají `border-radius` s `!important` schválně — ve stránkách ze
 Shipardu jsou desítky odkazů s inline `style="border-radius: 0px"`, které by
 jinak nový vzhled přebily.
