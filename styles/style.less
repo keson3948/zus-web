@@ -78,13 +78,12 @@
 @text-muted:       #5A6182;
 @hairline:         rgba(21, 27, 84, .12);   // vlasové linky mřížky
 
-// Obory
-@obor-hudebni-from:   #F49D84;
-@obor-hudebni-to:     #EB5D35;
-@obor-vytvarny-from:  #86D2B4;
-@obor-vytvarny-to:    #45B387;
-@obor-litdram-from:   #7EA0D1;
-@obor-litdram-to:     #4273B8;
+// Obory. Všechny tři mají na bílé kontrast nad 4,5:1, takže unesou
+// i drobný verzálkový odkaz. Jasnější oranžová (#D97706) měla jen 3,2
+// a na text by nestačila.
+@obor-hudebni:   #2B6CB0;   // modrá
+@obor-vytvarny:  #C0392B;   // červená
+@obor-litdram:   #C2410C;   // oranžová
 
 // Písmo: patkový Playfair na nadpisy, Poppins na text
 @font-heading: 'Playfair Display', Georgia, serif;
@@ -809,30 +808,29 @@ li.menu-teacher-login {
 }
 
 // Akcent oboru: podtržení, kroužek ikony a odkaz
-.obor-hudebni::after  { background: #C0392B; }
-.obor-vytvarny::after { background: #2D9970; }
-.obor-litdram::after  { background: #2B6CB0; }
+.obor-hudebni::after  { background: @obor-hudebni; }
+.obor-vytvarny::after { background: @obor-vytvarny; }
+.obor-litdram::after  { background: @obor-litdram; }
 
 .obor-icon {
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   display: grid;
   place-items: center;
   margin-bottom: 1.8rem;
-  border: 1px solid @hairline;
-  background: @bg;
 
-  img {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-  }
+  // Ikony z Font Awesome, který je stejně načtený. Původní SVG školy
+  // byla vícebarevná a při srážce do jedné barvy se slévala do nečitelné
+  // siluety – u dramaťáku (dvě kartičky s úsměvem) nejvíc.
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 1;
 }
 
-.obor-hudebni  .obor-icon { background: rgba(192, 57, 43, .08);  border-color: rgba(192, 57, 43, .25); }
-.obor-vytvarny .obor-icon { background: rgba(45, 153, 112, .08); border-color: rgba(45, 153, 112, .25); }
-.obor-litdram  .obor-icon { background: rgba(43, 108, 176, .08); border-color: rgba(43, 108, 176, .25); }
+.obor-hudebni  .obor-icon { background: @obor-hudebni; }
+.obor-vytvarny .obor-icon { background: @obor-vytvarny; }
+.obor-litdram  .obor-icon { background: @obor-litdram; }
 
 .obor-name {
   position: relative;
@@ -866,9 +864,9 @@ li.menu-teacher-login {
   &::after { content: "\2192"; }
 }
 
-.obor-hudebni  .obor-link { color: #C0392B; }
-.obor-vytvarny .obor-link { color: #2D9970; }
-.obor-litdram  .obor-link { color: #2B6CB0; }
+.obor-hudebni  .obor-link { color: @obor-hudebni; }
+.obor-vytvarny .obor-link { color: @obor-vytvarny; }
+.obor-litdram  .obor-link { color: @obor-litdram; }
 
 // Velké číslo oboru jako vodoznak v rohu
 .obor-bg-num {
