@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZUŠ Morava – Základní umělecká škola</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy: #151B54;
+    --navy2: #1c2466;
+    --gold: #5BB8F5;
+    --gold-light: #7ecef8;
+    --cream: #EBF4FA;
+    --cream2: #d6ecf7;
+    --muted: #8aabc8;
+    --red-art: #e05c6a;
+    --green-art: #3aaf8a;
+    --blue-art: #5BB8F5;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(21,27,84,.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(91,184,245,.1);
+    transition: background .4s;
+  }
+  nav.scrolled {
+    background: rgba(21,27,84,.97);
+    border-bottom: 1px solid rgba(91,184,245,.2);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: .9rem;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 48px; height: 48px;
+    display: grid; place-items: center;
+  }
+  .nav-logo-mark img {
+    width: 48px; height: 48px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+  .nav-logo-text { line-height: 1.2; }
+  .nav-logo-text strong {
+    display: block; font-size: .95rem; font-weight: 500; color: var(--cream);
+    letter-spacing: .04em;
+  }
+  .nav-logo-text span {
+    font-size: .72rem; color: var(--muted); letter-spacing: .08em; text-transform: uppercase;
+  }
+  .nav-links {
+    display: flex; gap: 2.2rem; list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none; color: var(--cream); font-size: .85rem;
+    letter-spacing: .06em; text-transform: uppercase;
+    opacity: .75; transition: opacity .2s, color .2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+  .nav-cta {
+    background: var(--gold); color: var(--navy) !important;
+    padding: .5rem 1.3rem; border-radius: 2px;
+    opacity: 1 !important; font-weight: 500;
+    white-space: nowrap;
+    transition: background .2s !important;
+  }
+  .nav-cta:hover { background: var(--gold-light) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 70% at 70% 50%, rgba(201,168,76,.07) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(27,58,107,.3) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* decorative staff lines */
+  .hero-lines {
+    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+  }
+  .hero-lines::before {
+    content: '';
+    position: absolute;
+    top: 30%; left: 0; right: 0;
+    height: 120px;
+    background: repeating-linear-gradient(
+      transparent, transparent 22px,
+      rgba(201,168,76,.08) 22px, rgba(201,168,76,.08) 23px
+    );
+  }
+
+  .hero-content {
+    padding: 12rem 4rem 6rem;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative; z-index: 2;
+  }
+  .hero-label {
+    font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: .8rem;
+  }
+  .hero-label::before {
+    content: ''; display: block; width: 32px; height: 1px; background: var(--gold);
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5.5vw, 5.5rem);
+    line-height: 1.05;
+    font-weight: 800;
+    color: var(--cream);
+    margin-bottom: 1rem;
+  }
+  .hero-title em {
+    font-style: italic; color: var(--gold);
+  }
+  .hero-subtitle {
+    font-size: 1.05rem; line-height: 1.7;
+    color: var(--muted); max-width: 440px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-actions { display: flex; gap: 1rem; align-items: center; }
+  .btn-primary {
+    background: var(--gold); color: var(--navy);
+    padding: .85rem 2rem; font-size: .9rem; font-weight: 500;
+    letter-spacing: .06em; text-transform: uppercase;
+    text-decoration: none; border-radius: 2px;
+    transition: background .2s, transform .2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-ghost {
+    color: var(--cream); font-size: .85rem; text-decoration: none;
+    opacity: .7; letter-spacing: .06em;
+    display: flex; align-items: center; gap: .5rem;
+    transition: opacity .2s;
+  }
+  .btn-ghost:hover { opacity: 1; }
+  .btn-ghost::after { content: '→'; }
+
+  .hero-visual {
+    position: relative; z-index: 2;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-poster {
+    width: 420px; height: 520px;
+    background: var(--navy2);
+    border: 1px solid rgba(201,168,76,.2);
+    border-radius: 4px;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,.6);
+    position: relative;
+    margin-top: 6rem;
+  }
+  .hero-poster-top {
+    flex: 1;
+    background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 50%, #1b1440 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .hero-poster-top::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 40%, rgba(201,168,76,.15), transparent 60%);
+  }
+  .poster-note {
+    position: relative; z-index: 1;
+    font-family: 'Playfair Display', serif;
+    font-size: 7rem; color: rgba(201,168,76,.3);
+    line-height: 1; user-select: none;
+  }
+  .poster-badge {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    background: var(--gold); color: var(--navy);
+    font-size: .65rem; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; padding: .4rem .8rem; border-radius: 2px;
+  }
+  .hero-poster-bottom {
+    padding: 1.5rem;
+  }
+  .poster-event-label {
+    font-size: .65rem; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: .4rem;
+  }
+  .poster-event-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 600; color: var(--cream);
+    margin-bottom: .5rem;
+  }
+  .poster-event-meta { font-size: .8rem; color: var(--muted); }
+
+  .hero-stats {
+    position: absolute; bottom: 3rem; left: 4rem;
+    display: flex; gap: 3rem; z-index: 2;
+  }
+  .stat { }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 800; color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted); margin-top: .2rem;
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 7rem 4rem; }
+  .section-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 3.5rem;
+  }
+  .section-label {
+    font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: .7rem;
+    display: flex; align-items: center; gap: .7rem;
+  }
+  .section-label::before {
+    content: ''; display: block; width: 24px; height: 1px; background: var(--gold);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800; color: var(--cream); line-height: 1.1;
+  }
+  .section-link {
+    color: var(--gold); text-decoration: none; font-size: .85rem;
+    letter-spacing: .08em; opacity: .8;
+    display: flex; align-items: center; gap: .4rem;
+    transition: opacity .2s;
+    white-space: nowrap; padding-bottom: .3rem;
+  }
+  .section-link:hover { opacity: 1; }
+  .section-link::after { content: '→'; }
+
+  /* ── OBORY ── */
+  .obory-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: rgba(201,168,76,.15);
+    border: 1px solid rgba(201,168,76,.15);
+  }
+  .obor-card {
+    background: var(--navy2);
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    transition: background .3s;
+    cursor: default;
+  }
+  .obor-card::before {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: var(--accent-color, var(--gold));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .4s ease;
+  }
+  .obor-card:hover { background: #171a30; }
+  .obor-card:hover::before { transform: scaleX(1); }
+
+  .obor-card.hudebni { --accent-color: #c0392b; }
+  .obor-card.vytvarny { --accent-color: #2d9970; }
+  .obor-card.dramaticky { --accent-color: #2b6cb0; }
+
+  .obor-icon {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.8rem;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+  }
+  .obor-card.hudebni .obor-icon { background: rgba(192,57,43,.1); border-color: rgba(192,57,43,.25); }
+  .obor-card.vytvarny .obor-icon { background: rgba(45,153,112,.1); border-color: rgba(45,153,112,.25); }
+  .obor-card.dramaticky .obor-icon { background: rgba(43,108,176,.1); border-color: rgba(43,108,176,.25); }
+
+  .obor-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700;
+    color: var(--cream); margin-bottom: .8rem;
+  }
+  .obor-desc {
+    font-size: .9rem; line-height: 1.75; color: var(--muted);
+    margin-bottom: 1.8rem;
+  }
+  .obor-link {
+    font-size: .78rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--accent-color, var(--gold));
+    text-decoration: none;
+    display: flex; align-items: center; gap: .5rem;
+    transition: gap .2s;
+  }
+  .obor-link:hover { gap: .9rem; }
+  .obor-bg-num {
+    position: absolute; right: -1rem; bottom: -1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 9rem; font-weight: 800;
+    color: rgba(255,255,255,.025);
+    line-height: 1; user-select: none; pointer-events: none;
+  }
+
+  /* ── ZÁPIS BANNER ── */
+  .zapis-banner {
+    padding: 0 4rem;
+    margin-bottom: 0;
+  }
+  .zapis-inner {
+    background: var(--gold);
+    padding: 3.5rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 2rem;
+  }
+  .zapis-text {}
+  .zapis-pretitle {
+    font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(12,14,26,.6); margin-bottom: .5rem;
+  }
+  .zapis-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 800;
+    color: var(--navy); line-height: 1.15;
+  }
+  .zapis-date {
+    font-size: .9rem; color: rgba(12,14,26,.7); margin-top: .5rem;
+  }
+  .btn-dark {
+    background: var(--navy); color: var(--cream);
+    padding: .9rem 2.2rem; font-size: .85rem; font-weight: 500;
+    letter-spacing: .08em; text-transform: uppercase;
+    text-decoration: none; white-space: nowrap;
+    border-radius: 2px;
+    transition: background .2s;
+  }
+  .btn-dark:hover { background: var(--navy2); }
+
+  /* ── AKTUALITY ── */
+  .aktuality { background: var(--navy2); }
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(201,168,76,.1);
+    border: 1px solid rgba(201,168,76,.1);
+  }
+  .news-card {
+    background: var(--navy2);
+    transition: background .3s;
+    text-decoration: none; color: inherit;
+    display: block;
+    overflow: hidden;
+  }
+  .news-card:hover { background: #191c32; }
+  .news-thumb {
+    width: 100%; height: 200px;
+    background: linear-gradient(135deg, #1a1228, #2a1545);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; color: rgba(255,255,255,.15);
+    font-family: 'Playfair Display', serif;
+    position: relative; overflow: hidden;
+  }
+  .news-thumb-1 { background: linear-gradient(135deg, #1a0a2e, #3d1060); }
+  .news-thumb-2 { background: linear-gradient(135deg, #0a1a2e, #103d60); }
+  .news-thumb-3 { background: linear-gradient(135deg, #0a2e0a, #106010); }
+  .news-thumb-4 { background: linear-gradient(135deg, #2e0a0a, #601010); }
+  .news-thumb-5 { background: linear-gradient(135deg, #2e2a0a, #604010); }
+  .news-thumb-6 { background: linear-gradient(135deg, #0a2e2e, #106060); }
+  .news-date-badge {
+    position: absolute; top: 1rem; left: 1rem;
+    background: rgba(12,14,26,.75); backdrop-filter: blur(6px);
+    color: var(--gold); font-size: .7rem; font-weight: 500;
+    letter-spacing: .08em; padding: .3rem .7rem; border-radius: 2px;
+  }
+  .news-body { padding: 1.5rem; }
+  .news-tag {
+    font-size: .65rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: .5rem;
+  }
+  .news-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 600;
+    color: var(--cream); line-height: 1.4;
+    margin-bottom: .5rem;
+  }
+  .news-meta { font-size: .78rem; color: var(--muted); }
+
+  /* ── PRACOVIŠTĚ ── */
+  .pracoviste {}
+  .locations-layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 4rem;
+    align-items: start;
+  }
+  .location-map {
+    width: 100%; aspect-ratio: 16/9;
+    background: var(--navy2);
+    border: 1px solid rgba(201,168,76,.15);
+    border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: .85rem;
+    position: relative; overflow: hidden;
+  }
+  .map-placeholder {
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(201,168,76,.04) 39px, rgba(201,168,76,.04) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(201,168,76,.04) 39px, rgba(201,168,76,.04) 40px);
+  }
+  .map-label {
+    position: relative; z-index: 1; text-align: center;
+  }
+  .map-label p { margin-top: .5rem; color: var(--muted); font-size: .8rem; }
+
+  .location-list { display: flex; flex-direction: column; gap: .5px; }
+  .location-item {
+    background: var(--navy2);
+    padding: 1.2rem 1.5rem;
+    border-left: 2px solid transparent;
+    transition: border-color .2s, background .2s;
+    cursor: default;
+  }
+  .location-item:hover {
+    border-left-color: var(--gold);
+    background: #171a30;
+  }
+  .location-city {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 600;
+    color: var(--cream);
+  }
+  .location-address {
+    font-size: .8rem; color: var(--muted); margin-top: .2rem;
+  }
+  .location-dot {
+    display: inline-block; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--gold);
+    margin-right: .5rem;
+  }
+
+  /* ── SOCIAL ── */
+  .social-strip {
+    background: var(--navy2);
+    padding: 4rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+    border-top: 1px solid rgba(201,168,76,.1);
+  }
+  .social-text .section-title { font-size: 1.6rem; }
+  .social-icons { display: flex; gap: 1rem; }
+  .social-btn {
+    width: 44px; height: 44px;
+    border: 1px solid rgba(201,168,76,.3);
+    border-radius: 2px;
+    display: grid; place-items: center;
+    text-decoration: none; color: var(--gold);
+    font-size: .9rem; font-weight: 700;
+    transition: background .2s, border-color .2s;
+  }
+  .social-btn:hover { background: rgba(201,168,76,.1); border-color: var(--gold); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0f1440;
+    padding: 4rem;
+    border-top: 1px solid rgba(201,168,76,.1);
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; margin-bottom: 3rem;
+  }
+  .footer-about p {
+    font-size: .85rem; color: var(--muted); line-height: 1.8;
+    margin-top: 1rem;
+  }
+  .footer-col-title {
+    font-size: .72rem; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: .5rem; }
+  .footer-links a {
+    text-decoration: none; color: var(--muted); font-size: .85rem;
+    transition: color .2s;
+  }
+  .footer-links a:hover { color: var(--cream); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,.06);
+    padding-top: 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-copy { font-size: .78rem; color: var(--muted); }
+  .footer-partners { display: flex; gap: 1.5rem; align-items: center; }
+  .partner-pill {
+    font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+    color: rgba(255,255,255,.2); background: rgba(255,255,255,.04);
+    padding: .3rem .8rem; border-radius: 2px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-content > * {
+    opacity: 0; animation: fadeUp .7s ease forwards;
+  }
+  .hero-content > *:nth-child(1) { animation-delay: .1s; }
+  .hero-content > *:nth-child(2) { animation-delay: .25s; }
+  .hero-content > *:nth-child(3) { animation-delay: .4s; }
+  .hero-content > *:nth-child(4) { animation-delay: .55s; }
+  .hero-poster {
+    opacity: 0; animation: fadeUp .9s ease .5s forwards;
+  }
+  .hero-stats {
+    opacity: 0; animation: fadeUp .7s ease .7s forwards;
+  }
+
+  /* Tweaks panel */
+  #tweaks-panel {
+    display: none;
+    position: fixed; bottom: 1.5rem; right: 1.5rem;
+    background: var(--navy2); border: 1px solid rgba(201,168,76,.3);
+    border-radius: 4px; padding: 1.2rem 1.4rem;
+    z-index: 999; min-width: 220px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.6);
+  }
+  #tweaks-panel.open { display: block; }
+  #tweaks-panel h4 {
+    font-size: .72rem; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .tweak-row { margin-bottom: .8rem; }
+  .tweak-row label { font-size: .78rem; color: var(--muted); display: block; margin-bottom: .3rem; }
+  .tweak-row select, .tweak-row input[type=color] {
+    width: 100%; background: var(--navy); border: 1px solid rgba(255,255,255,.1);
+    color: var(--cream); padding: .35rem .5rem; border-radius: 2px; font-size: .8rem;
+  }
+  .tweak-row input[type=color] { height: 32px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark"><img src="logo.png" alt="ZUŠ Morava logo"></div>
+    <div class="nav-logo-text">
+      <strong>ZUŠ Morava</strong>
+      <span>Základní umělecká škola</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#obory">Obory</a></li>
+    <li><a href="#aktuality">Aktuality</a></li>
+    <li><a href="#pracoviste">Pracoviště</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+    <li><a href="#zapis" class="nav-cta">Zápis 2025</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-lines"></div>
+
+  <div class="hero-content">
+    <p class="hero-label">Základní umělecká škola Morava</p>
+    <h1 class="hero-title">
+      Kde hudba<br>
+      <em>ožívá</em> v<br>
+      každém dítěti
+    </h1>
+    <p class="hero-subtitle">
+      Přijďte objevit svůj talent. Hudební, výtvarný i literárně-dramatický obor
+      pro děti a mládež napříč Moravou.
+    </p>
+    <div class="hero-actions">
+      <a href="#zapis" class="btn-primary">Zapsat se</a>
+      <a href="#obory" class="btn-ghost">Prozkoumat obory</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-poster">
+      <div class="hero-poster-top">
+        <div class="poster-badge">Letní akademie</div>
+        <span class="poster-note">♩</span>
+      </div>
+      <div class="hero-poster-bottom">
+        <p class="poster-event-label">Nadcházející událost</p>
+        <p class="poster-event-title">14. Letní Múzický Tábor</p>
+        <p class="poster-event-meta">Červenec 2025 · Zlín a okolí</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">700+</div>
+      <div class="stat-label">žáků</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">umělecké obory</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">12</div>
+      <div class="stat-label">pracovišť</div>
+    </div>
+  </div>
+</div>
+
+<!-- OBORY -->
+<section id="obory">
+  <div class="section-header">
+    <div>
+      <p class="section-label">Co u nás najdete</p>
+      <h2 class="section-title">Tři cesty<br>k umění</h2>
+    </div>
+    <a href="#" class="section-link">Všechny obory</a>
+  </div>
+
+  <div class="obory-grid">
+    <div class="obor-card hudebni">
+      <div class="obor-icon">🎵</div>
+      <h3 class="obor-name">Hudební obor</h3>
+      <p class="obor-desc">Hra na nástroje, zpěv, hudební nauka a komorní hraní. Rozvíjíme talenty od první noty až po absolutní sluch.</p>
+      <a href="#" class="obor-link">Více o oboru →</a>
+      <span class="obor-bg-num">I</span>
+    </div>
+    <div class="obor-card vytvarny">
+      <div class="obor-icon">🎨</div>
+      <h3 class="obor-name">Výtvarný obor</h3>
+      <p class="obor-desc">Kresba, malba, keramika, fotografie a digitální tvorba. Prostor pro vyjádření každého tvůrčího ducha.</p>
+      <a href="#" class="obor-link">Více o oboru →</a>
+      <span class="obor-bg-num">II</span>
+    </div>
+    <div class="obor-card dramaticky">
+      <div class="obor-icon">🎭</div>
+      <h3 class="obor-name">Literárně-dramatický obor</h3>
+      <p class="obor-desc">Divadlo, přednes, tvůrčí psaní a pohybová výchova. Dáváme prostor každému příběhu a každému hlasu.</p>
+      <a href="#" class="obor-link">Více o oboru →</a>
+      <span class="obor-bg-num">III</span>
+    </div>
+  </div>
+</section>
+
+<!-- ZÁPIS BANNER -->
+<div class="zapis-banner" id="zapis">
+  <div class="zapis-inner">
+    <div class="zapis-text">
+      <p class="zapis-pretitle">Přijímací řízení 2025/2026</p>
+      <h2 class="zapis-title">Přihlaste své dítě<br>do nového školního roku</h2>
+      <p class="zapis-date">Zápis probíhá od 1. do 30. dubna 2025</p>
+    </div>
+    <a href="#" class="btn-dark">Podat přihlášku</a>
+  </div>
+</div>
+
+<!-- AKTUALITY -->
+<section id="aktuality" class="aktuality">
+  <div class="section-header">
+    <div>
+      <p class="section-label">Co se děje</p>
+      <h2 class="section-title">Aktuality<br>a události</h2>
+    </div>
+    <a href="#" class="section-link">Všechny aktuality</a>
+  </div>
+
+  <div class="news-grid">
+    <a href="#" class="news-card">
+      <div class="news-thumb news-thumb-1">
+        <div class="news-date-badge">12. dubna 2025</div>
+        ♩
+      </div>
+      <div class="news-body">
+        <p class="news-tag">Koncert</p>
+        <h3 class="news-title">Absolventský koncert – jaro 2025</h3>
+        <p class="news-meta">Kongresové centrum · Zlín</p>
+      </div>
+    </a>
+    <a href="#" class="news-card">
+      <div class="news-thumb news-thumb-2">
+        <div class="news-date-badge">28. března 2025</div>
+        ♪
+      </div>
+      <div class="news-body">
+        <p class="news-tag">Soutěž</p>
+        <h3 class="news-title">Krajská soutěž ZUŠ – výsledky</h3>
+        <p class="news-meta">Uherské Hradiště</p>
+      </div>
+    </a>
+    <a href="#" class="news-card">
+      <div class="news-thumb news-thumb-3">
+        <div class="news-date-badge">15. března 2025</div>
+        🌸
+      </div>
+      <div class="news-body">
+        <p class="news-tag">Výstava</p>
+        <h3 class="news-title">Jarní tóny – výstava výtvarného oboru</h3>
+        <p class="news-meta">Galerie U Zlatého jablka · Zlín</p>
+      </div>
+    </a>
+    <a href="#" class="news-card">
+      <div class="news-thumb news-thumb-4">
+        <div class="news-date-badge">5. března 2025</div>
+        🎭
+      </div>
+      <div class="news-body">
+        <p class="news-tag">Divadlo</p>
+        <h3 class="news-title">Ztracená melodie – divadelní představení</h3>
+        <p class="news-meta">Městské divadlo · Zlín</p>
+      </div>
+    </a>
+    <a href="#" class="news-card">
+      <div class="news-thumb news-thumb-5">
+        <div class="news-date-badge">20. února 2025</div>
+        🥁
+      </div>
+      <div class="news-body">
+        <p class="news-tag">Workshop</p>
+        <h3 class="news-title">Absolutský koncentrační koncert – perkuse</h3>
+        <p class="news-meta">ZUŠ Zlín · Hlavní sál</p>
+      </div>
+    </a>
+    <a href="#" class="news-card">
+      <div class="news-thumb news-thumb-6">
+        <div class="news-date-badge">10. února 2025</div>
+        ✍️
+      </div>
+      <div class="news-body">
+        <p class="news-tag">Zápis</p>
+        <h3 class="news-title">Přihlašování do ZUŠ – nový postup online</h3>
+        <p class="news-meta">Všechna pracoviště</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- PRACOVIŠTĚ -->
+<section id="pracoviste" class="pracoviste">
+  <div class="section-header">
+    <div>
+      <p class="section-label">Kde nás najdete</p>
+      <h2 class="section-title">Naše<br>pracoviště</h2>
+    </div>
+  </div>
+
+  <div class="locations-layout">
+    <div class="location-map">
+      <div class="map-placeholder"></div>
+      <div class="map-label">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="18" r="8" stroke="rgba(201,168,76,.5)" stroke-width="1.5"/>
+          <circle cx="20" cy="18" r="3" fill="rgba(201,168,76,.6)"/>
+          <line x1="20" y1="26" x2="20" y2="36" stroke="rgba(201,168,76,.3)" stroke-width="1.5"/>
+        </svg>
+        <p>Interaktivní mapa pracovišť</p>
+      </div>
+    </div>
+
+    <div class="location-list">
+      <div class="location-item">
+        <div class="location-city"><span class="location-dot"></span>Zlín – Hlavní</div>
+        <div class="location-address">Nám. Míru 12, 760 01 Zlín</div>
+      </div>
+      <div class="location-item">
+        <div class="location-city"><span class="location-dot"></span>Zlín – Jižní Svahy</div>
+        <div class="location-address">Slunečná 3, 761 14 Zlín</div>
+      </div>
+      <div class="location-item">
+        <div class="location-city"><span class="location-dot"></span>Uherské Hradiště</div>
+        <div class="location-address">Palackého nám. 5, 686 01</div>
+      </div>
+      <div class="location-item">
+        <div class="location-city"><span class="location-dot"></span>Uherský Brod</div>
+        <div class="location-address">Mariánské nám. 2, 688 01</div>
+      </div>
+      <div class="location-item">
+        <div class="location-city"><span class="location-dot"></span>Luhačovice</div>
+        <div class="location-address">Masarykova 28, 763 26</div>
+      </div>
+      <div class="location-item">
+        <div class="location-city"><span class="location-dot"></span>Napajedla</div>
+        <div class="location-address">T. G. Masaryka 1, 763 61</div>
+      </div>
+      <div class="location-item">
+        <div class="location-city"><span class="location-dot"></span>Otrokovice</div>
+        <div class="location-address">nám. 3. května 1, 765 02</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL -->
+<div class="social-strip">
+  <div class="social-text">
+    <p class="section-label">Sledujte nás</p>
+    <h3 class="section-title">Buďte součástí<br>naší komunity</h3>
+  </div>
+  <div style="max-width:380px">
+    <p style="font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;">
+      Sledujte naše aktivity na sociálních sítích – fotky ze zkoušek, výsledky soutěží a pozvánky na koncerty.
+    </p>
+    <div class="social-icons">
+      <a href="#" class="social-btn" title="Facebook">f</a>
+      <a href="#" class="social-btn" title="Instagram">in</a>
+      <a href="#" class="social-btn" title="YouTube">▶</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="kontakt">
+  <div class="footer-grid">
+    <div class="footer-about">
+      <div class="nav-logo">
+        <div class="nav-logo-mark"><img src="logo.png" alt="ZUŠ Morava logo"></div>
+        <div class="nav-logo-text">
+          <strong>ZUŠ Morava</strong>
+          <span>Základní umělecká škola</span>
+        </div>
+      </div>
+      <p>Základní umělecká škola Morava vzdělává talentované děti a mládež v celém Zlínském kraji. Jsme součástí sítě uměleckého vzdělávání pod záštitou MŠMT ČR.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Navigace</p>
+      <ul class="footer-links">
+        <li><a href="#">O škole</a></li>
+        <li><a href="#">Hudební obor</a></li>
+        <li><a href="#">Výtvarný obor</a></li>
+        <li><a href="#">Lit.-dramatický obor</a></li>
+        <li><a href="#">Aktuality</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Informace</p>
+      <ul class="footer-links">
+        <li><a href="#">Zápis do školy</a></li>
+        <li><a href="#">Školné</a></li>
+        <li><a href="#">Dokumenty</a></li>
+        <li><a href="#">GDPR</a></li>
+        <li><a href="#">Pro rodiče</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Kontakt</p>
+      <ul class="footer-links">
+        <li><a href="mailto:info@zusmorava.cz">info@zusmorava.cz</a></li>
+        <li><a href="tel:+420577000000">+420 577 000 000</a></li>
+        <li><a href="#">Datová schránka</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 ZUŠ Morava · Základní umělecká škola · IČO: 00111111</p>
+    <div class="footer-partners">
+      <span class="partner-pill">MŠMT ČR</span>
+      <span class="partner-pill">Zlínský kraj</span>
+      <span class="partner-pill">Město Zlín</span>
+      <span class="partner-pill">EU</span>
+    </div>
+  </div>
+</footer>
+
+<!-- TWEAKS -->
+<div id="tweaks-panel">
+  <h4>Tweaks</h4>
+  <div class="tweak-row">
+    <label>Barevné téma</label>
+    <select id="tweak-theme">
+      <option value="dark-gold">Tmavá + zlatá (výchozí)</option>
+      <option value="dark-red">Tmavá + červená</option>
+      <option value="light">Světlá</option>
+    </select>
+  </div>
+  <div class="tweak-row">
+    <label>Akcent barva</label>
+    <input type="color" id="tweak-accent" value="#5BB8F5">
+  </div>
+  <div class="tweak-row">
+    <label>Hero nadpis</label>
+    <select id="tweak-hero-font">
+      <option value="'Playfair Display', serif">Playfair Display</option>
+      <option value="'Georgia', serif">Georgia</option>
+      <option value="'DM Sans', sans-serif">DM Sans</option>
+    </select>
+  </div>
+</div>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Tweaks
+  window.addEventListener('message', e => {
+    if (e.data?.type === '__activate_edit_mode') document.getElementById('tweaks-panel').classList.add('open');
+    if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').classList.remove('open');
+  });
+  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+  document.getElementById('tweak-accent').addEventListener('input', e => {
+    document.documentElement.style.setProperty('--gold', e.target.value);
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { accentColor: e.target.value } }, '*');
+  });
+
+  document.getElementById('tweak-theme').addEventListener('change', e => {
+    const v = e.target.value;
+    if (v === 'dark-gold') {
+      document.documentElement.style.setProperty('--navy', '#0c0e1a');
+      document.documentElement.style.setProperty('--navy2', '#13162a');
+      document.documentElement.style.setProperty('--cream', '#f5f0e8');
+      document.documentElement.style.setProperty('--gold', '#c9a84c');
+      document.body.style.background = 'var(--navy)';
+    } else if (v === 'dark-red') {
+      document.documentElement.style.setProperty('--navy', '#0f0a0a');
+      document.documentElement.style.setProperty('--navy2', '#1a0f0f');
+      document.documentElement.style.setProperty('--cream', '#f5ede8');
+      document.documentElement.style.setProperty('--gold', '#c0392b');
+      document.body.style.background = 'var(--navy)';
+    } else {
+      document.documentElement.style.setProperty('--navy', '#f5f0e8');
+      document.documentElement.style.setProperty('--navy2', '#ede6d8');
+      document.documentElement.style.setProperty('--cream', '#0c0e1a');
+      document.documentElement.style.setProperty('--gold', '#8b5e2e');
+      document.body.style.background = 'var(--navy)';
+    }
+  });
+
+  document.getElementById('tweak-hero-font').addEventListener('change', e => {
+    document.querySelector('.hero-title').style.fontFamily = e.target.value;
+    document.querySelector('.section-title') && document.querySelectorAll('.section-title, .obor-name').forEach(el => el.style.fontFamily = e.target.value);
+  });
+</script>
+</body>
+</html>

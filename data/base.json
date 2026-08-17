@@ -37,22 +37,62 @@
     "kolotoc": {
       "items": [
         {
-          "title": "Testovací slide",
+          "title": "Kde hudba <em>ožívá</em> v každém dítěti",
           "pictureUrl": "2022/03/24/e10.base.templates/steve-johnson-3Sf_G9m0gcQ-unsplash-2-wn34xd.jpg",
           "properties": {
             "bd2gq4ckw_22": {
-              "value": "Popisek pod nadpisem."
+              "value": "Přijďte objevit svůj talent. Hudební, výtvarný i literárně-dramatický obor pro děti a mládež napříč Moravou."
             },
             "bd2gq4ckw_23": true,
             "bd2gq4ckw_24": {
-              "value": "Novinka"
+              "value": "Základní umělecká škola Morava"
             },
             "bd2gq4ckw_25": true,
             "bd2gq4ckw_26": {
-              "value": "Zjistit více"
+              "value": "Podat přihlášku"
             },
             "bd2gq4ckw_27": {
               "value": "/prihlaska"
+            }
+          }
+        },
+        {
+          "title": "Zápis do nového školního roku",
+          "pictureUrl": "2022/03/24/e10.base.templates/steve-johnson-3Sf_G9m0gcQ-unsplash-2-wn34xd.jpg",
+          "properties": {
+            "bd2gq4ckw_22": {
+              "value": "Testovací slide číslo dvě. Slouží jen k ověření, že se karusel přepíná."
+            },
+            "bd2gq4ckw_23": true,
+            "bd2gq4ckw_24": {
+              "value": "Přijímací řízení"
+            },
+            "bd2gq4ckw_25": true,
+            "bd2gq4ckw_26": {
+              "value": "Informace k zápisu"
+            },
+            "bd2gq4ckw_27": {
+              "value": "/zapiszari"
+            }
+          }
+        },
+        {
+          "title": "Liptálský smyčec",
+          "pictureUrl": "2022/03/24/e10.base.templates/steve-johnson-3Sf_G9m0gcQ-unsplash-2-wn34xd.jpg",
+          "properties": {
+            "bd2gq4ckw_22": {
+              "value": "Testovací slide číslo tři."
+            },
+            "bd2gq4ckw_23": true,
+            "bd2gq4ckw_24": {
+              "value": "Soutěž"
+            },
+            "bd2gq4ckw_25": true,
+            "bd2gq4ckw_26": {
+              "value": "Více o soutěži"
+            },
+            "bd2gq4ckw_27": {
+              "value": "/liptalskysmycec"
             }
           }
         }

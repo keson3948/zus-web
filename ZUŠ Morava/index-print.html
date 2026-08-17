@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZUŠ Morava – Základní umělecká škola</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy: #151B54;
+    --navy2: #1c2466;
+    --gold: #5BB8F5;
+    --cream: #EBF4FA;
+    --muted: #8aabc8;
+    --red-art: #e05c6a;
+    --green-art: #3aaf8a;
+    --blue-art: #5BB8F5;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── PRINT PAGE SETUP ── */
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    background: var(--navy);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    overflow: hidden;
+    position: relative;
+    break-after: page;
+    break-inside: avoid;
+    page-break-after: always;
+  }
+  .page:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+
+  /* ── PAGE 1: HERO ── */
+  .page-hero {
+    display: flex;
+    flex-direction: column;
+    padding: 14mm 14mm 10mm;
+  }
+
+  .print-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14mm;
+    padding-bottom: 6mm;
+    border-bottom: 1px solid rgba(91,184,245,.2);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 3mm;
+  }
+  .nav-logo-mark img {
+    width: 12mm; height: 12mm;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+  .nav-logo-text strong {
+    display: block; font-size: 10pt; font-weight: 500; color: var(--cream);
+    letter-spacing: .04em;
+  }
+  .nav-logo-text span {
+    font-size: 7pt; color: var(--muted); letter-spacing: .08em; text-transform: uppercase;
+  }
+  .nav-url {
+    font-size: 8pt; color: var(--muted); letter-spacing: .06em;
+  }
+
+  .hero-label {
+    font-size: 7pt; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 5mm;
+    display: flex; align-items: center; gap: 3mm;
+  }
+  .hero-label::before {
+    content: ''; display: block; width: 10mm; height: 0.3mm; background: var(--gold);
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 38pt; line-height: 1.05; font-weight: 800;
+    color: var(--cream); margin-bottom: 5mm;
+  }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-subtitle {
+    font-size: 11pt; line-height: 1.7; color: var(--muted);
+    max-width: 110mm; margin-bottom: 8mm;
+  }
+
+  .hero-stats {
+    display: flex; gap: 12mm; margin-bottom: 12mm;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 26pt; font-weight: 800; color: var(--gold); line-height: 1;
+  }
+  .stat-label {
+    font-size: 7pt; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted); margin-top: 1mm;
+  }
+
+  .hero-event {
+    background: var(--navy2);
+    border: 0.3mm solid rgba(91,184,245,.2);
+    border-radius: 2mm;
+    padding: 6mm 8mm;
+    display: flex; align-items: center; gap: 6mm;
+    margin-top: auto;
+  }
+  .event-icon {
+    font-family: 'Playfair Display', serif;
+    font-size: 28pt; color: rgba(91,184,245,.4);
+    line-height: 1;
+  }
+  .event-badge {
+    background: var(--gold); color: var(--navy);
+    font-size: 6pt; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; padding: 1mm 2.5mm; border-radius: 1mm;
+    margin-bottom: 1.5mm; display: inline-block;
+  }
+  .event-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 14pt; font-weight: 600; color: var(--cream);
+  }
+  .event-meta { font-size: 8pt; color: var(--muted); margin-top: .5mm; }
+
+  /* ── PAGE 2: OBORY ── */
+  .page-obory {
+    padding: 14mm;
+  }
+  .section-label {
+    font-size: 7pt; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 3mm;
+    display: flex; align-items: center; gap: 3mm;
+  }
+  .section-label::before {
+    content: ''; display: block; width: 8mm; height: 0.3mm; background: var(--gold);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26pt; font-weight: 800; color: var(--cream); line-height: 1.1;
+    margin-bottom: 8mm;
+  }
+
+  .obory-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 3mm; margin-bottom: 10mm;
+  }
+  .obor-card {
+    background: var(--navy2);
+    padding: 6mm;
+    border-top: 1mm solid var(--accent-color, var(--gold));
+    border-radius: 1mm;
+  }
+  .obor-card.hudebni { --accent-color: #e05c6a; }
+  .obor-card.vytvarny { --accent-color: #3aaf8a; }
+  .obor-card.dramaticky { --accent-color: #5BB8F5; }
+  .obor-icon { font-size: 16pt; margin-bottom: 3mm; }
+  .obor-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 12pt; font-weight: 700; color: var(--cream); margin-bottom: 2mm;
+  }
+  .obor-desc { font-size: 8pt; line-height: 1.6; color: var(--muted); }
+
+  /* ZAPIS */
+  .zapis-block {
+    background: var(--gold);
+    padding: 7mm 8mm;
+    border-radius: 1mm;
+    display: flex; align-items: center; justify-content: space-between; gap: 6mm;
+    margin-bottom: 10mm;
+  }
+  .zapis-pretitle {
+    font-size: 6.5pt; letter-spacing: .15em; text-transform: uppercase;
+    color: rgba(21,27,84,.7); margin-bottom: 1mm;
+  }
+  .zapis-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 15pt; font-weight: 800; color: var(--navy); line-height: 1.2;
+  }
+  .zapis-date { font-size: 8pt; color: rgba(21,27,84,.7); margin-top: 1mm; }
+  .zapis-url {
+    background: var(--navy); color: var(--cream);
+    font-size: 8pt; font-weight: 500; letter-spacing: .06em;
+    padding: 2.5mm 5mm; border-radius: 1mm; white-space: nowrap;
+    text-decoration: none;
+  }
+
+  /* ── PAGE 3: AKTUALITY ── */
+  .page-news { padding: 14mm; }
+  .news-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 3mm; margin-bottom: 10mm;
+  }
+  .news-card {
+    background: var(--navy2); border-radius: 1mm; overflow: hidden;
+  }
+  .news-thumb {
+    height: 22mm;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 22pt; color: rgba(255,255,255,.2);
+    position: relative;
+  }
+  .news-thumb-1 { background: linear-gradient(135deg, #1a0a2e, #3d1060); }
+  .news-thumb-2 { background: linear-gradient(135deg, #0a1a2e, #103d60); }
+  .news-thumb-3 { background: linear-gradient(135deg, #0a2e0a, #106010); }
+  .news-thumb-4 { background: linear-gradient(135deg, #2e0a0a, #601010); }
+  .news-thumb-5 { background: linear-gradient(135deg, #2e2a0a, #604010); }
+  .news-thumb-6 { background: linear-gradient(135deg, #0a2e2e, #106060); }
+  .news-date-badge {
+    position: absolute; top: 2mm; left: 2mm;
+    background: rgba(21,27,84,.85);
+    color: var(--gold); font-size: 6pt; font-weight: 500;
+    padding: 1mm 2mm; border-radius: 1mm;
+  }
+  .news-body { padding: 4mm; }
+  .news-tag {
+    font-size: 6pt; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5mm;
+  }
+  .news-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 9pt; font-weight: 600; color: var(--cream); line-height: 1.4;
+    margin-bottom: 1mm;
+  }
+  .news-meta { font-size: 7pt; color: var(--muted); }
+
+  /* ── PAGE 4: LOCATIONS + FOOTER ── */
+  .page-locations { padding: 14mm; }
+  .locations-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4mm; margin-bottom: 8mm;
+  }
+  .location-item {
+    background: var(--navy2); padding: 4mm 5mm;
+    border-left: 1mm solid var(--gold); border-radius: 0 1mm 1mm 0;
+  }
+  .location-city {
+    font-family: 'Playfair Display', serif;
+    font-size: 10pt; font-weight: 600; color: var(--cream);
+  }
+  .location-address { font-size: 8pt; color: var(--muted); margin-top: .5mm; }
+
+  .print-footer {
+    margin-top: auto;
+    padding-top: 6mm;
+    border-top: 0.3mm solid rgba(91,184,245,.15);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-logo {
+    display: flex; align-items: center; gap: 3mm;
+  }
+  .footer-logo img {
+    width: 10mm; height: 10mm; object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+  .footer-logo strong {
+    display: block; font-size: 8pt; font-weight: 500; color: var(--cream);
+  }
+  .footer-logo span { font-size: 6.5pt; color: var(--muted); }
+  .footer-contacts { text-align: right; }
+  .footer-contacts p { font-size: 7.5pt; color: var(--muted); line-height: 1.7; }
+  .footer-contacts a { color: var(--gold); text-decoration: none; }
+  .footer-copy { font-size: 6.5pt; color: rgba(235,244,250,.3); margin-top: 3mm; text-align: center; }
+
+  /* Decorative lines like hero */
+  .deco-lines {
+    position: absolute; left: 0; right: 0;
+    height: 25mm; top: 60mm; pointer-events: none;
+    background: repeating-linear-gradient(
+      transparent, transparent 5.5mm,
+      rgba(91,184,245,.05) 5.5mm, rgba(91,184,245,.05) 5.8mm
+    );
+  }
+
+  @media screen {
+    body { display: flex; flex-direction: column; align-items: center; padding: 20px; gap: 20px; background: #0a0d1e; }
+    .page { box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: HERO -->
+<div class="page page-hero">
+  <div class="deco-lines"></div>
+
+  <div class="print-nav">
+    <div class="nav-logo">
+      <div class="nav-logo-mark"><img src="logo.png" alt="ZUŠ Morava"></div>
+      <div class="nav-logo-text">
+        <strong>ZUŠ Morava</strong>
+        <span>Základní umělecká škola</span>
+      </div>
+    </div>
+    <span class="nav-url">www.zusmorava.cz</span>
+  </div>
+
+  <p class="hero-label">Základní umělecká škola Morava</p>
+  <h1 class="hero-title">
+    Kde hudba<br>
+    <em>ožívá</em> v<br>
+    každém dítěti
+  </h1>
+  <p class="hero-subtitle">
+    Přijďte objevit svůj talent. Hudební, výtvarný i literárně-dramatický obor
+    pro děti a mládež napříč Moravou.
+  </p>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">700+</div>
+      <div class="stat-label">žáků</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">umělecké obory</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">12</div>
+      <div class="stat-label">pracovišť</div>
+    </div>
+  </div>
+
+  <div class="hero-event">
+    <span class="event-icon">♩</span>
+    <div>
+      <span class="event-badge">Nadcházející událost</span>
+      <div class="event-title">14. Letní Múzický Tábor</div>
+      <div class="event-meta">Červenec 2025 · Zlín a okolí</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2: OBORY + ZÁPIS -->
+<div class="page page-obory">
+  <p class="section-label">Co u nás najdete</p>
+  <h2 class="section-title">Tři cesty k umění</h2>
+
+  <div class="obory-grid">
+    <div class="obor-card hudebni">
+      <div class="obor-icon">🎵</div>
+      <h3 class="obor-name">Hudební obor</h3>
+      <p class="obor-desc">Hra na nástroje, zpěv, hudební nauka a komorní hraní. Rozvíjíme talenty od první noty až po absolutní sluch.</p>
+    </div>
+    <div class="obor-card vytvarny">
+      <div class="obor-icon">🎨</div>
+      <h3 class="obor-name">Výtvarný obor</h3>
+      <p class="obor-desc">Kresba, malba, keramika, fotografie a digitální tvorba. Prostor pro vyjádření každého tvůrčího ducha.</p>
+    </div>
+    <div class="obor-card dramaticky">
+      <div class="obor-icon">🎭</div>
+      <h3 class="obor-name">Literárně-dramatický obor</h3>
+      <p class="obor-desc">Divadlo, přednes, tvůrčí psaní a pohybová výchova. Dáváme prostor každému příběhu a každému hlasu.</p>
+    </div>
+  </div>
+
+  <div class="zapis-block">
+    <div>
+      <p class="zapis-pretitle">Přijímací řízení 2025/2026</p>
+      <h2 class="zapis-title">Přihlaste své dítě<br>do nového školního roku</h2>
+      <p class="zapis-date">Zápis probíhá od 1. do 30. dubna 2025</p>
+    </div>
+    <span class="zapis-url">zusmorava.cz/zapis</span>
+  </div>
+
+  <!-- Social + contacts inline -->
+  <div style="display:flex; gap:6mm; align-items:flex-start; margin-top:auto;">
+    <div style="flex:1; background:var(--navy2); padding:5mm 6mm; border-radius:1mm;">
+      <p class="section-label" style="margin-bottom:2mm;">Kontakt</p>
+      <p style="font-size:8.5pt; color:var(--cream); line-height:2;">
+        info@zusmorava.cz<br>
+        +420 577 000 000<br>
+        <span style="color:var(--muted);">www.zusmorava.cz</span>
+      </p>
+    </div>
+    <div style="flex:1; background:var(--navy2); padding:5mm 6mm; border-radius:1mm;">
+      <p class="section-label" style="margin-bottom:2mm;">Sledujte nás</p>
+      <p style="font-size:8.5pt; color:var(--muted); line-height:2;">
+        Facebook · Instagram · YouTube<br>
+        <span style="color:var(--cream);">@zusmorava</span>
+      </p>
+    </div>
+    <div style="flex:1; background:var(--navy2); padding:5mm 6mm; border-radius:1mm;">
+      <p class="section-label" style="margin-bottom:2mm;">Podpora</p>
+      <p style="font-size:8pt; color:var(--muted); line-height:1.8;">
+        MŠMT ČR<br>Zlínský kraj<br>Město Zlín
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3: AKTUALITY -->
+<div class="page page-news">
+  <p class="section-label">Co se děje</p>
+  <h2 class="section-title">Aktuality a události</h2>
+
+  <div class="news-grid">
+    <div class="news-card">
+      <div class="news-thumb news-thumb-1">
+        <div class="news-date-badge">12. dubna 2025</div>
+        ♩
+      </div>
+      <div class="news-body">
+        <p class="news-tag">Koncert</p>
+        <h3 class="news-title">Absolventský koncert – jaro 2025</h3>
+        <p class="news-meta">Kongresové centrum · Zlín</p>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="news-thumb news-thumb-2">
+        <div class="news-date-badge">28. března 2025</div>
+        ♪
+      </div>
+      <div class="news-body">
+        <p class="news-tag">Soutěž</p>
+        <h3 class="news-title">Krajská soutěž ZUŠ – výsledky</h3>
+        <p class="news-meta">Uherské Hradiště</p>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="news-thumb news-thumb-3">
+        <div class="news-date-badge">15. března 2025</div>
+        🌸
+      </div>
+      <div class="news-body">
+        <p class="news-tag">Výstava</p>
+        <h3 class="news-title">Jarní tóny – výstava výtvarného oboru</h3>
+        <p class="news-meta">Galerie U Zlatého jablka · Zlín</p>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="news-thumb news-thumb-4">
+        <div class="news-date-badge">5. března 2025</div>
+        🎭
+      </div>
+      <div class="news-body">
+        <p class="news-tag">Divadlo</p>
+        <h3 class="news-title">Ztracená melodie – divadelní představení</h3>
+        <p class="news-meta">Městské divadlo · Zlín</p>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="news-thumb news-thumb-5">
+        <div class="news-date-badge">20. února 2025</div>
+        🥁
+      </div>
+      <div class="news-body">
+        <p class="news-tag">Workshop</p>
+        <h3 class="news-title">Absolventský koncert – perkuse</h3>
+        <p class="news-meta">ZUŠ Zlín · Hlavní sál</p>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="news-thumb news-thumb-6">
+        <div class="news-date-badge">10. února 2025</div>
+        ✍️
+      </div>
+      <div class="news-body">
+        <p class="news-tag">Zápis</p>
+        <h3 class="news-title">Přihlašování do ZUŠ – nový postup online</h3>
+        <p class="news-meta">Všechna pracoviště</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="footer-copy">© 2025 ZUŠ Morava · Základní umělecká škola · IČO: 00111111 · www.zusmorava.cz</p>
+</div>
+
+<!-- PAGE 4: PRACOVIŠTĚ -->
+<div class="page page-locations" style="display:flex; flex-direction:column;">
+  <p class="section-label">Kde nás najdete</p>
+  <h2 class="section-title">Naše pracoviště</h2>
+
+  <div class="locations-grid">
+    <div class="location-item">
+      <div class="location-city">Zlín – Hlavní</div>
+      <div class="location-address">Nám. Míru 12, 760 01 Zlín</div>
+    </div>
+    <div class="location-item">
+      <div class="location-city">Zlín – Jižní Svahy</div>
+      <div class="location-address">Slunečná 3, 761 14 Zlín</div>
+    </div>
+    <div class="location-item">
+      <div class="location-city">Uherské Hradiště</div>
+      <div class="location-address">Palackého nám. 5, 686 01</div>
+    </div>
+    <div class="location-item">
+      <div class="location-city">Uherský Brod</div>
+      <div class="location-address">Mariánské nám. 2, 688 01</div>
+    </div>
+    <div class="location-item">
+      <div class="location-city">Luhačovice</div>
+      <div class="location-address">Masarykova 28, 763 26</div>
+    </div>
+    <div class="location-item">
+      <div class="location-city">Napajedla</div>
+      <div class="location-address">T. G. Masaryka 1, 763 61</div>
+    </div>
+    <div class="location-item">
+      <div class="location-city">Otrokovice</div>
+      <div class="location-address">nám. 3. května 1, 765 02</div>
+    </div>
+    <div class="location-item" style="background:transparent; border-left-color:transparent;">
+    </div>
+  </div>
+
+  <div class="print-footer">
+    <div class="footer-logo">
+      <img src="logo.png" alt="ZUŠ Morava">
+      <div>
+        <strong>ZUŠ Morava</strong>
+        <span style="display:block; font-size:6.5pt; color:var(--muted);">Základní umělecká škola</span>
+      </div>
+    </div>
+    <div class="footer-contacts">
+      <p><a href="mailto:info@zusmorava.cz">info@zusmorava.cz</a> · +420 577 000 000</p>
+      <p>www.zusmorava.cz</p>
+    </div>
+  </div>
+  <p class="footer-copy">© 2025 ZUŠ Morava · Základní umělecká škola · IČO: 00111111</p>
+</div>
+
+<script>
+  document.fonts.ready.then(() => {
+    setTimeout(() => window.print(), 500);
+  });
+</script>
+</body>
+</html>

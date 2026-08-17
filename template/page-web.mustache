@@ -36,6 +36,13 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    <!-- Playfair Display (nadpisy). Poppins se načítá z /att/ ve style.less.
+         Až budeš chtít pryč od CDN, nahraj Playfair do Shipardu stejně
+         jako Poppins a nahraď to @font-face pravidlem. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,800&display=swap" rel="stylesheet">
+
     <link href="{{templateRoot}}/old_style.css?ver=4" rel="stylesheet">
     <link href="{{templateRoot}}/style.css?ver=46" rel="stylesheet">
 		{{#page.params.almanachPage}}
@@ -159,8 +166,8 @@
     <nav class="navbar navbar-expand-lg top-menu-tabs">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <!--<img src="/att/2018/08/23/e10.base.templatesLooks/logo2-1wgfmms.svg" alt="Logo"><img src="/att/2024/12/08/e10.base.templates/6-1onaylj.svg">-->
-								<img src="/att/2026/07/27/e10.base.templates/zusmorava_2101ynw-1gihm3q.svg">
+								<img src="/att/2026/07/27/e10.base.templates/zusmorava_2101ynw-1gihm3q.svg" alt="ZUŠ Morava">
+								<span class="brand-sub">Základní umělecká škola</span>
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
@@ -255,7 +262,7 @@
                         <a class="nav-link" href="/liptalskysmycec">Liptálský smyčec</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/prihlaska" class="btn btn-primary nav-link rounded-2 border-0">Přihláška</a>
+                        <a href="/prihlaska" class="nav-link nav-cta">Přihláška</a>
                     </li>
                     <!--<li class="nav-item">
                         <a href="/liptalskysmycec" class="btn btn-primary nav-link rounded-2 border-0" >
@@ -342,57 +349,55 @@ border: 1px solid rgba(255, 255, 255, 0.32);">
     <!-- Karusel na úvodní stránce.
          Vlastnosti položek: _2a = plakát, _28 = video, _23/_24 = štítek,
          _22 = popisek, _25 = zobrazit tlačítko, _26 = text, _27 = odkaz. -->
-    <div class="hero uk-position-relative uk-visible-toggle show" tabindex="-1" uk-slideshow="min-height: 380; max-height: 640; animation: push; velocity: 1.4; autoplay: true; autoplay-interval: 7000; pause-on-hover: true">
-        <ul class="uk-slideshow-items">
+    <div class="hero show" uk-slideshow="animation: fade; autoplay: true; autoplay-interval: 7000; pause-on-hover: true; finite: false">
+        <div class="hero-lines"></div>
+
+        <ul class="uk-slideshow-items hero-items">
             {{#!webBlocks.kolotoc.items}}
               <li>
-                {{#properties.bd2gq4ckw_2a}} <!-- Plakát na výšku: rozmazaná kopie vyplní okraje -->
-                    <div class="poster-background">
-                      <img src="{{serverRoot}}/att/{{pictureUrl}}" alt="" class="background-blurred">
-                    </div>
-                    <div class="poster-container">
-                      <img src="{{serverRoot}}/att/{{pictureUrl}}" alt="Plakát" class="poster-image">
-                    </div>
-                {{/properties.bd2gq4ckw_2a}}
+                <div class="hero-grid">
 
-                {{^properties.bd2gq4ckw_2a}}
-                    {{#properties.bd2gq4ckw_28}}
-                      <video src="{{properties.bd2gq4ckw_28.value}}" autoplay loop muted playsinline uk-cover></video>
-                    {{/properties.bd2gq4ckw_28}}
-                    {{^properties.bd2gq4ckw_28}}
-                      <img src="{{serverRoot}}/att/{{pictureUrl}}" alt="" uk-cover>
-                    {{/properties.bd2gq4ckw_28}}
-                {{/properties.bd2gq4ckw_2a}}
-
-                <div class="hero-scrim"></div>
-
-                <div class="uk-position-bottom-left uk-position-medium">
                   <div class="hero-content">
                     {{#properties.bd2gq4ckw_23}}
-                      <span class="hero-badge">{{{properties.bd2gq4ckw_24.value}}}</span>
+                      <div class="section-label">{{{properties.bd2gq4ckw_24.value}}}</div>
                     {{/properties.bd2gq4ckw_23}}
 
+                    {{! Tři závorky schválně: v názvu slidu smí být <em>slovo</em>,
+                        které se vysází kurzívou v akcentní barvě. }}
                     {{#title}}
-                      <h2 class="hero-title">{{title}}</h2>
+                      <h1 class="hero-title">{{{title}}}</h1>
                     {{/title}}
 
-                    <div class="hero-text">{{{properties.bd2gq4ckw_22.value}}}</div>
+                    <div class="hero-subtitle">{{{properties.bd2gq4ckw_22.value}}}</div>
 
-                    {{#properties.bd2gq4ckw_25}}
-                      <div class="hero-actions">
-                        <a href="{{{properties.bd2gq4ckw_27.value}}}" class="btn btn-light">{{{properties.bd2gq4ckw_26.value}}}</a>
-                      </div>
-                    {{/properties.bd2gq4ckw_25}}
+                    <div class="hero-actions">
+                      {{#properties.bd2gq4ckw_25}}
+                        <a href="{{{properties.bd2gq4ckw_27.value}}}" class="btn btn-primary">{{{properties.bd2gq4ckw_26.value}}}</a>
+                      {{/properties.bd2gq4ckw_25}}
+                      <a href="#obory" class="btn-arrow">Prozkoumat obory</a>
+                    </div>
                   </div>
+
+                  <div class="hero-visual">
+                    <div class="hero-poster">
+                      {{#properties.bd2gq4ckw_28}}
+                        <video src="{{properties.bd2gq4ckw_28.value}}" autoplay loop muted playsinline></video>
+                      {{/properties.bd2gq4ckw_28}}
+                      {{^properties.bd2gq4ckw_28}}
+                        <img src="{{serverRoot}}/att/{{pictureUrl}}" alt="{{title}}">
+                      {{/properties.bd2gq4ckw_28}}
+                    </div>
+                  </div>
+
                 </div>
               </li>
             {{/!webBlocks.kolotoc.items}}
         </ul>
 
-        <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-        <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
-
-        <div id="watermark"><img src="https://zus-morava.shipard.app/att/2022/02/01/e10.base.templates/Kreslici-pla-tno-1zus_watermark-1xsnsdc.png"></div>
+        <div class="hero-nav">
+            <a href="#" uk-slidenav-previous uk-slideshow-item="previous" aria-label="Předchozí"></a>
+            <a href="#" uk-slidenav-next uk-slideshow-item="next" aria-label="Další"></a>
+        </div>
     </div>
     {{/page.params.homePage}}
 
@@ -531,6 +536,19 @@ border: 1px solid rgba(255, 255, 255, 0.32);">
 <script defer src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.js"></script>
 <script defer src="{{templateRoot}}/cookieconsent-init.js?ver=5"></script>
 
+
+<script>
+// Po odscrollování lišta ztmavne a dostane stín.
+(function () {
+	var hdr = document.querySelector("header");
+	if (!hdr) return;
+	var prepni = function () {
+		hdr.classList.toggle("scrolled", window.scrollY > 20);
+	};
+	window.addEventListener("scroll", prepni, { passive: true });
+	prepni();
+})();
+</script>
 
 <script>
 // Accordion je jen na některých stránkách – bez téhle podmínky
