@@ -570,8 +570,12 @@ li.menu-teacher-login {
   position: relative;
   margin-bottom: 5rem;
 
-  // Barevná mlha z návrhu, jen výrazně světlejší. Roztažená přes celou
-  // šířku okna, i když hero sedí v kontejneru.
+  // Barevná mlha ze tří barev oborů. Bere je z proměnných, takže se
+  // drží s kartami níž na stránce.
+  //
+  // Sytější skvrny jsou schválně vpravo a dole, kde leží plakát.
+  // Vlevo nahoře, kde sedí nadpis a text, zůstává pozadí světlé –
+  // jinak by tmavě modrý nadpis ztrácel kontrast.
   &::before {
     content: "";
     position: absolute;
@@ -583,10 +587,12 @@ li.menu-teacher-login {
     z-index: 0;
     pointer-events: none;
     background:
-      radial-gradient(ellipse 55% 65% at 72% 42%, rgba(91, 184, 245, .22) 0%, transparent 62%),
-      radial-gradient(ellipse 45% 60% at 12% 78%, rgba(18, 115, 196, .12) 0%, transparent 65%),
-      radial-gradient(ellipse 40% 50% at 95% 95%, rgba(235, 93, 53, .07) 0%, transparent 60%),
-      linear-gradient(180deg, #FBFDFF 0%, @bg 100%);
+      radial-gradient(ellipse 48% 58% at 80% 26%, fade(@obor-hudebni, 42%) 0%, transparent 62%),
+      radial-gradient(ellipse 40% 50% at 98% 78%, fade(@obor-vytvarny, 34%) 0%, transparent 64%),
+      radial-gradient(ellipse 44% 52% at 62% 98%, fade(@obor-litdram, 34%) 0%, transparent 64%),
+      radial-gradient(ellipse 38% 46% at 2% 92%, fade(@obor-litdram, 18%) 0%, transparent 66%),
+      radial-gradient(ellipse 50% 42% at 18% 2%, fade(@secondary-light, 22%) 0%, transparent 68%),
+      linear-gradient(160deg, #FDFEFF 0%, @bg 50%, #E9F1F9 100%);
   }
 }
 
@@ -752,7 +758,9 @@ li.menu-teacher-login {
 
 .hero-subtitle {
   margin: 0 0 2.25rem;
-  color: @text-muted;
+  // Tmavší než běžný @text-muted: popisek leží na barevném pozadí hero,
+  // kde světlejší odstín nedosáhl na kontrast 4,5:1.
+  color: darken(@text-muted, 10%);
   font-size: 1.05rem;
   line-height: 1.7;
   max-width: 46ch;
@@ -1561,6 +1569,17 @@ div.contact-cards-a.hover-picture div.card-picture:hover {
   .hero-poster { max-width: 300px; }
 
   .hero .carousel-item { min-height: 0; }
+
+  // Hero je na úzkém displeji tak úzké, že se barevné skvrny nevyhnou
+  // textu – vpravo zasahovala červená a kontrast padal pod 4,5.
+  // Skvrny jsou proto slabší a stažené k dolnímu okraji, pod text.
+  .hero::before {
+    background:
+      radial-gradient(ellipse 70% 30% at 82% 12%, fade(@obor-hudebni, 26%) 0%, transparent 68%),
+      radial-gradient(ellipse 65% 22% at 95% 97%, fade(@obor-vytvarny, 22%) 0%, transparent 70%),
+      radial-gradient(ellipse 70% 24% at 40% 100%, fade(@obor-litdram, 26%) 0%, transparent 70%),
+      linear-gradient(170deg, #FDFEFF 0%, @bg 55%, #EDF3FA 100%);
+  }
 
   // Ovládání karuselu jako jeden pruh dole: šipky k okrajům, tečky
   // doprostřed. Nahoře u plakátu plavaly v prázdnu.
