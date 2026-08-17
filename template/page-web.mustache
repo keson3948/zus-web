@@ -515,12 +515,39 @@ border: 1px solid rgba(255, 255, 255, 0.32);">
 // Bootstrap chce mít na jednom snímku třídu active. Mustache neumí
 // poznat první prvek smyčky, tak ji doplníme tady.
 (function () {
-	var inner = document.querySelector("#heroCarousel .carousel-inner");
+	var karusel = document.getElementById("heroCarousel");
+	if (!karusel) return;
+
+	var inner = karusel.querySelector(".carousel-inner");
 	if (!inner) return;
-	var prvni = inner.querySelector(".carousel-item");
-	if (prvni && !inner.querySelector(".carousel-item.active")) {
-		prvni.classList.add("active");
+
+	var snimky = inner.querySelectorAll(".carousel-item");
+	if (snimky.length && !inner.querySelector(".carousel-item.active")) {
+		snimky[0].classList.add("active");
 	}
+
+	// Tečky se skládají tady, protože mustache neumí poznat pořadí prvku
+	// ve smyčce a Bootstrap potřebuje u každé data-bs-slide-to s indexem.
+	// Při jediném snímku nemá co přepínat, tak se nevykreslí.
+	if (snimky.length < 2) return;
+
+	var tecky = document.createElement("div");
+	tecky.className = "carousel-indicators hero-dots";
+
+	for (var i = 0; i < snimky.length; i++) {
+		var b = document.createElement("button");
+		b.type = "button";
+		b.setAttribute("data-bs-target", "#heroCarousel");
+		b.setAttribute("data-bs-slide-to", String(i));
+		b.setAttribute("aria-label", "Snímek " + (i + 1));
+		if (i === 0) {
+			b.className = "active";
+			b.setAttribute("aria-current", "true");
+		}
+		tecky.appendChild(b);
+	}
+
+	karusel.appendChild(tecky);
 })();
 </script>
 

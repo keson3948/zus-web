@@ -194,9 +194,12 @@ h1, h2, h3, h4, h5, h6,
   line-height: 1.1;
 }
 
-h1 { font-size: clamp(2.1rem, 1.4rem + 2.6vw, 3.4rem); font-weight: 800; }
-h2 { font-size: clamp(1.7rem, 1.2rem + 1.8vw, 2.6rem); font-weight: 800; }
-h3 { font-size: clamp(1.3rem, 1.1rem + .8vw, 1.65rem); }
+// Vlnovka je tu nutná: LESS by `1.4rem + 2.6vw` spočítal jako matematiku
+// a slepil z toho jedno číslo (4rem), takže by se nadpis nikdy nezmenšil.
+// Escapováním se výraz propíše do CSS tak, jak je.
+h1 { font-size: ~"clamp(2.1rem, 1.4rem + 2.6vw, 3.4rem)"; font-weight: 800; }
+h2 { font-size: ~"clamp(1.7rem, 1.2rem + 1.8vw, 2.6rem)"; font-weight: 800; }
+h3 { font-size: ~"clamp(1.3rem, 1.1rem + .8vw, 1.65rem)"; }
 
 // Kurzíva v nadpisu jako barevný akcent (viz „Kde hudba *ožívá*")
 h1 em, h2 em, h3 em,
@@ -652,6 +655,41 @@ li.menu-teacher-login {
   }
 }
 
+// Tečky karuselu. Skládá je skript v šabloně, viz komentář u něj.
+.hero-dots {
+  position: absolute;
+  left: 0;
+  right: auto;
+  bottom: 1.3rem;
+  z-index: 4;
+  margin: 0 0 0 4.1rem;   // vedle šipek
+  justify-content: flex-start;
+
+  // Cílíme přes [data-bs-target], jinak vyhraje bootstrapovské
+  // `.carousel-indicators [data-bs-target]` a z teček zůstanou čárky 30x3.
+  [data-bs-target] {
+    width: 9px;
+    height: 9px;
+    box-sizing: content-box;
+    border-radius: 50%;
+    border: 0;
+    margin: 0;
+    // Odsazení dělá klikací plochu 25 px, background-clip drží
+    // viditelnou tečku na devíti pixelech.
+    padding: 8px;
+    background: @primary;
+    background-clip: content-box;
+    opacity: .28;
+    text-indent: 0;
+    transition: opacity @ease, transform @ease;
+
+    &.active {
+      opacity: 1;
+      transform: scale(1.25);
+    }
+  }
+}
+
 // Titulní blok almanachu (býval karusel o jednom snímku)
 .almanach-cover {
   position: relative;
@@ -700,7 +738,7 @@ li.menu-teacher-login {
   color: @primary;
   font-family: @font-heading;
   font-weight: 800;
-  font-size: clamp(2.4rem, 1.2rem + 4vw, 4.6rem);
+  font-size: ~"clamp(1.85rem, 1rem + 3.4vw, 4.6rem)";
   line-height: 1.05;
   letter-spacing: -.01em;
 }
@@ -1143,8 +1181,11 @@ ul.pagination {
   }
 }
 
+// Pozor na zkratku: `padding: 3.5rem 0 2.5rem` nulovala i boční odsazení,
+// které si nese bootstrapový .container. Na mobilu pak obsah lepil na kraj.
 .footer-main {
-  padding: 3.5rem 0 2.5rem;
+  padding-top: 3.5rem;
+  padding-bottom: 2.5rem;
 }
 
 .footer-title {
@@ -1205,7 +1246,8 @@ ul.pagination {
 // Světlý pruh proto, že loga jsou kreslená na bílou.
 .footer-partners {
   background: @surface;
-  padding: 2.5rem 0;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 
 .footer-partners-title {
@@ -1269,8 +1311,21 @@ ul.pagination {
   }
 }
 
+// Odkazy v patičce jsou obyčejný text, na dotyk ale vycházely 21 px.
+// Odsazení je dorovná na pohodlnou plochu, aniž by se rozjel vzhled.
+#page-footer .footer-main li a,
+#page-footer .footer-main .footer-contact a {
+  display: inline-block;
+  padding-block: .18rem;
+}
+
+.section-link {
+  padding-block: .2rem;
+}
+
 .footer-bottom {
-  padding: 1.25rem 0;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
   font-size: .88rem;
   color: rgba(255, 255, 255, .6);
 }
@@ -1490,14 +1545,40 @@ div.contact-cards-a.hover-picture div.card-picture:hover {
 
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
-    padding: 2.5rem 0 3.5rem;
+    gap: 1.75rem;
+    padding: 2rem 0 3rem;
   }
 
+  // Plakát nahoru, text pod něj
   .hero-visual { order: -1; }
-  .hero-poster { max-width: 320px; }
-  .hero-items { min-height: 0; }
-  .hero-nav { position: static; margin-top: 1.5rem; }
+  .hero-poster { max-width: 300px; }
+
+  .hero .carousel-item { min-height: 0; }
+
+  // Ovládání karuselu jako jeden pruh dole: šipky k okrajům, tečky
+  // doprostřed. Nahoře u plakátu plavaly v prázdnu.
+  .hero-nav {
+    position: absolute;
+    top: auto;
+    bottom: .55rem;
+    left: 0;
+    right: 0;
+    justify-content: space-between;
+    z-index: 4;
+  }
+
+  .hero-nav button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .hero-dots {
+    margin-left: 0;
+    justify-content: center;
+    left: 0;
+    right: 0;
+    bottom: 1.05rem;
+  }
 
   main {
     margin-top: 2rem;
@@ -1523,12 +1604,32 @@ div.contact-cards-a.hover-picture div.card-picture:hover {
 
 // Telefony
 @media (max-width: @bp-md - 1px) {
-  .obory-grid,
-  .news-grid {
+  // Obory mají hodně textu, ty se skládají pod sebe.
+  // Aktuality jsou plakáty, ty ve dvou sloupcích drží dobře a stránka
+  // se tím výrazně zkrátí.
+  .obory-grid {
     grid-template-columns: 1fr;
   }
 
+  .news-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .obor-card { padding: 2rem 1.5rem; }
+
+  // Hero se musí vejít na obrazovku, jinak ovládání karuselu skončí
+  // pod okrajem a uživatel vůbec nepozná, že se dá přepínat.
+  .hero-grid { gap: 1.25rem; padding: 1.25rem 0 3.25rem; }
+  .hero-poster { max-width: 250px; }
+  .hero-subtitle { font-size: .95rem; margin-bottom: 1.25rem; }
+  .hero-actions { gap: .85rem; }
+
+  .hero-nav button { width: 36px; height: 36px; }
+
+  .news-body { padding: .85rem .9rem 1rem; }
+  .news-card .card-title { font-size: .92rem; }
+  .news-tag { font-size: .6rem; letter-spacing: .1em; }
+  .news-date-badge { top: .5rem; left: .5rem; font-size: .62rem; padding: .2rem .45rem; }
 
   body {
     font-size: .98rem;
