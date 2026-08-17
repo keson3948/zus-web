@@ -18,6 +18,7 @@ npm start          # http://localhost:3000
 | `script.js`, `cookieconsent-init.js` | `js/` |
 | obsah stránky (editor stránky) | `pages/<slug>.html` |
 | parametry stránky (homePage, smycec, almanachPage, layout) | `pages/<slug>.json` |
+| obsah patičky (`page.footerFull`) | `template/footer.html` |
 | — | `data/base.json` (globální proměnné, karusel) |
 | — | `data/dataviews/<jmeno>.json` (testovací data pro dataView) |
 
@@ -129,9 +130,13 @@ zrušenou `max-width` a drží ho jen boční odsazení (`@bleed-x` v sekci 2).
 Pravidlo cílí jmenovitě na `#c-main` a spol., aby se nerozbily `.container`
 uvnitř textů stránek.
 
-Pruh se sociálními sítěmi je součástí patičky (`page.footerFull`
-v `data/base.json`), takže je na všech stránkách. Na úvodní stránce už
-proto samostatná sekce není.
+Patička je v `template/footer.html` jako obyčejné HTML, ne jako
+escapovaný řetězec v JSONu – dá se odtamtud rovnou zkopírovat do
+Shipardu do `page.footerFull`. Dev server si ji z toho souboru načítá
+sám, takže je jen na jednom místě.
+
+Pruh se sociálními sítěmi je součástí patičky, takže je na všech
+stránkách. Na úvodní stránce už proto samostatná sekce není.
 
 Tlačítka mají `border-radius` s `!important` schválně — ve stránkách ze
 Shipardu jsou desítky odkazů s inline `style="border-radius: 0px"`, které by

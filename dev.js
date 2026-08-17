@@ -167,6 +167,12 @@ function buildView(base, slug) {
   const pageData = exists(`${base}.json`) ? readJson(`${base}.json`) : {};
   const view = deepMerge(globals, pageData);
 
+  // Patička žije ve vlastním souboru, ne jako escapovaný řetězec v JSONu –
+  // z template/footer.html se dá rovnou kopírovat do Shipardu.
+  if (exists("template/footer.html") && !view.page.footerFull) {
+    view.page.footerFull = read("template/footer.html");
+  }
+
   const layouts = ["layoutSidebarNone", "layoutSidebarLeft", "layoutSidebarRight", "layoutSidebarBoth"];
   if (!layouts.some((k) => view.page[k])) view.page.layoutSidebarNone = true;
   if (!view.page.pageTitle) view.page.pageTitle = `${slug} – lokální náhled`;
