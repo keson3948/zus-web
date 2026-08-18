@@ -1,16 +1,10 @@
 {{#page.articles}}
 	<article class='article pageText'>
-		<div class='article-header'>
-			<h3><a href="{{url}}">{{title}}</a></h3>
-
-			{{#section.showDateOrAuthor}}
-				<span>
-					{{#section.showDate}}{{#datePub}}<i class='fa fa-calendar'></i>&nbsp;{{datePub}}{{/datePub}}{{/section.showDate}}
-					{{#section.showAuthor}}{{#authorLastName}}<i class='fa fa-user'></i>&nbsp;{{authorFirstName}}&nbsp;{{authorLastName}}{{/authorLastName}}{{/section.showAuthor}}
-				</span>
-			{{/section.showDateOrAuthor}}
-		</div>
 		{{{text}}}
+		<div class='article-header'>
+			{{#datePub}}<time class="article-date">{{datePub}}</time>{{/datePub}}
+			<h3><a href="{{url}}">{{title}}</a></h3>
+		</div>
 		<div class="article-end"></div>
 	</article>
 {{/page.articles}}

@@ -1502,7 +1502,7 @@ article {
 // editor při vložení přílohy, nejde upravit v šabloně.
 main.pageArticles {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   align-items: start;
 }
@@ -1520,6 +1520,8 @@ main.pageArticles > article.article {
   &:hover {
     box-shadow: @shadow;
     transform: translateY(-3px);
+
+    img { transform: scale(1.04); }
   }
 
   // Shipard vkládá obrázek do vlastní row/col mřížky – bez odsazení,
@@ -1527,24 +1529,42 @@ main.pageArticles > article.article {
   .row { margin: 0; }
   [class*="col-"] { padding: 0; }
 
+  // Poster stejného poměru stran jako .news-card-media na úvodní stránce,
+  // ať obě podoby "aktualit" na webu vypadají jednotně. Fotky mají různý
+  // přirozený poměr stran (na výšku, na výšku i víc, čtverec…), object-fit
+  // je sjednotí.
   img {
     display: block;
     width: 100%;
-    height: auto;
+    aspect-ratio: 1 / 1.2;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform .5s cubic-bezier(.4, 0, .2, 1);
   }
 }
 
 main.pageArticles .article-header {
-  padding: 1.1rem 1.25rem .25rem;
+  padding: 1.15rem 1.25rem 1.35rem;
+}
+
+main.pageArticles .article-date {
+  display: block;
+  margin-bottom: .4rem;
+  color: @text-muted;
+  font-size: .74rem;
+  letter-spacing: .04em;
 }
 
 main.pageArticles .article-header h3 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.05rem;
+  font-weight: 600;
   line-height: 1.4;
 
   a {
     color: @primary;
+    text-decoration: none;
+
     &:hover { color: @secondary; }
   }
 }
@@ -1553,10 +1573,6 @@ main.pageArticles .article-end { display: none; }
 
 main.pageArticles nav {
   grid-column: 1 / -1;
-}
-
-@media (max-width: @bp-sm) {
-  main.pageArticles { grid-template-columns: 1fr; }
 }
 
 ul.pagination {
@@ -2519,7 +2535,8 @@ div.article-header { padding-bottom: 1rem; }
   .social-strip { padding: 3rem 0; }
 
   .obory-grid,
-  .news-grid {
+  .news-grid,
+  main.pageArticles {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -2613,6 +2630,11 @@ div.article-header { padding-bottom: 1rem; }
 
   .news-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  main.pageArticles {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .obor-card { padding: 2rem 1.5rem; }
