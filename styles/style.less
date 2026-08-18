@@ -2535,12 +2535,16 @@ table.default {
 // takže tenhle výběr (tag + třída) nikdy nic netrefil a seznamy zůstávaly
 // na holém prohlížečovém stylu. Bez tagu, jen podle třídy.
 .pageText {
+  // > li všude tady je záměrně místo pouhého "li": bez toho descendant
+  // selektor zachytí i <li> uvnitř vnořeného <ol>/<ul> (je to pořád
+  // "potomek" toho vnějšího seznamu), takže by číslovaná podotrážka
+  // dostala navíc i tečku z nadřazeného seznamu.
   ul:not([class]) {
     list-style: none;
     padding-left: 0;
     margin-bottom: 1.15rem;
 
-    li {
+    > li {
       position: relative;
       padding-left: 1.4rem;
       margin-bottom: .5rem;
@@ -2567,7 +2571,7 @@ table.default {
     padding-left: 1.4rem;
     margin-bottom: 1.15rem;
 
-    li {
+    > li {
       margin-bottom: .5rem;
       line-height: 1.6;
       padding-left: .15rem;
