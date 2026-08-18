@@ -34,6 +34,39 @@
           "email": "teskova@zusmorava.cz",
           "phone": "577 018 899"
         }
+      },
+      {
+        "fullName": "Tomáš Kovář",
+        "image": {
+          "smallImage": "https://picsum.photos/seed/u4/400/400"
+        },
+        "pp": {
+          "zus-zam-info-funkce": "učitel kytary",
+          "email": "kovar@zusmorava.cz",
+          "phone": "577 018 900"
+        }
+      },
+      {
+        "fullName": "Lucie Horáková",
+        "image": {
+          "smallImage": "https://picsum.photos/seed/u5/400/400"
+        },
+        "pp": {
+          "zus-zam-info-funkce": "učitelka výtvarného oboru",
+          "email": "horakova@zusmorava.cz",
+          "phone": "577 018 901"
+        }
+      },
+      {
+        "fullName": "Marek Doležal",
+        "image": {
+          "smallImage": "https://picsum.photos/seed/u6/400/400"
+        },
+        "pp": {
+          "zus-zam-info-funkce": "učitel literárně-dramatického oboru",
+          "email": "dolezal@zusmorava.cz",
+          "phone": "577 018 902"
+        }
       }
     ]
   }
