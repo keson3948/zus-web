@@ -323,15 +323,26 @@ main {
 
 // Text stránky z editoru Shipardu. Bootstrapový základ dává nadpisům
 // jen .5rem pod sebe, což je na patkové nadpisy málo.
-// Vybíráme jen přímé potomky, aby to nesahalo na sekce úvodní stránky
-// (ty jsou zabalené v <section> a odsazení si řeší samy).
+// Bez ">" (jen potomci, ne jen přímí) – stránky jako "Ke stažení" mají
+// nadpisy a odstavce schované v .row/.col blocích, ne jako přímé potomky.
+// :not(section *) místo toho hlídá, aby se to nedotklo sekcí úvodní
+// stránky (ty jsou zabalené v <section> a odsazení si řeší samy).
 .e10w-content {
-  > h1, > h2, > h3, > h4 { margin-bottom: .9rem; }
-  > * + h2 { margin-top: 2.75rem; }
-  > * + h3 { margin-top: 2rem; }
-  > * + h4 { margin-top: 1.5rem; }
-  > p  { margin-bottom: 1.15rem; }
-  > ul, > ol { margin-bottom: 1.15rem; }
+  :is(h1, h2, h3, h4):not(section *) { margin-bottom: .9rem; }
+  * + h2:not(section *) { margin-top: 2.75rem; }
+  * + h3:not(section *) { margin-top: 2rem; }
+  * + h4:not(section *) { margin-top: 1.5rem; }
+  p:not(section *) { margin-bottom: 1.15rem; }
+  :is(ul, ol):not(section *) { margin-bottom: 1.15rem; }
+
+  .row:not(section *) { margin-bottom: 1.5rem; }
+
+  hr:not(section *) {
+    margin: 2.5rem 0;
+    border: 0;
+    border-top: 1px solid @hairline;
+    opacity: 1;
+  }
 }
 
 ::selection {
@@ -1460,7 +1471,7 @@ ul.pagination {
 
 .uk-table {
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 1.75rem;
   border-collapse: collapse;
 
   th, td {
@@ -1810,20 +1821,71 @@ table.default {
   &:not(:first-child) { margin-top: 1em; }
 }
 
-div.pageText {
+// Byl to "div.pageText" – ale text stránky sedí v <main class="pageText">,
+// takže tenhle výběr (tag + třída) nikdy nic netrefil a seznamy zůstávaly
+// na holém prohlížečovém stylu. Bez tagu, jen podle třídy.
+.pageText {
   ul:not([class]) {
-    padding-left: 1.5rem;
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1.15rem;
 
-    li { list-style-type: disc; }
+    li {
+      position: relative;
+      padding-left: 1.4rem;
+      margin-bottom: .5rem;
+      line-height: 1.6;
+
+      &:last-child { margin-bottom: 0; }
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: .6em;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: @secondary;
+      }
+    }
+
+    ul, ol { margin-top: .5rem; margin-bottom: 0; }
+  }
+
+  ol:not([class]) {
+    padding-left: 1.4rem;
+    margin-bottom: 1.15rem;
+
+    li {
+      margin-bottom: .5rem;
+      line-height: 1.6;
+      padding-left: .15rem;
+
+      &:last-child { margin-bottom: 0; }
+
+      &::marker {
+        color: @secondary;
+        font-weight: 600;
+      }
+    }
+
+    ul, ol { margin-top: .5rem; margin-bottom: 0; }
+  }
+
+  code {
+    background: @bg;
+    color: @primary;
+    padding: .15rem .45rem;
+    border-radius: @radius-sm;
+    font-size: .88em;
   }
 
   pre > code {
     display: inline-block;
     width: 100%;
     padding: 1ex;
-    background: @bg;
     border: 1px solid @hairline;
-    border-radius: @radius-sm;
   }
 }
 

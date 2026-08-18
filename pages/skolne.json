@@ -1,7 +1,5 @@
 {
   "page": {
-    "pageTitle": "Školné – ZUŠ Morava",
-    "layoutSidebarRight": true
-  },
-  "textRightSidebar": "<div class='p-3 bg-light rounded'>Pravý sidebar</div>"
+    "pageTitle": "Školné – ZUŠ Morava"
+  }
 }
