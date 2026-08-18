@@ -1589,7 +1589,7 @@ h3 + div.card-deck { padding-top: 1rem; }
 div.contact-cards-a,
 div.contact-cards-b {
   margin-bottom: 1rem;
-  row-gap: 2.5rem;
+  row-gap: 1.5rem;
   text-align: center;
 }
 
@@ -1678,6 +1678,10 @@ div.contact-cards-b .card-text {
     &:visited { color: @secondary; }
     &:hover   { color: @primary; }
   }
+
+  // Vedoucí pracoviště apod. – tučný popisek uvnitř běžného řádku,
+  // barva z proměnné místo natvrdo napsané v HTML (scripts/ucitele.mustache).
+  strong { color: @primary; font-weight: 600; }
 }
 
 // Funkce pod jménem drží drobný verzálkový styl jako popisky sekcí

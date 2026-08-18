@@ -1,0 +1,38 @@
+{
+  "_comment": "Testovací data pro webScript ucitele.",
+  "data": {
+    "persons": [
+      {
+        "fullName": "Jana Nováková",
+        "image": {
+          "smallImage": "https://picsum.photos/seed/u1/400/400"
+        },
+        "pp": {
+          "zus-zam-info-nastroje": "klavír, keyboard",
+          "email": "novakova@zusmorava.cz",
+          "bd2gq4ckw_29": "Zlín, Kotěrova 4395"
+        }
+      },
+      {
+        "fullName": "Petr Mikl",
+        "image": {
+          "smallImage": "https://picsum.photos/seed/u2/400/400"
+        },
+        "pp": {
+          "zus-zam-info-nastroje": "kytara, basová kytara",
+          "email": "mikl@zusmorava.cz"
+        }
+      },
+      {
+        "fullName": "Eva Teskova",
+        "image": {
+          "smallImage": "https://picsum.photos/seed/u3/400/400"
+        },
+        "pp": {
+          "zus-zam-info-nastroje": "housle, viola",
+          "email": "teskova@zusmorava.cz"
+        }
+      }
+    ]
+  }
+}
