@@ -1516,10 +1516,6 @@ form.zus-prihlaska-form {
   color: #AA0000;
 }
 
-div.contact-cards-a.hover-picture div.card-picture:hover {
-  background-position: center 20%;
-}
-
 .blockscroll {
   overflow-y: hidden;
 }
@@ -1578,108 +1574,105 @@ h3 + div.card-deck { padding-top: 1rem; }
 
 
 // --- Karty kontaktů --------------------------------------------------
-// Fotka je kolečko posazené přes barevnou hlavičku. Drží ji position:
-// absolute, takže karta musí zůstat position: relative (dává Bootstrap).
+// Fotka nahoře, text pod ní – stejná stavba jako karty aktualit.
+// Dřív to bylo kolečko posazené přes barevný pruh, což byl pozůstatek
+// starého vzhledu.
+//
+// Značka .hover-picture v HTML zůstává, ale schválně nic nedělá:
+// zvětšování fotky po najetí je pryč.
 
 div.contact-cards-a,
 div.contact-cards-b {
   margin-bottom: 1rem;
-}
-
-div.contact-cards-a {
-  text-align: center;
+  text-align: left;
 }
 
 div.contact-cards-a div.card,
 div.contact-cards-b div.card {
   position: relative;
+  height: 100%;
   margin-bottom: 1.5rem;
   background: @surface;
   border: 1px solid @hairline;
-  border-radius: @radius;
+  border-radius: @radius !important;
   overflow: hidden;
   font-size: .95rem;
+  transition: border-color @ease, box-shadow @ease;
+
+  &:hover {
+    border-color: @primary-muted;
+    box-shadow: @shadow-sm;
+  }
 }
 
-div.contact-cards-a div.card-header {
-  height: 9.3rem;
-  border: 0;
-  padding: 0;
+// Barevný pruh pod fotkou už není potřeba. Má v HTML inline přechod,
+// takže ho nejde přebít barvou – schováme ho celý.
+div.contact-cards-a div.card-header,
+div.contact-cards-b div.card-header {
+  display: none;
 }
 
-div.contact-cards-a div.card-picture {
-  position: absolute;
-  left: calc((100% - 9rem) / 2);
-  width: 9rem;
-  height: 9rem;
-  margin-top: 1rem;
-  border: 5px solid @surface;
-  border-radius: 50%;
-  background-size: cover;
-  background-position: center;
-  transition: all @ease;
-}
-
-// Po najetí se fotka roztáhne přes celou kartu
-div.contact-cards-a.hover-picture div.card-picture:hover {
-  left: 0;
-  top: 0;
-  margin-top: 0;
+div.contact-cards-a div.card-picture,
+div.contact-cards-b div.card-picture {
+  position: static;
   width: 100%;
-  height: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin: 0;
+  border: 0;
   border-radius: 0;
-  background-position: center 20%;
+  background-size: cover;
+  background-position: center top;
+  background-color: @bg;
 }
 
-// Jména jsou bezpatková – patkové písmo je vyhrazené nadpisům
+div.contact-cards-a div.card-body,
+div.contact-cards-b div.card-body {
+  padding: 1.15rem 1.25rem 1.35rem;
+}
+
 div.contact-cards-a h5,
 div.contact-cards-b h5 {
   font-family: @font-body;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: @primary;
-  margin-bottom: .35rem;
+  margin-bottom: .3rem;
 }
 
 div.contact-cards-a .card-text,
 div.contact-cards-b .card-text {
   font-size: .9rem;
   color: @text-muted;
-  margin-bottom: .6rem;
+  margin-bottom: .75rem;
 
   &:last-child { margin-bottom: 0; }
+
+  i { opacity: .7; }
+
+  a {
+    color: @secondary;
+
+    &:visited { color: @secondary; }
+    &:hover   { color: @primary; }
+  }
 }
 
-div.contact-cards-b div.card-picture {
-  min-width: 27%;
-  background-size: cover;
-  background-position: center;
+// Funkce pod jménem drží drobný verzálkový styl jako popisky sekcí
+div.contact-cards-a .card-body .card-text:first-of-type,
+div.contact-cards-b .card-body .card-text:first-of-type {
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: @secondary;
+  margin-bottom: .85rem;
 }
 
+// Starší varianta měla fotku vedle textu; sjednoceno pod sebe.
 @media (min-width: @bp-md) {
-  div.contact-cards-b div.card {
-    flex-direction: row;
-
-    div.card-header { display: none; }
-  }
+  div.contact-cards-b div.card { flex-direction: column; }
 }
-
-@media (max-width: @bp-md - 1px) {
-  div.contact-cards-b div.card {
-    text-align: center;
-
-    div.card-picture {
-      width: 9rem;
-      height: 9rem;
-      margin: -4rem auto 0;
-      border: 5px solid @surface;
-      border-radius: 50%;
-    }
-
-    div.card-header { height: 5rem; }
-  }
-}
-
 
 // --- Karty článků ----------------------------------------------------
 
