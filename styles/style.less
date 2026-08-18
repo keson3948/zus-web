@@ -2895,7 +2895,12 @@ div.article-header { padding-bottom: 1rem; }
   .hero-visual { order: -1; }
   .hero-poster { max-width: 300px; }
 
-  .hero .carousel-item { min-height: 0; }
+  // Pevná výška, ne 0: slidy mají různě dlouhý text (testovací "Slide
+  // číslo dvě/tři" vs. skutečný úvodní text), takže se bez ní hero-sekce
+  // při přepnutí snímku zvětšila/zmenšila a celá stránka pod ní poskočila.
+  // Krátší snímek jen zůstane s trochou volného místa navíc – to je
+  // lepší než skákající layout.
+  .hero .carousel-item { min-height: 780px; }
 
   // Hero je na úzkém displeji tak úzké, že se barevné skvrny nevyhnou
   // textu – vpravo zasahovala červená a kontrast padal pod 4,5.
@@ -2990,6 +2995,10 @@ div.article-header { padding-bottom: 1rem; }
   .hero-poster { max-width: 250px; }
   .hero-subtitle { font-size: .95rem; margin-bottom: 1.25rem; }
   .hero-actions { gap: .85rem; }
+
+  // Menší varianta té pevné výšky z tabletového pravidla – tady je
+  // i plakát i text menší, tak stačí méně místa.
+  .hero .carousel-item { min-height: 700px; }
 
   .hero-nav button { width: 36px; height: 36px; }
 
