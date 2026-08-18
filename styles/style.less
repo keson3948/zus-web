@@ -982,6 +982,226 @@ li.menu-teacher-login {
 
 
 // ---------------------------------------------------------------------
+//  7b. DETAIL STRÁNKY OBORU (hudebniobor.html, vytvarnyobor.html, litdramobor.html)
+//
+//  Barvu a ikonu drží stejné třídy jako karty na úvodní stránce
+//  (.obor-hudebni/.obor-vytvarny/.obor-litdram + .obor-icon) – obalíš
+//  celou stránku jednou z nich a zbytek se obarví sám.
+// ---------------------------------------------------------------------
+
+.obor-page-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin: 0 calc(-1 * @bleed-x) 3rem;
+  padding: 3.5rem @bleed-x 3rem;
+  overflow: hidden;
+  background: @surface;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: .1;
+    background: var(--obor-color);
+  }
+
+  > * { position: relative; z-index: 1; }
+
+  .obor-icon {
+    width: 88px;
+    height: 88px;
+    margin-bottom: 0;
+    background-size: 44px 44px;
+    box-shadow: @shadow;
+  }
+
+  .obor-hudebni  &, &.obor-hudebni  { --obor-color: @obor-hudebni; }
+  .obor-vytvarny &, &.obor-vytvarny { --obor-color: @obor-vytvarny; }
+  .obor-litdram  &, &.obor-litdram  { --obor-color: @obor-litdram; }
+}
+
+.obor-page-label {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .4rem .9rem;
+  border-radius: @radius-pill;
+  background: var(--obor-color);
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.obor-page-hero h2 {
+  margin: 0;
+  font-size: ~"clamp(2rem, 1.5rem + 2vw, 3rem)";
+}
+
+.obor-lead {
+  max-width: 62ch;
+  font-size: 1.12rem;
+  line-height: 1.75;
+  color: @text-muted;
+}
+
+// Placeholdery na fotky – vlastní obsah přepíše video/img se stejným
+// rámečkem (viz pravidlo níže), takže se to po vložení nerozjede.
+.obor-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin: 2.5rem 0;
+
+  > * {
+    grid-column: span 1;
+    aspect-ratio: 4 / 3;
+  }
+
+  > :first-child {
+    grid-column: span 2;
+  }
+}
+
+.obor-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  border: 2px dashed @primary-muted;
+  border-radius: @radius;
+  background: @bg;
+  color: @text-muted;
+  font-size: .85rem;
+  text-align: center;
+  padding: 1rem;
+
+  svg { width: 30px; height: 30px; opacity: .5; }
+}
+
+.obor-gallery video,
+.obor-gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: @radius;
+  box-shadow: @shadow-sm;
+  background: @bg;
+}
+
+// Video mimo mřížku (ukázka z výstavy/koncertu) – stejný rámeček jako
+// placeholdery, ale bez ořezu na poměr stran, ať jde přehrát celé.
+.obor-video {
+  margin: 2.5rem 0;
+  border-radius: @radius;
+  overflow: hidden;
+  box-shadow: @shadow;
+
+  video {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+// "Co se naučíš" – mřížka drobných zvýrazněných bodů
+.obor-highlights {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: @hairline;
+  border: 1px solid @hairline;
+  margin: 2.5rem 0;
+  padding: 0;
+
+  li {
+    position: relative;
+    list-style: none;
+    display: flex;
+    align-items: flex-start;
+    gap: .9rem;
+    padding: 1.2rem 1.4rem;
+    margin: 0;
+    background: @surface;
+    font-size: .92rem;
+    line-height: 1.55;
+
+    &::before {
+      content: "";
+      flex: none;
+      width: 9px;
+      height: 9px;
+      margin-top: .4rem;
+      border-radius: 50%;
+      background: var(--obor-color, @secondary);
+    }
+  }
+}
+
+.obor-hudebni  .obor-highlights { --obor-color: @obor-hudebni; }
+.obor-vytvarny .obor-highlights { --obor-color: @obor-vytvarny; }
+.obor-litdram  .obor-highlights { --obor-color: @obor-litdram; }
+
+.obor-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  padding: 2.25rem 2.5rem;
+  border-radius: @radius;
+  background: var(--obor-color);
+  color: #fff;
+
+  h3 { color: #fff; margin: 0 0 .3rem; }
+  p  { margin: 0; opacity: .9; }
+
+  .btn {
+    flex: none;
+    background: #fff;
+    color: var(--obor-color);
+
+    &:hover { background: @bg; color: var(--obor-color); }
+  }
+}
+
+.obor-hudebni  .obor-cta, .obor-cta.obor-hudebni  { --obor-color: @obor-hudebni; }
+.obor-vytvarny .obor-cta, .obor-cta.obor-vytvarny { --obor-color: @obor-vytvarny; }
+.obor-litdram  .obor-cta, .obor-cta.obor-litdram  { --obor-color: @obor-litdram-text; }
+
+@media (max-width: @bp-lg - 1px) {
+  .obor-page-hero {
+    margin: 0 calc(-1 * @bleed-x-md) 2.5rem;
+    padding: 3rem @bleed-x-md 2.5rem;
+  }
+}
+
+@media (max-width: @bp-md - 1px) {
+  .obor-page-hero {
+    margin: 0 calc(-1 * @bleed-x-sm) 2rem;
+    padding: 2.5rem @bleed-x-sm 2rem;
+  }
+
+  .obor-gallery {
+    grid-template-columns: 1fr 1fr;
+
+    > :first-child { grid-column: span 2; aspect-ratio: 16 / 9; }
+  }
+
+  .obor-highlights { grid-template-columns: 1fr; }
+
+  .obor-cta { flex-direction: column; align-items: flex-start; }
+}
+
+
+// ---------------------------------------------------------------------
 //  8. AKTUALITY
 // ---------------------------------------------------------------------
 
@@ -1397,8 +1617,8 @@ ul.pagination {
   gap: 2rem;
 
   img {
-    max-height: 52px;
-    max-width: 190px;
+    max-height: 80px;
+    max-width: 500px;
     width: auto;
     height: auto;
   }
