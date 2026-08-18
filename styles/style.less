@@ -855,10 +855,7 @@ li.menu-teacher-login {
 //
 //  Plnobarevný pruh přes celou šířku (stejný trik s negativní marží jako
 //  .obor-page-hero), ať to po hero sekci nepůsobí jako obyčejné rámečky.
-//  Počítadlo od nuly odpočítá skript v pages/index.html, jakmile pruh
-//  vjede do okna (IntersectionObserver) – zároveň přidá .in-view, která
-//  spustí nástupní animaci jednotlivých čísel. Bez JS/staršího
-//  prohlížeče zůstanou rovnou vidět cílová čísla z HTML, jen bez pohybu.
+//  Čísla jsou statická, bez JS.
 // ---------------------------------------------------------------------
 
 .stats-strip {
@@ -903,23 +900,6 @@ li.menu-teacher-login {
   &:first-child { border-left: 0; }
 }
 
-// .js-anim přidává skript v pages/index.html hned při startu – teprve
-// pak se čísla schovají a čekají na .in-view. Bez téhle třídy (JS
-// vypnutý/selhal) pravidlo níž vůbec neplatí a čísla jsou od začátku
-// normálně vidět, nikdy nezůstanou schovaná.
-.stats-strip.js-anim .stat {
-  opacity: 0;
-  transform: translateY(16px);
-}
-
-.stats-strip.js-anim.in-view .stat {
-  animation: fadeUp .7s ease forwards;
-
-  &:nth-child(1) { animation-delay: 0s; }
-  &:nth-child(2) { animation-delay: .12s; }
-  &:nth-child(3) { animation-delay: .24s; }
-}
-
 .stat-icon {
   display: grid;
   place-items: center;
@@ -933,9 +913,16 @@ li.menu-teacher-login {
   svg { width: 22px; height: 22px; }
 }
 
-// Tři tečky v barvách oborů místo ikony – přímo odkazuje na karty níž
+// Tři tečky v barvách oborů místo ikony – přímo odkazuje na karty níž.
+// display: flex přebíjí grid z .stat-icon, jinak by se tečky bez
+// explicitních sloupců naskládaly do jednoho sloupce pod sebe.
 .stat-icon-obory {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   gap: .3rem;
+  width: auto;
+  height: 44px;
   background: transparent;
 
   i {

@@ -20,7 +20,7 @@
           <path d="M6 12.5V17c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5"/>
         </svg>
       </span>
-      <span class="stat-number" data-count-to="700" data-suffix="+">0</span>
+      <span class="stat-number">700+</span>
       <span class="stat-label">žáků</span>
     </div>
 
@@ -31,7 +31,7 @@
           <circle cx="12" cy="9.5" r="2.4"/>
         </svg>
       </span>
-      <span class="stat-number" data-count-to="21">0</span>
+      <span class="stat-number">21</span>
       <span class="stat-label">poboček</span>
     </div>
 
@@ -39,66 +39,12 @@
       <span class="stat-icon stat-icon-obory">
         <i class="obor-hudebni"></i><i class="obor-vytvarny"></i><i class="obor-litdram"></i>
       </span>
-      <span class="stat-number" data-count-to="3">0</span>
+      <span class="stat-number">3</span>
       <span class="stat-label">obory</span>
     </div>
 
   </div>
 </section>
-
-<script>
-(function () {
-  function animateCount(el) {
-    var target = parseInt(el.getAttribute("data-count-to"), 10);
-    var suffix = el.getAttribute("data-suffix") || "";
-    var duration = 1400;
-    var start = null;
-
-    function step(ts) {
-      if (start === null) start = ts;
-      var progress = Math.min((ts - start) / duration, 1);
-      // ease-out kubická – rychlý start, doběhne pomalu, ať to nepůsobí strojově
-      var eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.round(eased * target) + suffix;
-      if (progress < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  var strip = document.querySelector(".stats-strip");
-  var nums = document.querySelectorAll(".stat-number");
-  if (!strip || !nums.length) return;
-
-  function reveal() {
-    strip.classList.add("in-view");
-    nums.forEach(animateCount);
-  }
-
-  if (typeof IntersectionObserver === "undefined") {
-    reveal();
-    return;
-  }
-
-  // Teprve teď (JS běží a IntersectionObserver existuje) schováme čísla
-  // před animací – kdyby tahle třída byla v CSS napevno, bez JS by
-  // zůstala navždy neviditelná.
-  strip.classList.add("js-anim");
-
-  var seen = false;
-  var observer = new IntersectionObserver(function (entries) {
-    if (seen) return;
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        seen = true;
-        reveal();
-        observer.disconnect();
-      }
-    });
-  }, { threshold: .4 });
-
-  observer.observe(strip);
-})();
-</script>
 
 
 <!-- ---------------------------------------------------------------- -->
