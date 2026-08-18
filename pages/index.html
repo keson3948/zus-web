@@ -6,6 +6,71 @@
 
 
 <!-- ---------------------------------------------------------------- -->
+<!--  ČÍSLA O ŠKOLE                                                    -->
+<!-- ---------------------------------------------------------------- -->
+
+<section class="stats-strip">
+  <div class="stats-grid">
+    <div class="stat">
+      <span class="stat-number" data-count-to="700" data-suffix="+">0</span>
+      <span class="stat-label">žáků</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number" data-count-to="21">0</span>
+      <span class="stat-label">poboček</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number" data-count-to="3">0</span>
+      <span class="stat-label">obory</span>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  function animateCount(el) {
+    var target = parseInt(el.getAttribute("data-count-to"), 10);
+    var suffix = el.getAttribute("data-suffix") || "";
+    var duration = 1400;
+    var start = null;
+
+    function step(ts) {
+      if (start === null) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      // ease-out kubická – rychlý start, doběhne pomalu, ať to nepůsobí strojově
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  var nums = document.querySelectorAll(".stat-number");
+  if (!nums.length) return;
+
+  if (typeof IntersectionObserver === "undefined") {
+    nums.forEach(animateCount);
+    return;
+  }
+
+  var seen = false;
+  var observer = new IntersectionObserver(function (entries) {
+    if (seen) return;
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        seen = true;
+        nums.forEach(animateCount);
+        observer.disconnect();
+      }
+    });
+  }, { threshold: .4 });
+
+  observer.observe(document.querySelector(".stats-strip"));
+})();
+</script>
+
+
+<!-- ---------------------------------------------------------------- -->
 <!--  OBORY                                                            -->
 <!-- ---------------------------------------------------------------- -->
 
@@ -124,10 +189,87 @@
 
   <div class="locations-layout">
     <div>
-      {{dataView;classId:e10.base.dataView.PlacesList;placeType:lcloffc;showAs:map;urlPrefix:pobocky}}
+      <div id="pracoviste-map" class="pracoviste-map"></div>
     </div>
     <div>
       {{dataView;classId:e10.base.dataView.PlacesList;placeType:lcloffc;showAs:list;urlPrefix:pobocky}}
     </div>
   </div>
+
+  <!-- Vlastní mapa místo výchozí Google mapy ze Shipardu (ta potřebuje
+       API klíč, který web nemá vyplněný). Leaflet + OpenStreetMap dlaždice
+       nepotřebují žádný klíč. Souřadnice a adresy jsou reálné pobočky. -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script>
+  (function () {
+    var pobocky = [
+      { name: "Zlín – Kotěrova ulice, sídlo školy", addr: "Kotěrova 4395, Zlín, 760 01", lat: 49.2194932, lng: 17.6540997, url: "/pobocky/zlin-koterova" },
+      { name: "Zlín – Dům kultury", addr: "Gahurova 5265, Zlín, 760 01", lat: 49.2244084, lng: 17.6606084, url: "/pobocky/zlin-dk" },
+      { name: "Zlín – Církevní základní škola", addr: "Česká 4787, Zlín, 760 05", lat: 49.2421452, lng: 17.6642481, url: "/pobocky/zlin-cirkevni-zs" },
+      { name: "Fryšták – Základní škola", addr: "nám. Míru 7, Fryšták, 763 16", lat: 49.2855771, lng: 17.6847323, url: "/pobocky/frystak-zs" },
+      { name: "Fryšták – ZUŠ", addr: "Holešovská 271, Fryšták, 763 16", lat: 49.2904107, lng: 17.6765726, url: "/pobocky/Frystak-zus" },
+      { name: "Lukov", addr: "Pod Kaštany 32, Lukov, 763 17", lat: 49.2909879, lng: 17.7339111, url: "/pobocky/lukov" },
+      { name: "Hošťálková", addr: "Hošťálková 19, 756 22", lat: 49.355298, lng: 17.8698355, url: "/pobocky/hostalkova" },
+      { name: "Ratiboř", addr: "Ratiboř 75, 756 21", lat: 49.3676781, lng: 17.9149154, url: "/pobocky/ratibor" },
+      { name: "Kateřinice", addr: "Kateřinice 154, 756 21", lat: 49.3821857, lng: 17.8863595, url: "/pobocky/katerinice" },
+      { name: "Liptál", addr: "Liptál 465, 756 31", lat: 49.2907751, lng: 17.9257012, url: "/pobocky/liptal" },
+      { name: "Jasenná", addr: "Jasenná 15, 763 13", lat: 49.2533262, lng: 17.8943224, url: "/pobocky/jasenna" },
+      { name: "Lípa", addr: "Lípa 118, Želechovice nad Dřevnicí, 763 11", lat: 49.2148153, lng: 17.7696869, url: "/pobocky/lipa" },
+      { name: "Želechovice", addr: "4. května 336, Želechovice nad Dřevnicí, 763 11", lat: 49.2161329, lng: 17.754264, url: "/pobocky/zelechovice" },
+      { name: "Provodov", addr: "Provodov 90, 763 45", lat: 49.1601373, lng: 17.736261, url: "/pobocky/provodov" },
+      { name: "Březůvky", addr: "Březůvky 125, 763 45", lat: 49.1531715, lng: 17.6986412, url: "/pobocky/brezuvky" },
+      { name: "Hřivínův Újezd", addr: "Hřivínův Újezd 68, 763 07", lat: 49.1247719, lng: 17.6920935, url: "/pobocky/hrivinuv-ujezd" },
+      { name: "Velký Ořechov", addr: "Velký Ořechov 124, 763 07", lat: 49.1101975, lng: 17.6696, url: "/pobocky/velky-orechov" },
+      { name: "Bílovice", addr: "Bílovice 440, 687 12", lat: 49.1013889, lng: 17.5461457, url: "/pobocky/bilovice" },
+      { name: "Březolupy", addr: "Březolupy 134, 687 13", lat: 49.1214149, lng: 17.5800942, url: "/pobocky/brezolupy" }
+    ];
+
+    function initPracovisteMap() {
+      var el = document.getElementById("pracoviste-map");
+      if (!el || typeof L === "undefined") return;
+
+      var map = L.map(el, { scrollWheelZoom: false }).setView([49.235, 17.75], 10);
+
+      L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+        attribution: "&copy; OpenStreetMap, &copy; CARTO",
+        maxZoom: 19
+      }).addTo(map);
+
+      var icon = L.divIcon({
+        className: "zus-map-pin",
+        html: "<span></span>",
+        iconSize: [16, 16],
+        popupAnchor: [0, -8]
+      });
+
+      var bounds = [];
+      pobocky.forEach(function (p) {
+        var marker = L.marker([p.lat, p.lng], { icon: icon }).addTo(map);
+        marker.bindPopup(
+          "<div class='zus-map-popup'>" +
+            "<h6>" + p.name + "</h6>" +
+            "<p>" + p.addr + "</p>" +
+            "<a href='" + p.url + "'>Více informací</a>" +
+          "</div>"
+        );
+        bounds.push([p.lat, p.lng]);
+      });
+
+      map.fitBounds(bounds, { padding: [24, 24] });
+
+      // Kolečko myši scrolluje stránku, dokud uživatel na mapu neklikne –
+      // jinak by se posouvání stránky "chytilo" do zoomu mapy.
+      map.on("click", function () { map.scrollWheelZoom.enable(); });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initPracovisteMap);
+    } else {
+      initPracovisteMap();
+    }
+  })();
+  </script>
 </section>

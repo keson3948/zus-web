@@ -851,6 +851,62 @@ li.menu-teacher-login {
 
 
 // ---------------------------------------------------------------------
+//  6b. ČÍSLA O ŠKOLE
+//
+//  Počítadlo od nuly odpočítá skript v pages/index.html, jakmile pruh
+//  vjede do okna (IntersectionObserver). Bez JS/staršího prohlížeče
+//  zůstane rovnou vidět cílové číslo z HTML.
+// ---------------------------------------------------------------------
+
+.stats-strip {
+  margin-bottom: 5rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: @surface;
+  border: 1px solid @hairline;
+  border-radius: @radius;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  padding: 2.75rem 1.5rem;
+  text-align: center;
+  border-left: 1px solid @hairline;
+
+  &:first-child { border-left: 0; }
+}
+
+.stat-number {
+  font-family: @font-heading;
+  font-weight: 700;
+  font-size: ~"clamp(2.4rem, 1.8rem + 2vw, 3.4rem)";
+  line-height: 1;
+  color: @primary;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+  font-size: .8rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: @text-muted;
+}
+
+@media (max-width: @bp-sm - 1px) {
+  .stat { padding: 2rem 1rem; }
+  .stat-label { font-size: .68rem; letter-spacing: .06em; }
+}
+
+
+// ---------------------------------------------------------------------
 //  7. KARTY OBORŮ
 // ---------------------------------------------------------------------
 
@@ -1418,6 +1474,95 @@ li.menu-teacher-login {
   font-size: 1.1rem;
   font-weight: 600;
   color: @primary;
+}
+
+// --- Vlastní mapa poboček (Leaflet, viz pages/index.html) -------------
+
+.pracoviste-map {
+  aspect-ratio: 16 / 10;
+  background: @bg;
+  border: 1px solid @hairline;
+  border-radius: @radius;
+  overflow: hidden;
+
+  // Leaflet vlastní CSS grid/flex kontext může narušit layout stránky,
+  // kdyby náhodou nedoběhlo najisto.
+  .leaflet-container {
+    width: 100%;
+    height: 100%;
+    font-family: @font-body;
+    background: @bg;
+  }
+
+  // Mírně odbarvené dlaždice, ať mapa ladí se zbytkem webu místo pestrých
+  // výchozích barev OSM/Carto.
+  .leaflet-tile-pane {
+    filter: saturate(.7) brightness(1.02);
+  }
+}
+
+// Špendlík: plné kolečko v barvě značky s bílým lemem – stejný jazyk jako
+// tečky karuselu a odrážky seznamů jinde na webu, ne cizí obrázková ikona.
+.zus-map-pin span {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: @primary;
+  border: 3px solid @surface;
+  box-shadow: @shadow-sm;
+  transition: transform @ease;
+}
+
+.leaflet-marker-icon.zus-map-pin:hover span,
+.leaflet-marker-icon.zus-map-pin:focus span {
+  transform: scale(1.25);
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: @radius;
+  box-shadow: @shadow;
+  padding: 0;
+}
+
+.leaflet-popup-content {
+  margin: 0;
+  min-width: 190px;
+}
+
+.leaflet-popup-tip-container { display: none; }
+
+.zus-map-popup {
+  padding: 1rem 1.15rem;
+
+  h6 {
+    margin: 0 0 .3rem;
+    font-family: @font-heading;
+    font-size: .95rem;
+    font-weight: 600;
+    color: @primary;
+  }
+
+  p {
+    margin: 0 0 .6rem;
+    font-size: .8rem;
+    line-height: 1.5;
+    color: @text-muted;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    color: @secondary;
+    font-size: .78rem;
+    font-weight: 500;
+    letter-spacing: .04em;
+    text-decoration: none;
+
+    &::after { content: "\2192"; }
+    &:hover { color: @primary; }
+  }
 }
 
 // Seznam poboček. Třídu dataView-places-list vypisuje Shipard, proto na
