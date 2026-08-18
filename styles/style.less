@@ -471,11 +471,16 @@ ul.menu-top-contacts {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(21,27,84,0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }
 
+// Bootstrap odvozuje --bs-dropdown-bg od --bs-body-bg, a ten je u nás
+// @bg (skoro bílá, ne čistě bílá) – dropdown pak splýval se svým vlastním
+// hoverem stejné barvy a najetí myší vypadalo, že nic nedělá.
 .dropdown-menu {
+  --bs-dropdown-bg: @surface;
   border: 0;
   border-radius: @radius-sm;
   box-shadow: @shadow;
   padding: .4rem;
+  background-color: @surface;
 }
 
 .dropdown-item {
@@ -484,7 +489,7 @@ ul.menu-top-contacts {
   padding: .5rem .75rem;
   transition: background-color @ease, color @ease;
 
-  &:hover {
+  &:hover, &:focus {
     text-decoration: none;
     background: @bg;
     color: @primary;
