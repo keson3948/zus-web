@@ -1382,6 +1382,117 @@ li.menu-teacher-login {
 
 
 // ---------------------------------------------------------------------
+//  7c. ACADEMIA MORAVIA
+//
+//  Křížová propagace partnerského orchestru. Sytě modrý pruh přes celou
+//  šířku (stejný trik s negativní marží jako .obor-page-hero/.stats-strip),
+//  logo je bílá varianta z webu Academia Moravia – na barevném pozadí
+//  jinak nečitelná.
+// ---------------------------------------------------------------------
+
+.am-partner {
+  position: relative;
+  margin: 0 calc(-1 * @bleed-x) 5rem;
+  padding: 4rem @bleed-x;
+  overflow: hidden;
+  background: @secondary-soft;
+  color: rgba(255, 255, 255, .92);
+}
+
+.am-mist {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 55% 80% at 100% 0%, fade(@primary, 55%) 0%, transparent 62%),
+    radial-gradient(ellipse 45% 60% at 0% 100%, fade(@secondary-light, 30%) 0%, transparent 65%);
+}
+
+.am-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.am-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.am-cross {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  font-family: @font-heading;
+  font-size: .95rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: #fff;
+}
+
+.am-cross-sign {
+  color: @secondary-light;
+  font-weight: 400;
+}
+
+.am-logo {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+}
+
+.am-content {
+  .section-label {
+    color: @secondary-light;
+
+    &::before { background: @secondary-light; }
+  }
+
+  p {
+    font-size: .95rem;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, .82);
+    margin-bottom: 1.1rem;
+  }
+}
+
+.am-lead {
+  font-family: @font-heading;
+  font-size: 1.25rem !important;
+  font-weight: 600;
+  line-height: 1.5 !important;
+  color: #fff !important;
+  margin-bottom: 1.25rem !important;
+}
+
+@media (max-width: @bp-lg - 1px) {
+  .am-partner { margin: 0 calc(-1 * @bleed-x-md) 4rem; padding: 3rem @bleed-x-md; }
+
+  .am-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .am-logo { max-width: 220px; }
+}
+
+@media (max-width: @bp-md - 1px) {
+  .am-partner { margin: 0 calc(-1 * @bleed-x-sm) 3rem; padding: 2.5rem @bleed-x-sm; }
+
+  .am-cross {
+    flex-wrap: wrap;
+    font-size: .85rem;
+  }
+}
+
+
+// ---------------------------------------------------------------------
 //  8. AKTUALITY
 // ---------------------------------------------------------------------
 
