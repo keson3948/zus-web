@@ -1581,9 +1581,15 @@ h3 + div.card-deck { padding-top: 1rem; }
 // Značka .hover-picture v HTML zůstává, ale schválně nic nedělá:
 // zvětšování fotky po najetí je pryč.
 
+// row-gap, ne margin-bottom na kartě: karta má height: 100% podle sloupce,
+// který se natahuje na výšku řádku (align-items: stretch), takže margin
+// na kartě zmizí – rozteč mezi řádky se v tomhle uspořádání dá zajistit
+// jen na samotném .row. row-gap (na rozdíl od "gap"/"gap-3") nepřidává
+// mezeru mezi sloupci, takže nerozbíjí jejich šířku 33,33 %.
 div.contact-cards-a,
 div.contact-cards-b {
   margin-bottom: 1rem;
+  row-gap: 2.5rem;
   text-align: center;
 }
 
@@ -1591,7 +1597,6 @@ div.contact-cards-a div.card,
 div.contact-cards-b div.card {
   position: relative;
   height: 100%;
-  margin-bottom: 2.5rem;
   background: @surface;
   border: 1px solid @hairline;
   border-radius: @radius !important;
