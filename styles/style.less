@@ -989,6 +989,12 @@ li.menu-teacher-login {
 //  celou stránku jednou z nich a zbytek se obarví sám.
 // ---------------------------------------------------------------------
 
+// Barva oboru se nastavuje jednou na obalu (.obor-hudebni/.obor-vytvarny/
+// .obor-litdram) a všechny vnořené komponenty ji berou přes var(--obor-color).
+.obor-hudebni  { --obor-color: @obor-hudebni; }
+.obor-vytvarny { --obor-color: @obor-vytvarny; }
+.obor-litdram  { --obor-color: @obor-litdram; }
+
 .obor-page-hero {
   position: relative;
   display: flex;
@@ -996,32 +1002,54 @@ li.menu-teacher-login {
   align-items: flex-start;
   gap: 1.5rem;
   margin: 0 calc(-1 * @bleed-x) 3rem;
-  padding: 3.5rem @bleed-x 3rem;
+  padding: 4rem @bleed-x 3.5rem;
   overflow: hidden;
-  background: @surface;
+  color: #fff;
 
+  // Fotka na pozadí. URL doplníš do "background-image" v HTML
+  // (viz komentář u .obor-page-hero-bg ve stránkách oborů) – bez ní
+  // zůstane jen barevná plocha, nic se nerozbije. Vrstvy odspoda nahoru:
+  // fotka (0) → barevný nádech + clona (1) → text a ikona (2).
+  &-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-color: var(--obor-color);
+    background-size: cover;
+    background-position: center;
+  }
+
+  // Barevný nádech přes fotku + tmavší clona vlevo, ať je text čitelný
+  // bez ohledu na to, co je na fotce zrovna světlé/tmavé.
   &::before {
     content: "";
     position: absolute;
     inset: 0;
-    z-index: 0;
-    opacity: .1;
+    z-index: 1;
     background: var(--obor-color);
+    opacity: .8;
   }
 
-  > * { position: relative; z-index: 1; }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(100deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 65%);
+  }
+
+  // :not() vylučuje fotku na pozadí – ta musí zůstat position: absolute,
+  // jinak se z prázdného divu bez obsahu stane box 0×0 px.
+  > :not(.obor-page-hero-bg) { position: relative; z-index: 2; }
 
   .obor-icon {
     width: 88px;
     height: 88px;
     margin-bottom: 0;
     background-size: 44px 44px;
+    border: 3px solid rgba(255, 255, 255, .85);
     box-shadow: @shadow;
   }
-
-  .obor-hudebni  &, &.obor-hudebni  { --obor-color: @obor-hudebni; }
-  .obor-vytvarny &, &.obor-vytvarny { --obor-color: @obor-vytvarny; }
-  .obor-litdram  &, &.obor-litdram  { --obor-color: @obor-litdram; }
 }
 
 .obor-page-label {
@@ -1030,7 +1058,8 @@ li.menu-teacher-login {
   gap: .6rem;
   padding: .4rem .9rem;
   border-radius: @radius-pill;
-  background: var(--obor-color);
+  background: rgba(255, 255, 255, .18);
+  border: 1px solid rgba(255, 255, 255, .4);
   color: #fff;
   font-size: .72rem;
   font-weight: 600;
@@ -1040,6 +1069,7 @@ li.menu-teacher-login {
 
 .obor-page-hero h2 {
   margin: 0;
+  color: #fff;
   font-size: ~"clamp(2rem, 1.5rem + 2vw, 3rem)";
 }
 
@@ -1047,7 +1077,7 @@ li.menu-teacher-login {
   max-width: 62ch;
   font-size: 1.12rem;
   line-height: 1.75;
-  color: @text-muted;
+  color: rgba(255, 255, 255, .92);
 }
 
 // Placeholdery na fotky – vlastní obsah přepíše video/img se stejným
@@ -1144,9 +1174,50 @@ li.menu-teacher-login {
   }
 }
 
-.obor-hudebni  .obor-highlights { --obor-color: @obor-hudebni; }
-.obor-vytvarny .obor-highlights { --obor-color: @obor-vytvarny; }
-.obor-litdram  .obor-highlights { --obor-color: @obor-litdram; }
+// Seznam nástrojů (hudební obor) – rozdělený do skupin po rodinách
+// nástrojů, každá jako řádek "chipů".
+.obor-instruments {
+  margin: 2.5rem 0;
+}
+
+.obor-instrument-group {
+  margin-bottom: 1.6rem;
+
+  &:last-child { margin-bottom: 0; }
+}
+
+.obor-instrument-group h4 {
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--obor-color, @secondary);
+  margin: 0 0 .75rem;
+}
+
+.obor-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin: 0;
+    padding: .5rem 1.1rem;
+    border-radius: @radius-pill;
+    background: @bg;
+    border: 1px solid @hairline;
+    font-size: .85rem;
+    font-weight: 500;
+    color: @text;
+    white-space: nowrap;
+
+    &::before { content: none; }
+  }
+}
+
 
 .obor-cta {
   display: flex;
@@ -1172,9 +1243,9 @@ li.menu-teacher-login {
   }
 }
 
-.obor-hudebni  .obor-cta, .obor-cta.obor-hudebni  { --obor-color: @obor-hudebni; }
-.obor-vytvarny .obor-cta, .obor-cta.obor-vytvarny { --obor-color: @obor-vytvarny; }
-.obor-litdram  .obor-cta, .obor-cta.obor-litdram  { --obor-color: @obor-litdram-text; }
+// Litdram má na velké ploše (celý CTA pruh) raději tmavší odstín – jasná
+// oranžová z .obor-icon by na bílém textu ztrácela kontrast.
+.obor-litdram .obor-cta, .obor-cta.obor-litdram { --obor-color: @obor-litdram-text; }
 
 @media (max-width: @bp-lg - 1px) {
   .obor-page-hero {
