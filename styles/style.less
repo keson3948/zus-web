@@ -2226,6 +2226,27 @@ ul.pagination {
 
 .uk-table-striped tbody tr:nth-of-type(odd) { background: @bg; }
 
+// Bootstrapová .table – náhrada za .uk-table (viz školné). Bootstrap
+// řeší ohraničení i pruhování přes CSS proměnné, tady je jen doladěné
+// na vlasové linky a odsazení, co drží zbytek webu.
+.table {
+  --bs-table-striped-bg: @bg;
+  margin-bottom: 0;
+
+  > :not(caption) > * > * {
+    padding: .6rem .75rem;
+    border-bottom-color: @hairline;
+  }
+
+  th { font-weight: 600; }
+}
+
+// Mezera patří kolem scroll-wrapperu, ne kolem samotné tabulky uvnitř
+// (ta by margin schovala pod overflow a vypadalo by to, že chybí úplně).
+.table-responsive {
+  margin-bottom: 1.75rem;
+}
+
 .uk-divider-vertical { border-left: 1px solid @primary-muted; }
 
 
