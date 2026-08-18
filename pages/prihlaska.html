@@ -1,23 +1,143 @@
 <h2>Přihláška do ZUŠ Morava</h2>
-
-<form class="form-horizontal zus-prihlaska-form" method="POST" style=""><input type="hidden" name="webFormState" value="1"><input type="hidden" name="webFormId" value="e10pro.zus.libs.WebFormPrihlaska"><input type="hidden" id="recaptcha-response" name="webFormReCaptchtaResponse" value=""><div class="row pt-3 zus-prihlaska-obor"><div class="col col-4"><div class="md-form"><label class="col-sm-12 xxx_control-label" for="svpObor">Obor *</label><select class="form-control" name="svpObor" id="svpObor"><option value="0">-- Vyberte obor --</option><option value="3">Hudební</option><option value="4">Výtvarný</option><option value="5">Literárně-dramatický</option></select></div></div><div class="col col-4" id="studijni-zamereni"><div class="md-form"><label class="col-sm-12 xxx_control-label" for="svpOddeleni">Studijní zaměření *</label><select class="form-control" name="svpOddeleni" id="svpOddeleni"><option value="0">-- Vyberte studijní zaměření --</option><option value="10" style="display: none;">Hra na klavír</option><option value="11" style="display: none;">Hra na varhany</option><option value="12" style="display: none;">Hra na elektronické klávesy</option><option value="13" style="display: none;">Hra na housle</option><option value="53" style="display: none;">Hra na housle - rozšířené studium</option><option value="14" style="display: none;">Hra na violu</option><option value="15" style="display: none;">Hra na violoncello</option><option value="16" style="display: none;">Hra na kontrabas</option><option value="17" style="display: none;">Hra na zobcovou flétnu</option><option value="18" style="display: none;">Hra na příčnou flétnu</option><option value="19" style="display: none;">Hra na hoboj</option><option value="20" style="display: none;">Hra na klarinet</option><option value="21" style="display: none;">Hra na saxofon</option><option value="22" style="display: none;">Hra na fagot</option><option value="23" style="display: none;">Hra na trubku</option><option value="54" style="display: none;">Hra na trubku - rozšířené studium</option><option value="24" style="display: none;">Hra na lesní roh</option><option value="25" style="display: none;">Hra na tenor</option><option value="55" style="display: none;">Hra na tenor - rozšířené studium</option><option value="26" style="display: none;">Hra na baryton</option><option value="56" style="display: none;">Hra na baryton - rozšířené studium</option><option value="27" style="display: none;">Hra na pozoun</option><option value="57" style="display: none;">Hra na pozoun - rozšířené studium</option><option value="28" style="display: none;">Hra na tubu</option><option value="58" style="display: none;">Hra na tubu - rozšířené studium</option><option value="29" style="display: none;">Hra na kytaru</option><option value="59" style="display: none;">Hra na kytaru - rozšířené studium</option><option value="30" style="display: none;">Hra na elektrickou kytaru</option><option value="31" style="display: none;">Hra na baskytaru</option><option value="48" style="display: none;">Hra na harfu</option><option value="32" style="display: none;">Hra na bicí nástroje</option><option value="33" style="display: none;">Sólový zpěv</option><option value="49" style="display: none;">Populární zpěv</option><option value="34" style="display: none;">Sborový zpěv</option><option value="35" style="display: none;">Hra na akordeon</option><option value="36" style="display: none;">Hra na cimbál</option><option value="37" style="display: none;">Hra na dudy</option><option value="38" style="display: none;">Výtvarná tvorba</option><option value="51" style="display: none;">Výtvarné vzdělávání</option><option value="60" style="display: none;">Malý keramik - od 5 let</option><option value="39" style="display: none;">Činoherní tvorba</option><option value="52" style="display: none;">Tvořivá dramatika</option><option value="50" style="display: none;">Tvořivé herectví</option><option value="44" style="display: none;">Přípravné studium</option></select></div></div><div class="col col-4"><div class="md-form"><label class="col-sm-12 xxx_control-label" for="misto">Studium na pobočce *</label><select class="form-control" name="misto" id="misto"><option value="0">-- Vyberte pobočku --</option><option value="110" disabled="">Bílovice</option><option value="200" disabled="">Březolupy</option><option value="16" disabled="">Březůvky</option><option value="3" disabled="">Fryšták - Základní škola</option><option value="142" disabled="">Fryšták - ZUŠ</option><option value="21" disabled="">Hošťálková</option><option value="12" disabled="">Hřivínův Újezd</option><option value="156" disabled="">Jasenná</option><option value="4" disabled="">Kašava</option><option value="114" disabled="">Kateřinice</option><option value="20" disabled="">Lípa</option><option value="10" disabled="">Liptál</option><option value="5" disabled="">Lukov</option><option value="6" disabled="">Provodov</option><option value="119" disabled="">Ratiboř</option><option value="8" disabled="">Velký Ořechov</option><option value="9" disabled="">Želechovice</option><option value="19" disabled="">Zlín - Církevní základní škola</option><option value="2" disabled="">Zlín - Dům Kultury</option><option value="1" disabled="">Zlín - Kotěrova ulice, sídlo školy</option><option value="7" disabled="">Zlín - Štípa</option><option value="293" disabled="">Zlín - Štípa - ZŠ</option></select></div></div></div><small class="text-mutted" id="stop-stav-info" style="display: none;"></small><h4>Osobní údaje žáka</h4><div class="row zus-prihlaska-jmeno-a-prijmeni"><div class="col col-6"><div class="md-form"><label for="firstNameS">Jméno *</label><input type="text" class="form-control" id="firstNameS" name="firstNameS" value="" autofocus="autofocus"></div></div><div class="col col-6"><div class="md-form"><label for="lastNameS">Příjmení *</label><input type="text" class="form-control" id="lastNameS" name="lastNameS" value=""></div></div></div><div class="row pt-2 zus-prihlaska-osobni-udaje"><div class="col col-3"><div class="md-form"><label for="datumNarozeni">Datum narození *</label><input type="date" class="form-control" id="datumNarozeni" name="datumNarozeni" value=""></div></div><div class="col col-3"><div class="md-form"><label for="mistoNarozeni">Místo narození *</label><input type="text" class="form-control" id="mistoNarozeni" name="mistoNarozeni" value=""></div></div><div class="col col-3"><div class="md-form"><label for="rodneCislo">Rodné číslo *</label><input type="text" class="form-control" id="rodneCislo" name="rodneCislo" value=""></div></div><div class="col col-3"><div class="md-form"><label for="statniPrislusnost">Státní příslušnost *</label><input type="text" class="form-control" id="statniPrislusnost" name="statniPrislusnost" value=""></div></div></div><div class="row pt-2 zus-prihlaska-adresa-zaka"><div class="col col-5"><div class="md-form"><label for="street">Ulice a číslo popisné *</label><input type="text" class="form-control" id="street" name="street" value=""></div></div><div class="col col-5"><div class="md-form"><label for="city">Obec *</label><input type="text" class="form-control" id="city" name="city" value=""></div></div><div class="col col-2"><div class="md-form"><label for="zipcode">PSČ *</label><input type="text" class="form-control" id="zipcode" name="zipcode" value=""></div></div></div><h4>Od 1. září školního roku <select class="form-control" name="skolniRok" id="skolniRok" style="width: 10rem; display: inline-block; margin-left: .5rem; margin-right: .5rem;"><option value="2026">2026 / 2027</option><option value="2025">2025 / 2026</option></select> bude žákem / žákyní (MŠ / ZŠ / SŠ):</h4><div class="row pt-3 zus-prihlaska-skola-zaka"><div class="col col-4"><div class="md-form"><label class="col-sm-2 control-label" for="skolaTrida">Třída</label><div class="col-xs-5"><select class="form-control" name="skolaTrida" id="skolaTrida"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></div></div></div><div class="col col-8"><div class="md-form"><label for="skolaNazev">Název a místo školy *</label><input type="text" class="form-control" id="skolaNazev" name="skolaNazev" value=""></div></div></div><div class="row pt-3 zus-prihlaska-zakonni-zastupci"><div class="col col-6 zus-prihlaska-zz-1"><h4>Zákonný zástupce 1</h4><div class="md-form"><label for="fullNameM">Jméno a příjmení *</label><input type="text" class="form-control" id="fullNameM" name="fullNameM" value=""></div><div class="md-form"><label for="phoneM">Telefon *</label><input type="text" class="form-control" id="phoneM" name="phoneM" value=""></div><div class="md-form"><label for="emailM">E-mail *</label><input type="email" class="form-control" id="emailM" name="emailM" value=""></div><div class="md-form"><div class="checkbox"><input type="checkbox" class="input-xlarge" id="useAddressM" value="1" name="useAddressM">&nbsp;<label for="useAddressM">Zadat odlišnou adresu</label></div></div><div class="md-form"><label for="streetM">Ulice a číslo popisné</label><input type="text" class="form-control" id="streetM" name="streetM" value="" disabled=""></div><div class="md-form"><label for="cityM">Obec</label><input type="text" class="form-control" id="cityM" name="cityM" value="" disabled=""></div><div class="md-form"><label for="zipcodeM">PSČ</label><input type="text" class="form-control" id="zipcodeM" name="zipcodeM" value="" disabled=""></div></div><div class="col col-6 zus-prihlaska-zz-2"><h4>Zákonný zástupce 2</h4><div class="md-form"><label for="fullNameF">Jméno a příjmení</label><input type="text" class="form-control" id="fullNameF" name="fullNameF" value=""></div><div class="md-form"><label for="phoneF">Telefon</label><input type="text" class="form-control" id="phoneF" name="phoneF" value=""></div><div class="md-form"><label for="emailF">E-mail</label><input type="email" class="form-control" id="emailF" name="emailF" value=""></div><div class="md-form"><div class="checkbox"><input type="checkbox" class="input-xlarge" id="useAddressF" value="1" name="useAddressF">&nbsp;<label for="useAddressF">Zadat odlišnou adresu</label></div></div><div class="md-form"><label for="streetF">Ulice a číslo popisné</label><input type="text" class="form-control" id="streetF" name="streetF" value="" disabled=""></div><div class="md-form"><label for="cityF">Obec</label><input type="text" class="form-control" id="cityF" name="cityF" value="" disabled=""></div><div class="md-form"><label for="zipcodeF">PSČ</label><input type="text" class="form-control" id="zipcodeF" name="zipcodeF" value="" disabled=""></div></div></div><div class="row pt-3 zus-prihlaska-zdravotni-znevyhodneni"><div class="col col-8"><h4>Zdravotní znevýhodnění žáka/žákyně:</h4></div><div class="col col-4"><select class="form-control" name="zdravotniPostizeni" id="zdravotniPostizeni"><option value="0">Ne</option><option value="1">Ano</option></select></div><div class="col col-12"><div class="md-form" style="display: none;"><label for="zdravotniPostizeniPopis">Popis *</label><input type="text" class="form-control" id="zdravotniPostizeniPopis" name="zdravotniPostizeniPopis" value=""></div></div></div><br><small>Údaje označené * jsou povinné.</small><br>
-		<div class="mt-3 zus-prihlaska-beru-na-vedomi" style="background-color: rgba(0, 0, 0, .05); border: 1px solid rgba(0,0,0,.25); border-radius: 4px; padding: .5em;">
+<!--**Přihlášky jsou pro tento školní rok uzavřeny. Děkujeme za zájem a budeme se těšit zase v příštím roce!**--><noscript><p>Kontaktní formulář vyžaduje javascript...</p></noscript><form class='form-horizontal zus-prihlaska-form' method='POST' style='display: none;'><input type='hidden' name='webFormState' value='1'/><input type='hidden' name='webFormId' value='e10pro.zus.libs.WebFormPrihlaska'/><input type='hidden' id='recaptcha-response' name='webFormReCaptchtaResponse' value=''/><div class='row pt-3 zus-prihlaska-obor'><div class='col col-4'><div class='md-form'><label class='col-sm-12 xxx_control-label' for='svpObor'>Obor *</label><select class='form-control' name='svpObor' id='svpObor'><option value='0'>-- Vyberte obor --</option><option value='3'>Hudební</option><option value='4'>Výtvarný</option><option value='5'>Literárně-dramatický</option></select></div></div><div class='col col-4' id='studijni-zamereni'><div class='md-form'><label class='col-sm-12 xxx_control-label' for='svpOddeleni'>Studijní zaměření *</label><select class='form-control' name='svpOddeleni' id='svpOddeleni'><option value='0'>-- Vyberte studijní zaměření --</option><option value='10'>Hra na klavír</option><option value='11'>Hra na varhany</option><option value='12'>Hra na elektronické klávesy</option><option value='13'>Hra na housle</option><option value='53'>Hra na housle - rozšířené studium</option><option value='14'>Hra na violu</option><option value='15'>Hra na violoncello</option><option value='16'>Hra na kontrabas</option><option value='17'>Hra na zobcovou flétnu</option><option value='18'>Hra na příčnou flétnu</option><option value='19'>Hra na hoboj</option><option value='20'>Hra na klarinet</option><option value='21'>Hra na saxofon</option><option value='22'>Hra na fagot</option><option value='23'>Hra na trubku</option><option value='54'>Hra na trubku - rozšířené studium</option><option value='24'>Hra na lesní roh</option><option value='25'>Hra na tenor</option><option value='55'>Hra na tenor - rozšířené studium</option><option value='26'>Hra na baryton</option><option value='56'>Hra na baryton - rozšířené studium</option><option value='27'>Hra na pozoun</option><option value='57'>Hra na pozoun - rozšířené studium</option><option value='28'>Hra na tubu</option><option value='58'>Hra na tubu - rozšířené studium</option><option value='29'>Hra na kytaru</option><option value='59'>Hra na kytaru - rozšířené studium</option><option value='30'>Hra na elektrickou kytaru</option><option value='31'>Hra na baskytaru</option><option value='48'>Hra na harfu</option><option value='32'>Hra na bicí nástroje</option><option value='33'>Sólový zpěv</option><option value='49'>Populární zpěv</option><option value='34'>Sborový zpěv</option><option value='35'>Hra na akordeon</option><option value='36'>Hra na cimbál</option><option value='37'>Hra na dudy</option><option value='38'>Výtvarná tvorba</option><option value='51'>Výtvarné vzdělávání</option><option value='60'>Malý keramik - od 5 let</option><option value='39'>Činoherní tvorba</option><option value='52'>Tvořivá dramatika</option><option value='50'>Tvořivé herectví</option><option value='44'>Přípravné studium</option></select></div></div><div class='col col-4'><div class='md-form'><label class='col-sm-12 xxx_control-label' for='misto'>Studium na pobočce *</label><select class='form-control' name='misto' id='misto'><option value='0'>-- Vyberte pobočku --</option><option value='110'>Bílovice</option><option value='200'>Březolupy</option><option value='16'>Březůvky</option><option value='3'>Fryšták - Základní škola</option><option value='142'>Fryšták - ZUŠ</option><option value='21'>Hošťálková</option><option value='12'>Hřivínův Újezd</option><option value='156'>Jasenná</option><option value='4'>Kašava</option><option value='114'>Kateřinice</option><option value='20'>Lípa</option><option value='10'>Liptál</option><option value='5'>Lukov</option><option value='6'>Provodov</option><option value='119'>Ratiboř</option><option value='8'>Velký Ořechov</option><option value='9'>Želechovice</option><option value='19'>Zlín - Církevní základní škola</option><option value='2'>Zlín - Dům Kultury</option><option value='1'>Zlín - Kotěrova ulice, sídlo školy</option><option value='7'>Zlín - Štípa</option><option value='293'>Zlín - Štípa - ZŠ</option></select></div></div></div><small class='text-mutted' id='stop-stav-info'>tady by mohlo být něco pěkného</small><h4>Osobní údaje žáka</h4><div class='row zus-prihlaska-jmeno-a-prijmeni'><div class='col col-6'><div class='md-form'><label for='firstNameS'>Jméno *</label><input type='text' class='form-control' id='firstNameS'	name='firstNameS' value='' autofocus='autofocus'/></div></div><div class='col col-6'><div class='md-form'><label for='lastNameS'>Příjmení *</label><input type='text' class='form-control' id='lastNameS'	name='lastNameS' value=''/></div></div></div><div class='row pt-2 zus-prihlaska-osobni-udaje'><div class='col col-3'><div class='md-form'><label for='datumNarozeni'>Datum narození *</label><input type='date' class='form-control' id='datumNarozeni'	name='datumNarozeni' value=''/></div></div><div class='col col-3'><div class='md-form'><label for='mistoNarozeni'>Místo narození *</label><input type='text' class='form-control' id='mistoNarozeni'	name='mistoNarozeni' value=''/></div></div><div class='col col-3'><div class='md-form'><label for='rodneCislo'>Rodné číslo *</label><input type='text' class='form-control' id='rodneCislo'	name='rodneCislo' value=''/></div></div><div class='col col-3'><div class='md-form'><label for='statniPrislusnost'>Státní příslušnost *</label><input type='text' class='form-control' id='statniPrislusnost'	name='statniPrislusnost' value=''/></div></div></div><div class='row pt-2 zus-prihlaska-adresa-zaka'><div class='col col-5'><div class='md-form'><label for='street'>Ulice a číslo popisné *</label><input type='text' class='form-control' id='street'	name='street' value=''/></div></div><div class='col col-5'><div class='md-form'><label for='city'>Obec *</label><input type='text' class='form-control' id='city'	name='city' value=''/></div></div><div class='col col-2'><div class='md-form'><label for='zipcode'>PSČ *</label><input type='text' class='form-control' id='zipcode'	name='zipcode' value=''/></div></div></div><h4>Od 1. září školního roku <select class='form-control' name='skolniRok' id='skolniRok' style="width: 10rem; display: inline-block; margin-left: .5rem; margin-right: .5rem;"><option value='2026'>2026 / 2027</option><option value='2025'>2025 / 2026</option></select> bude žákem / žákyní (MŠ / ZŠ / SŠ):</h4><div class='row pt-3 zus-prihlaska-skola-zaka'><div class='col col-4'><div class='md-form'><label class='col-sm-2 control-label' for='skolaTrida'>Třída</label><div class='col-xs-5'><select class='form-control' name='skolaTrida' id='skolaTrida'><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option></select></div></div></div><div class='col col-8'><div class='md-form'><label for='skolaNazev'>Název a místo školy *</label><input type='text' class='form-control' id='skolaNazev'	name='skolaNazev' value=''/></div></div></div><div class='row pt-3 zus-prihlaska-zakonni-zastupci'><div class='col col-6 zus-prihlaska-zz-1'><h4>Zákonný zástupce 1</h4><div class='md-form'><label for='fullNameM'>Jméno a příjmení *</label><input type='text' class='form-control' id='fullNameM'	name='fullNameM' value=''/></div><div class='md-form'><label for='phoneM'>Telefon *</label><input type='text' class='form-control' id='phoneM'	name='phoneM' value=''/></div><div class='md-form'><label for='emailM'>E-mail *</label><input type='email' class='form-control' id='emailM'	name='emailM' value=''/></div><div class='md-form'><div class='checkbox'><input type='checkbox' class='input-xlarge' id='useAddressM' value='1' name='useAddressM'/>&nbsp;<label for='useAddressM'>Zadat odlišnou adresu</label></div></div><div class='md-form'><label for='streetM'>Ulice a číslo popisné</label><input type='text' class='form-control' id='streetM'	name='streetM' value=''/></div><div class='md-form'><label for='cityM'>Obec</label><input type='text' class='form-control' id='cityM'	name='cityM' value=''/></div><div class='md-form'><label for='zipcodeM'>PSČ</label><input type='text' class='form-control' id='zipcodeM'	name='zipcodeM' value=''/></div></div><div class='col col-6 zus-prihlaska-zz-2'><h4>Zákonný zástupce 2</h4><div class='md-form'><label for='fullNameF'>Jméno a příjmení</label><input type='text' class='form-control' id='fullNameF'	name='fullNameF' value=''/></div><div class='md-form'><label for='phoneF'>Telefon</label><input type='text' class='form-control' id='phoneF'	name='phoneF' value=''/></div><div class='md-form'><label for='emailF'>E-mail</label><input type='email' class='form-control' id='emailF'	name='emailF' value=''/></div><div class='md-form'><div class='checkbox'><input type='checkbox' class='input-xlarge' id='useAddressF' value='1' name='useAddressF'/>&nbsp;<label for='useAddressF'>Zadat odlišnou adresu</label></div></div><div class='md-form'><label for='streetF'>Ulice a číslo popisné</label><input type='text' class='form-control' id='streetF'	name='streetF' value=''/></div><div class='md-form'><label for='cityF'>Obec</label><input type='text' class='form-control' id='cityF'	name='cityF' value=''/></div><div class='md-form'><label for='zipcodeF'>PSČ</label><input type='text' class='form-control' id='zipcodeF'	name='zipcodeF' value=''/></div></div></div><div class='row pt-3 zus-prihlaska-zdravotni-znevyhodneni'><div class='col col-8'><h4>Zdravotní znevýhodnění žáka/žákyně:</h4></div><div class='col col-4'><select class='form-control' name='zdravotniPostizeni' id='zdravotniPostizeni'><option value='0'>Ne</option><option value='1'>Ano</option></select></div><div class='col col-12'><div class='md-form'><label for='zdravotniPostizeniPopis'>Popis *</label><input type='text' class='form-control' id='zdravotniPostizeniPopis'	name='zdravotniPostizeniPopis' value=''/></div></div></div><br><small>Údaje označené * jsou povinné.</small><br>
+		<div class='mt-3 zus-prihlaska-beru-na-vedomi' style='background-color: rgba(0, 0, 0, .05); border: 1px solid rgba(0,0,0,.25); border-radius: 4px; padding: .5em;'>
 		<h4>Beru na vědomí:</h4><br>
 		<ul>
 			<li>Vzdělávání v Základní umělecké škole upravuje zákon č. 561/2004 Sb., o předškolním, základním, středním, vyšším odborném a jiném vzdělávání v platném znění
 				(Školský zákon), vyhláška č. 71/2005 Sb. o základním uměleckém vzdělávání v platném znění, Školní řád ZUŠ Morava a Školní vzdělávací program ZUŠ Morava.
-			</li><li>Základní umělecká škola Morava se řídí platnými zákonnými předpisy souvisejícími se zajištěním výuky a s předpisy o ochraně osobních údajů. Odesláním
+			<li>Základní umělecká škola Morava se řídí platnými zákonnými předpisy souvisejícími se zajištěním výuky a s předpisy o ochraně osobních údajů. Odesláním
 					přihlášky souhlasím s ustanoveními dokumentu Zpracování osobních údajů v ZUŠ Morava, uveřejněným na webu www.zusmorava.cz, nebo v kanceláři školy.
-			</li><li>Studium v základní umělecké škole může být ukončeno z těchto důvodů:
+			<li>Studium v základní umělecké škole může být ukončeno z těchto důvodů:
 				<ol>
 					<li>závažné porušení školního řádu
-					</li><li>jestliže byl žák na konci 2. pololetí celkově hodnocen stupněm „neprospěl“ a nebylo mu povoleno opakování ročníku
-					</li><li>jestliže zákonný zástupce nezletilého žáka nebo zletilý žák neuhradil úplatu za vzdělání ve stanoveném termínu
-					</li><li>jestliže o to písemně požádá zákonný zástupce nezletilého žáka nebo zletilý žák
-				</li></ol>
-				</li><li>Beru na vědomí, že zaplatím úplatu za vzdělání (školné) v termínech, které určí škola. (do 31. 8. za 1. pololetí, do 31. 3. za 2. pololetí)
-				</li><li>Dle §22 odst. 3 zákona č. 561/2004 Sb. v platném znění jsou zákonní zástupci dětí a nezletilých žáků povinni informovat školu o změně zdravotní způsobilosti, zdravotních obtížích
+					<li>jestliže byl žák na konci 2. pololetí celkově hodnocen stupněm „neprospěl“ a nebylo mu povoleno opakování ročníku
+					<li>jestliže zákonný zástupce nezletilého žáka nebo zletilý žák neuhradil úplatu za vzdělání ve stanoveném termínu
+					<li>jestliže o to písemně požádá zákonný zástupce nezletilého žáka nebo zletilý žák
+				</ol>
+				<li>Beru na vědomí, že zaplatím úplatu za vzdělání (školné) v termínech, které určí škola. (do 31. 8. za 1. pololetí, do 31. 3. za 2. pololetí)
+				<li>Dle §22 odst. 3 zákona č. 561/2004 Sb. v platném znění jsou zákonní zástupci dětí a nezletilých žáků povinni informovat školu o změně zdravotní způsobilosti, zdravotních obtížích
 						dítěte a jiných závažných skutečnostech, které by mohly mít vliv na průběh vzdělávání.
-		</li></ul>
+		</ul>
 		</div>
-		<div class="form-group"><div class="col-sm-offset-2 col-sm-10"><br><button type="submit" class="btn btn-primary">Odeslat přihlášku</button></div></div></form>
+		<div class='form-group'><div class='col-sm-offset-2 col-sm-10'><br><button type='submit' class='btn btn-primary'>Odeslat přihlášku</button></div></div></form>
+			<script>
+			var pobockyNaZamerenich = [];
+			var oddeleniNaOborech = {"3":[10,11,12,13,53,14,15,16,17,18,19,20,21,22,23,54,24,25,55,26,56,27,57,28,58,29,59,30,31,48,32,33,49,34,35,36,37,44],"4":[38,51,60],"5":[39,52,50]};
+			document.addEventListener('DOMContentLoaded', function() {
+				$('form.form-horizontal').on ('change', 'input, select', function(event) {
+					prihlaska(event, $(this));
+				});
+				if ($('#zdravotniPostizeni').val() != '1')
+					$('#zdravotniPostizeniPopis').parent().css({'display': 'none'});
+			 }, false);
+
+			function prihlaska(event, element)
+			{
+				if (element.attr('id') === 'zdravotniPostizeni')
+				{
+					if (element.val() === '0')
+						$('#zdravotniPostizeniPopis').parent().css({'display': 'none'});
+					else
+						$('#zdravotniPostizeniPopis').parent().css({'display': 'block'});
+				}
+
+				nastavitPrihlasku();
+			}
+
+			function nastavitPrihlasku()
+			{
+				let stopStav = 0;
+				let stopStavMsg = '';
+
+				if ($('#useAddressM').is(':checked'))
+				{
+					$('#streetM').prop('disabled', false);
+					$('#cityM').prop('disabled', false);
+					$('#zipcodeM').prop('disabled', false);
+				}
+				else
+				{
+					$('#streetM').prop('disabled', true);
+					$('#cityM').prop('disabled', true);
+					$('#zipcodeM').prop('disabled', true);
+
+					$('#streetM').val($('#street').val());
+					$('#cityM').val($('#city').val());
+					$('#zipcodeM').val($('#zipcode').val());
+				}
+
+				if ($('#useAddressF').is(':checked'))
+				{
+					$('#streetF').prop('disabled', false);
+					$('#cityF').prop('disabled', false);
+					$('#zipcodeF').prop('disabled', false);
+				}
+				else
+				{
+					$('#streetF').prop('disabled', true);
+					$('#cityF').prop('disabled', true);
+					$('#zipcodeF').prop('disabled', true);
+
+					$('#streetF').val($('#street').val());
+					$('#cityF').val($('#city').val());
+					$('#zipcodeF').val($('#zipcode').val());
+				}
+
+				var oborId = parseInt($('#svpObor').val());
+				$('#svpOddeleni > option').each(function() {
+					var thisOption = $(this);
+					const oddeleni = parseInt(thisOption.attr('value'));
+					if (oddeleni)
+					{
+						if (oddeleniNaOborech[oborId] === undefined || oddeleniNaOborech[oborId].indexOf(oddeleni) === -1)
+							thisOption.hide();
+						else
+						{
+							thisOption.show();
+
+							if (pobockyNaZamerenich[oddeleni] === undefined || pobockyNaZamerenich[oddeleni].lenght === 0)
+							{
+								this.disabled = true;
+								stopStav = 1;
+								if (stopStavMsg !== '')
+									stopStavMsg += ', ';
+								stopStavMsg += thisOption.text();
+							}
+							else
+								this.disabled = false;
+						}
+					}
+				});
+				var oddeleniId = parseInt($('#svpOddeleni').val());
+				if (oddeleniNaOborech[oborId] === undefined || oddeleniNaOborech[oborId].indexOf(oddeleniId) === -1)
+					$('#svpOddeleni').val('0');
+
+				var zamereniId = parseInt($('#svpOddeleni').val());
+				$('#misto > option').each(function() {
+					var thisOption = $(this);
+					const pobocka = parseInt(thisOption.attr('value'));
+					if (pobocka)
+					{
+						if (pobockyNaZamerenich[zamereniId] === undefined || pobockyNaZamerenich[zamereniId].indexOf(pobocka) === -1)
+							this.disabled = true;
+						else
+							this.disabled = false;
+					}
+				});
+
+				var mistoId = parseInt($('#misto').val());
+				if (pobockyNaZamerenich[zamereniId] === undefined || pobockyNaZamerenich[zamereniId].indexOf(mistoId) === -1)
+					$('#misto').val('0');
+
+				if (stopStav)
+				{
+					$('#stop-stav-info').show().text('U některých studijních zaměření máme bohužel naplněnou kapacitu a nepřijímáme nové žáky: ' + stopStavMsg + '.');
+				}
+				else
+				{
+					$('#stop-stav-info').hide().text('');
+				}
+			}
+
+			nastavitPrihlasku();
+			</script>
