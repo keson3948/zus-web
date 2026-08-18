@@ -181,6 +181,15 @@ function buildView(base, slug) {
   if (exists(`${base}.html`)) {
     // běžná stránka: obsah z editoru Shipardu
     content = read(`${base}.html`);
+
+    // Obsah stránky (na rozdíl od template/page-web.mustache) mustache
+    // tagy nevyhodnocuje - {{{promenna}}} by tu zůstalo jako holý text.
+    // Kusy, co chceme mít v samostatném souboru (viz scripts/stats.mustache),
+    // proto vkládáme obyčejnou textovou značkou "<!-- INCLUDE: cesta -->".
+    // Až budeš kopírovat do Shipardu, značku nahraď obsahem daného souboru.
+    content = content.replace(/<!--\s*INCLUDE:\s*([\w./-]+)\s*-->/g, (m, path) => {
+      return exists(path) ? read(path) : placeholder(`INCLUDE nenašel soubor: ${path}`);
+    });
   } else if (view.render) {
     // stránka generovaná obsahovou šablonou (např. e10.web.articles.mustache)
     const name = String(view.render).replace(/\.mustache$/i, "");

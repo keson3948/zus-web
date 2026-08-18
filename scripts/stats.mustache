@@ -1,0 +1,106 @@
+<!--
+  Čísla o škole pod hero sekcí na úvodní stránce (700+ žáků, 21 poboček,
+  3 obory). Samostatný soubor, aby se snadno kopíroval do Shipardu zvlášť
+  od zbytku pages/index.html – lokálně se vkládá přes značku
+  INCLUDE: scripts/stats.mustache v pages/index.html (viz dev.js).
+
+  Obsah tohoto souboru se nevykresluje přes mustache (žádné {{proměnné}}
+  tady nejsou), je to čisté HTML + JS – proto přípona .mustache jen podle
+  konvence ostatních souborů ve scripts/, ne proto, že by to Shipard
+  potřeboval takhle vyhodnocovat.
+
+  Animace: čísla se na začátku neschovávají v CSS napevno (kdyby JS
+  nedoběhl, zůstala by navždy neviditelná). Skript sám při startu přidá
+  .js-anim, teprve pod tou třídou CSS čísla schová a čeká na .in-view,
+  které přidá při vjetí pruhu do okna (IntersectionObserver).
+
+  Text čísel v HTML je rovnou finální hodnota (ne "0") – bez JS nebo než
+  se pruh objeví v okně je tak vidět správné číslo, ne nula. JS ho na
+  "0" přepíše až v tu chvíli, kdy je prvek díky .js-anim/.in-view stejně
+  schovaný přes opacity, a pak ho odpočítá zpátky nahoru.
+-->
+<section class="stats-strip">
+  <div class="stats-mist"></div>
+  <div class="stats-grid">
+
+    <div class="stat">
+      <span class="stat-icon"><i class="fa fa-graduation-cap"></i></span>
+      <span class="stat-number" data-count-to="700" data-suffix="+">700+</span>
+      <span class="stat-label">žáků</span>
+    </div>
+
+    <div class="stat">
+      <span class="stat-icon"><i class="fa fa-map-marker"></i></span>
+      <span class="stat-number" data-count-to="21">21</span>
+      <span class="stat-label">poboček</span>
+    </div>
+
+    <div class="stat">
+      <span class="stat-icon stat-icon-obory">
+        <i class="obor-hudebni"></i><i class="obor-vytvarny"></i><i class="obor-litdram"></i>
+      </span>
+      <span class="stat-number" data-count-to="3">3</span>
+      <span class="stat-label">obory</span>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  function animateCount(el) {
+    var target = parseInt(el.getAttribute("data-count-to"), 10);
+    var suffix = el.getAttribute("data-suffix") || "";
+    var duration = 1400;
+    var start = null;
+
+    // Na "0" se přepisuje až tady, ne rovnou v HTML – prvek je v tuhle
+    // chvíli schovaný přes .js-anim (opacity: 0), takže se nula nikdy
+    // nezobrazí viditelně, jen jako výchozí bod animace.
+    el.textContent = "0";
+
+    function step(ts) {
+      if (start === null) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      // ease-out kubická – rychlý start, doběhne pomalu, ať to nepůsobí strojově
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  var strip = document.querySelector(".stats-strip");
+  var nums = document.querySelectorAll(".stat-number");
+  if (!strip || !nums.length) return;
+
+  function reveal() {
+    strip.classList.add("in-view");
+    nums.forEach(animateCount);
+  }
+
+  if (typeof IntersectionObserver === "undefined") {
+    reveal();
+    return;
+  }
+
+  // Teprve teď (JS běží a IntersectionObserver existuje) schováme čísla
+  // před animací – kdyby tahle třída byla v CSS napevno, bez JS by
+  // zůstala navždy neviditelná.
+  strip.classList.add("js-anim");
+
+  var seen = false;
+  var observer = new IntersectionObserver(function (entries) {
+    if (seen) return;
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        seen = true;
+        reveal();
+        observer.disconnect();
+      }
+    });
+  }, { threshold: .4 });
+
+  observer.observe(strip);
+})();
+</script>
