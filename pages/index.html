@@ -10,19 +10,39 @@
 <!-- ---------------------------------------------------------------- -->
 
 <section class="stats-strip">
+  <div class="stats-mist"></div>
   <div class="stats-grid">
+
     <div class="stat">
+      <span class="stat-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10 12 5 2 10l10 5 10-5Z"/>
+          <path d="M6 12.5V17c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5"/>
+        </svg>
+      </span>
       <span class="stat-number" data-count-to="700" data-suffix="+">0</span>
       <span class="stat-label">žáků</span>
     </div>
+
     <div class="stat">
+      <span class="stat-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"/>
+          <circle cx="12" cy="9.5" r="2.4"/>
+        </svg>
+      </span>
       <span class="stat-number" data-count-to="21">0</span>
       <span class="stat-label">poboček</span>
     </div>
+
     <div class="stat">
+      <span class="stat-icon stat-icon-obory">
+        <i class="obor-hudebni"></i><i class="obor-vytvarny"></i><i class="obor-litdram"></i>
+      </span>
       <span class="stat-number" data-count-to="3">0</span>
       <span class="stat-label">obory</span>
     </div>
+
   </div>
 </section>
 
@@ -45,13 +65,24 @@
     requestAnimationFrame(step);
   }
 
+  var strip = document.querySelector(".stats-strip");
   var nums = document.querySelectorAll(".stat-number");
-  if (!nums.length) return;
+  if (!strip || !nums.length) return;
+
+  function reveal() {
+    strip.classList.add("in-view");
+    nums.forEach(animateCount);
+  }
 
   if (typeof IntersectionObserver === "undefined") {
-    nums.forEach(animateCount);
+    reveal();
     return;
   }
+
+  // Teprve teď (JS běží a IntersectionObserver existuje) schováme čísla
+  // před animací – kdyby tahle třída byla v CSS napevno, bez JS by
+  // zůstala navždy neviditelná.
+  strip.classList.add("js-anim");
 
   var seen = false;
   var observer = new IntersectionObserver(function (entries) {
@@ -59,13 +90,13 @@
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
         seen = true;
-        nums.forEach(animateCount);
+        reveal();
         observer.disconnect();
       }
     });
   }, { threshold: .4 });
 
-  observer.observe(document.querySelector(".stats-strip"));
+  observer.observe(strip);
 })();
 </script>
 

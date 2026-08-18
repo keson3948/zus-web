@@ -853,21 +853,41 @@ li.menu-teacher-login {
 // ---------------------------------------------------------------------
 //  6b. ČÍSLA O ŠKOLE
 //
+//  Plnobarevný pruh přes celou šířku (stejný trik s negativní marží jako
+//  .obor-page-hero), ať to po hero sekci nepůsobí jako obyčejné rámečky.
 //  Počítadlo od nuly odpočítá skript v pages/index.html, jakmile pruh
-//  vjede do okna (IntersectionObserver). Bez JS/staršího prohlížeče
-//  zůstane rovnou vidět cílové číslo z HTML.
+//  vjede do okna (IntersectionObserver) – zároveň přidá .in-view, která
+//  spustí nástupní animaci jednotlivých čísel. Bez JS/staršího
+//  prohlížeče zůstanou rovnou vidět cílová čísla z HTML, jen bez pohybu.
 // ---------------------------------------------------------------------
 
 .stats-strip {
-  margin-bottom: 5rem;
+  position: relative;
+  margin: 0 calc(-1 * @bleed-x) 5rem;
+  padding: 0 @bleed-x;
+  overflow: hidden;
+  background: @primary;
+  color: #fff;
+}
+
+// Stejná barevná mlha jako v hero, jen tlumenější – vizuálně to propojí
+// oba pruhy, aniž by si navzájem konkurovaly.
+.stats-mist {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 46% 70% at 8% 0%, fade(@obor-hudebni, 38%) 0%, transparent 62%),
+    radial-gradient(ellipse 40% 65% at 92% 100%, fade(@obor-vytvarny, 30%) 0%, transparent 64%),
+    radial-gradient(ellipse 36% 55% at 55% 110%, fade(@obor-litdram, 26%) 0%, transparent 66%);
 }
 
 .stats-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  background: @surface;
-  border: 1px solid @hairline;
-  border-radius: @radius;
 }
 
 .stat {
@@ -875,12 +895,58 @@ li.menu-teacher-login {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: .4rem;
-  padding: 2.75rem 1.5rem;
+  gap: .6rem;
+  padding: 3.5rem 1.5rem;
   text-align: center;
-  border-left: 1px solid @hairline;
+  border-left: 1px solid rgba(255, 255, 255, .14);
 
   &:first-child { border-left: 0; }
+}
+
+// .js-anim přidává skript v pages/index.html hned při startu – teprve
+// pak se čísla schovají a čekají na .in-view. Bez téhle třídy (JS
+// vypnutý/selhal) pravidlo níž vůbec neplatí a čísla jsou od začátku
+// normálně vidět, nikdy nezůstanou schovaná.
+.stats-strip.js-anim .stat {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.stats-strip.js-anim.in-view .stat {
+  animation: fadeUp .7s ease forwards;
+
+  &:nth-child(1) { animation-delay: 0s; }
+  &:nth-child(2) { animation-delay: .12s; }
+  &:nth-child(3) { animation-delay: .24s; }
+}
+
+.stat-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: .2rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .12);
+  color: @secondary-light;
+
+  svg { width: 22px; height: 22px; }
+}
+
+// Tři tečky v barvách oborů místo ikony – přímo odkazuje na karty níž
+.stat-icon-obory {
+  gap: .3rem;
+  background: transparent;
+
+  i {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+  }
+
+  .obor-hudebni  { background: @obor-hudebni; }
+  .obor-vytvarny { background: @obor-vytvarny; }
+  .obor-litdram  { background: @obor-litdram; }
 }
 
 .stat-number {
@@ -888,7 +954,7 @@ li.menu-teacher-login {
   font-weight: 700;
   font-size: ~"clamp(2.4rem, 1.8rem + 2vw, 3.4rem)";
   line-height: 1;
-  color: @primary;
+  color: #fff;
   font-variant-numeric: tabular-nums;
 }
 
@@ -897,12 +963,13 @@ li.menu-teacher-login {
   font-weight: 500;
   letter-spacing: .1em;
   text-transform: uppercase;
-  color: @text-muted;
+  color: rgba(255, 255, 255, .68);
 }
 
 @media (max-width: @bp-sm - 1px) {
-  .stat { padding: 2rem 1rem; }
-  .stat-label { font-size: .68rem; letter-spacing: .06em; }
+  .stat { padding: 2.5rem 1rem; }
+  .stat-icon { width: 38px; height: 38px; }
+  .stat-label { font-size: .64rem; letter-spacing: .05em; }
 }
 
 
