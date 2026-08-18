@@ -124,6 +124,9 @@
 @bp-md: 768px;
 @bp-lg: 992px;
 @bp-xl: 1200px;
+// Bootstrap tuhle nemá – vlastní, jen pro věci, co mají přibrat na
+// hodně velkých monitorech (viz .news-grid).
+@bp-xxl: 1500px;
 
 
 // ---------------------------------------------------------------------
@@ -1516,6 +1519,16 @@ li.menu-teacher-login {
   gap: 1px;
   background: @hairline;
   border: 1px solid @hairline;
+}
+
+// Na notebooku jsou 3 sloupce v pohodě, ale na velkém monitoru jsou
+// plakáty A4 přes 3 sloupce zbytečně obrovské – nad @bp-xxl jich je
+// raději o sloupec víc a menší. Homepage teď natahuje 8 příspěvků
+// (viz maxCount v index.html), ať se 4. sloupec má čím zaplnit.
+@media (min-width: @bp-xxl) {
+  .news-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .news-card {

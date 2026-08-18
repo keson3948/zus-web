@@ -51,12 +51,28 @@
         "datePub": "1. 9. 2025"
       },
       {
-        "title": "Sedmá – neměla by se zobrazit (maxCount:6)",
+        "title": "Sedmá aktualita",
         "url": "/aktuality/7",
         "image": {
           "smallImage": "https://picsum.photos/seed/zus7/600/400"
         },
-        "datePub": "12. 5. 2026"
+        "datePub": "15. 4. 2025"
+      },
+      {
+        "title": "Osmá aktualita",
+        "url": "/aktuality/8",
+        "image": {
+          "smallImage": "https://picsum.photos/seed/zus8/600/400"
+        },
+        "datePub": "1. 3. 2025"
+      },
+      {
+        "title": "Devátá – neměla by se zobrazit (maxCount:8)",
+        "url": "/aktuality/9",
+        "image": {
+          "smallImage": "https://picsum.photos/seed/zus9/600/400"
+        },
+        "datePub": "10. 2. 2025"
       }
     ]
   }
