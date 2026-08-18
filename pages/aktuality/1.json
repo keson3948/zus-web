@@ -3,6 +3,7 @@
   "render": "e10.web.articles",
   "page": {
     "pageTitle": "Zápis do školního roku 2026/2027",
+    "mainTextClass": "pageArticles",
     "title": "Zápis do školního roku 2026/2027",
     "article": {
       "datePub": "12. 5. 2026",

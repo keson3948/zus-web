@@ -1500,7 +1500,12 @@ article {
 // plakátů přes celou šířku – teď je to karetní mřížka jako .news-grid
 // na úvodní stránce. Tělo článku (obrázek v row/col) generuje Shipardův
 // editor při vložení přílohy, nejde upravit v šabloně.
-main.pageArticles {
+// :has() je tu záměrně: main.pageArticles má stejnou třídu na výpisu
+// (víc <article class="article">) i na detailu jednoho článku (jediný
+// <article class="pageText">, bez "article"). Bez :has() by grid platil
+// i na detailu a jediný článek by spadl do prvního ze tří sloupců,
+// zbytek řádku prázdný – přesně to "natlačené doleva".
+main.pageArticles:has(> article.article) {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
@@ -2535,8 +2540,11 @@ div.article-header { padding-bottom: 1rem; }
   .social-strip { padding: 3rem 0; }
 
   .obory-grid,
-  .news-grid,
-  main.pageArticles {
+  .news-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  main.pageArticles:has(> article.article) {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -2632,7 +2640,7 @@ div.article-header { padding-bottom: 1rem; }
     grid-template-columns: repeat(2, 1fr);
   }
 
-  main.pageArticles {
+  main.pageArticles:has(> article.article) {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
