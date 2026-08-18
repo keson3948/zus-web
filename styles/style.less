@@ -671,6 +671,16 @@ li.menu-teacher-login {
   min-height: 680px;
 }
 
+// Dokud žádný snímek nemá "active" (skript, co ji přidává, sedí až na
+// konci stránky a spustí se, až prohlížeč doparsuje všechno pod hero
+// sekcí), by byl podle Bootstrapu celý karusel display:none a hero by
+// na okamžik zmizelo. :not(:has(...)) tohle řeší jen do chvíle, než se
+// "active" objeví – jakmile karusel naběhne a přepíná snímky, přebírá to
+// čistě pravidlo pod ním a snímky se nepřekrývají.
+.hero .carousel-inner:not(:has(.carousel-item.active)) .carousel-item:first-child {
+  display: block;
+}
+
 .hero .carousel-item.active,
 .hero .carousel-item-next,
 .hero .carousel-item-prev {
