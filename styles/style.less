@@ -1574,9 +1574,9 @@ h3 + div.card-deck { padding-top: 1rem; }
 
 
 // --- Karty kontaktů --------------------------------------------------
-// Kolečko s fotkou posazené přes barevný pruh, text pod ním.
-// Proti původní verzi je fotka menší (7 rem místo 9) a po najetí
-// se nic nezvětšuje.
+// Hranatá fotka (žádné kolečko), pruh za ní má stejný motiv
+// šikmých linek jako pozadí hero sekce. Kontaktní blok je přišpendlený
+// dolů (margin-top: auto), takže pod telefonem nezůstává prázdno.
 //
 // Značka .hover-picture v HTML zůstává, ale schválně nic nedělá:
 // zvětšování fotky po najetí je pryč.
@@ -1605,39 +1605,46 @@ div.contact-cards-b div.card {
   }
 }
 
-// Barevný pruh za fotkou. Přechod si nese HTML inline, tady se řeší
-// jen jeho výška.
+// Pruh za fotkou – vlastní barvy i šikmé linky jako v hero sekci.
+// Přechod z HTML (inline style) přebíjíme přes !important, protože
+// ho vypisuje Shipard rovnou v obsahu karty.
 div.contact-cards-a div.card-header,
 div.contact-cards-b div.card-header {
   display: block;
-  height: 7.2rem;
+  height: 5rem;
   padding: 0;
   border: 0;
   border-radius: 0;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      fade(#fff, 14%), fade(#fff, 14%) 1px,
+      transparent 1px, transparent 12px
+    ),
+    linear-gradient(120deg, @primary 0%, @secondary 100%) !important;
 }
 
-// Kolečko posazené přes pruh. Drží ho position: absolute, takže karta
-// musí zůstat position: relative (dává Bootstrap).
+// Hranatá fotka, mírně přesahující přes spodní hranu pruhu.
+// V běžném toku (ne absolute), takže karta nepotřebuje position: relative
+// jen kvůli ní.
 div.contact-cards-a div.card-picture,
 div.contact-cards-b div.card-picture {
-  position: absolute;
-  top: .9rem;
-  left: calc((100% - 7rem) / 2);
-  width: 7rem;
-  height: 7rem;
-  margin: 0;
-  border: 4px solid @surface;
-  border-radius: 50%;
+  position: relative;
+  width: 5.5rem;
+  height: 5.5rem;
+  margin: -2.75rem auto 0;
+  border: 3px solid @surface;
+  border-radius: @radius;
   background-size: cover;
   background-position: center top;
   background-color: @bg;
   box-shadow: @shadow-sm;
+  z-index: 1;
 }
 
-// Odsazení nahoře uvolňuje místo pod kolečkem, které přesahuje z pruhu
 div.contact-cards-a div.card-body,
 div.contact-cards-b div.card-body {
-  padding: 1.35rem 1.25rem 1.35rem;
+  padding: .9rem 1.25rem 1.35rem;
   text-align: center;
 }
 
@@ -1656,7 +1663,10 @@ div.contact-cards-b .card-text {
   color: @text-muted;
   margin-bottom: .75rem;
 
-  &:last-child { margin-bottom: 0; }
+  // Bootstrap dělá z .card-body i .card flex sloupec, takže karty
+  // stejné výšky v řadě mají dole volné místo. Kontaktní blok si ho
+  // vezme celý přes margin-top: auto, ať telefon nekončí v prázdnu.
+  &:last-child { margin-bottom: 0; margin-top: auto; }
 
   i { opacity: .7; }
 
