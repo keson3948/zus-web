@@ -1845,6 +1845,152 @@ article + article {
 
 div.article-header { padding-bottom: 1rem; }
 
+// --- Formulář přihlášky ------------------------------------------------
+// Strukturu (pole, řádky, id) generuje Shipard/webForm, měnit nejde – jen
+// stylujeme to, co tam je. Hlavní problém byl nedostatek odstupů: MDBootstrap
+// třída .md-form sama o sobě žádné mezery nedává, natvrdo napsané .col-*
+// bez sm/md prefixu navíc na mobilu drží pořád stejnou (úzkou) šířku.
+
+.zus-prihlaska-form {
+  max-width: 920px;
+  margin: 0 auto;
+  padding-top: .5rem;
+
+  // Skutečné předěly sekcí jsou jen h4, co jsou přímo v <form>, ne
+  // podnadpisy uvnitř sloupců (Zákonný zástupce, Zdravotní znevýhodnění…).
+  > h4 {
+    margin-top: 3rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid @hairline;
+
+    &:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+  }
+
+  h4 {
+    font-size: 1.05rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .row {
+    row-gap: .25rem;
+  }
+
+  .md-form {
+    margin-bottom: 1.35rem;
+  }
+
+  label {
+    display: block;
+    margin-bottom: .35rem;
+    font-size: .8rem;
+    font-weight: 500;
+    color: @text-muted;
+  }
+
+  .form-control {
+    width: 100%;
+    border: 1px solid @hairline;
+    border-radius: @radius-sm;
+    padding: .6rem .85rem;
+    font-size: .95rem;
+    font-family: @font-body;
+    color: @text;
+    background: @surface;
+    transition: border-color @ease, box-shadow @ease;
+
+    &:focus {
+      outline: 0;
+      border-color: @secondary;
+      box-shadow: 0 0 0 3px fade(@secondary, 15%);
+    }
+
+    &:disabled {
+      background: @bg;
+      color: @text-muted;
+      opacity: .8;
+    }
+  }
+
+  #stop-stav-info {
+    display: block;
+    margin: -.5rem 0 1.5rem;
+    color: @obor-litdram-text;
+  }
+
+  // Zaškrtávátko "Zadat odlišnou adresu"
+  .checkbox {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin: -.25rem 0 1.35rem;
+
+    input[type="checkbox"] {
+      width: 1.05rem;
+      height: 1.05rem;
+      accent-color: @secondary;
+      margin: 0;
+    }
+
+    label {
+      margin: 0;
+      font-size: .85rem;
+      font-weight: 400;
+      color: @text;
+    }
+  }
+
+  // Zákonný zástupce 1 / 2 vedle sebe – ohraničený blok, ať je hned vidět,
+  // kde jeden končí a druhý začíná.
+  .zus-prihlaska-zz-1,
+  .zus-prihlaska-zz-2 {
+    background: @bg;
+    border: 1px solid @hairline;
+    border-radius: @radius;
+    padding: 1.5rem 1.5rem .25rem;
+  }
+
+  // Podmínky – text ze Shipardu nese vlastní inline style, přebíjíme ho
+  .zus-prihlaska-beru-na-vedomi {
+    background: @bg !important;
+    border: 1px solid @hairline !important;
+    border-radius: @radius !important;
+    padding: 1.5rem 1.75rem !important;
+    margin-top: 1rem !important;
+    font-size: .87rem;
+    color: @text-muted;
+    line-height: 1.6;
+
+    h4 {
+      margin: 0 0 .85rem;
+      font-size: .95rem;
+    }
+
+    ul, ol { padding-left: 1.25rem; margin-bottom: .5rem; }
+    li { margin-bottom: .5rem; }
+  }
+
+  .form-group {
+    margin-top: 2rem;
+
+    .btn-primary { padding: .9rem 2.6rem; }
+  }
+}
+
+// Pole natvrdo v HTML jako .col-3/.col-4/.col-5/.col-6/.col-8 (bez
+// responzivních prefixů) by na mobilu byla nečitelně úzká – na malých
+// šířkách je proto přepínáme na celou šířku.
+@media (max-width: @bp-sm) {
+  .zus-prihlaska-form [class*="col-"] {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+}
+
 
 // ---------------------------------------------------------------------
 // 11. ANIMACE
