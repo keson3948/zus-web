@@ -1605,7 +1605,8 @@ div.contact-cards-b div.card {
   }
 }
 
-// Pruh za fotkou – vlastní barvy i šikmé linky jako v hero sekci.
+// Pruh za fotkou – hladký přechod se slabou leskovou clonou nahoře,
+// bez šikmých linek (na kartě s portrétem působily moc oficiálně).
 // Přechod z HTML (inline style) přebíjíme přes !important, protože
 // ho vypisuje Shipard rovnou v obsahu karty.
 div.contact-cards-a div.card-header,
@@ -1616,12 +1617,8 @@ div.contact-cards-b div.card-header {
   border: 0;
   border-radius: 0;
   background:
-    repeating-linear-gradient(
-      135deg,
-      fade(#fff, 14%), fade(#fff, 14%) 1px,
-      transparent 1px, transparent 12px
-    ),
-    linear-gradient(120deg, @primary 0%, @secondary 100%) !important;
+    radial-gradient(120% 160% at 18% -20%, fade(#fff, 22%) 0%, transparent 60%),
+    linear-gradient(135deg, @primary 0%, @secondary-soft 55%, @secondary-light 130%) !important;
 }
 
 // Hranatá fotka, mírně přesahující přes spodní hranu pruhu.
@@ -1645,7 +1642,7 @@ div.contact-cards-b div.card-picture {
 div.contact-cards-a div.card-body,
 div.contact-cards-b div.card-body {
   padding: 1.65rem 1.25rem 1.35rem;
-  text-align: center;
+  text-align: left;
 }
 
 div.contact-cards-a h5,
