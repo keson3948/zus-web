@@ -1493,8 +1493,86 @@ article {
   border-radius: @radius;
 }
 
+// --- Výpis aktualit (/aktuality) --------------------------------------
+// scripts/e10.web.articles.mustache vypisuje každý článek jako <article
+// class="article pageText">, všechny jako sourozence v jednom <main>.
+// Bez téhle mřížky se to řadilo pod sebe do jedné dlouhé stránky plné
+// plakátů přes celou šířku – teď je to karetní mřížka jako .news-grid
+// na úvodní stránce. Tělo článku (obrázek v row/col) generuje Shipardův
+// editor při vložení přílohy, nejde upravit v šabloně.
+main.pageArticles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  align-items: start;
+}
+
+main.pageArticles > article.article {
+  margin: 0;
+  padding: 0;
+  border: 1px solid @hairline;
+  border-radius: @radius;
+  overflow: hidden;
+  background: @surface;
+  box-shadow: @shadow-sm;
+  transition: box-shadow @ease, transform @ease;
+
+  &:hover {
+    box-shadow: @shadow;
+    transform: translateY(-3px);
+  }
+
+  // Shipard vkládá obrázek do vlastní row/col mřížky – bez odsazení,
+  // ať fotka sedí těsně k okraji karty.
+  .row { margin: 0; }
+  [class*="col-"] { padding: 0; }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+main.pageArticles .article-header {
+  padding: 1.1rem 1.25rem .25rem;
+}
+
+main.pageArticles .article-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.4;
+
+  a {
+    color: @primary;
+    &:hover { color: @secondary; }
+  }
+}
+
+main.pageArticles .article-end { display: none; }
+
+main.pageArticles nav {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: @bp-sm) {
+  main.pageArticles { grid-template-columns: 1fr; }
+}
+
 ul.pagination {
   padding-top: 3rem;
+
+  .page-link {
+    color: @primary;
+    border-color: @hairline;
+
+    &:hover { color: @secondary; background: @bg; }
+  }
+
+  .page-item.disabled .page-link {
+    color: @text-muted;
+    background: @bg;
+  }
 }
 
 

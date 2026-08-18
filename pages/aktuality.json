@@ -1,33 +1,48 @@
 {
-  "_comment": "Výpis článků. Obsah stránky negeneruje HTML z editoru, ale obsahová šablona scripts/e10.web.articles.mustache.",
+  "_comment": "Výpis článků. Obsah stránky negeneruje HTML z editoru, ale obsahová šablona scripts/e10.web.articles.mustache. Tělo článku (ta 'row/col' mřížka kolem obrázku) generuje Shipardův editor při vložení přílohy – přesně odpovídá produkci, aby šlo ověřit CSS na reálné struktuře.",
   "render": "e10.web.articles",
   "page": {
     "pageTitle": "Aktuality – ZUŠ Morava",
+    "mainTextClass": "pageArticles",
     "needPagination": true,
     "pageNext": "/aktuality?page=2",
     "pagePrev": "",
     "articles": [
       {
-        "title": "Zápis do školního roku 2026/2027",
+        "title": "Vernisáž hrad Lukov, 17.6.",
         "url": "/aktuality/1",
-        "datePub": "12. 5. 2026",
-        "authorFirstName": "Petr",
-        "authorLastName": "Novák",
-        "text": "<p>Zápis probíhá od 25. do 29. května na všech pobočkách.</p>"
+        "text": "<div class='row'><div class='col-sm-12 col-md-12 ml-lg-auto mr-lg-auto col-lg-12' title='Vernisáž'><a class='thumbnail gallery' href='https://picsum.photos/seed/a1/900/1200'><img src='https://picsum.photos/seed/a1/900/1200' class='img-responsive' title='Vernisáž'/></a></div></div>"
       },
       {
-        "title": "Adventní koncert v Liptále",
+        "title": "Závěrečné koncerty, Fryšták",
         "url": "/aktuality/2",
-        "datePub": "3. 12. 2025",
-        "authorFirstName": "Jana",
-        "authorLastName": "Svobodová",
-        "text": "<p>Tradiční koncert v kostele sv. Petra a Pavla.</p>"
+        "text": "<div class='row'><div class='col-sm-12 col-md-12 ml-lg-auto mr-lg-auto col-lg-12' title='Koncert'><a class='thumbnail' href='#'><img src='https://picsum.photos/seed/a2/900/1273' class='img-responsive' title='Koncert'/></a></div></div>"
+      },
+      {
+        "title": "Absolventský koncert, 27. 5. 2026, Želechovice nad Dřevnicí",
+        "url": "/aktuality/3",
+        "text": "<div class='row'><div class='col-sm-12 col-md-12 ml-lg-auto mr-lg-auto col-lg-12' title='Absolventský koncert'><a class='thumbnail gallery' href='#'><img src='https://picsum.photos/seed/a3/900/636' class='img-responsive' title='Absolventský koncert'/></a></div></div>"
+      },
+      {
+        "title": "Absolventský koncert, 8. 6. 2026, Liptál",
+        "url": "/aktuality/4",
+        "text": "<div class='row'><div class='col-sm-12 col-md-12 ml-lg-auto mr-lg-auto col-lg-12' title='Absolventský koncert Liptál'><a class='thumbnail gallery' href='#'><img src='https://picsum.photos/seed/a4/900/1350' class='img-responsive' title='Absolventský koncert Liptál'/></a></div></div>"
+      },
+      {
+        "title": "Noc kostelů, 29. 5. 2026, Zádveřice",
+        "url": "/aktuality/5",
+        "text": "<div class='row'><div class='col-sm-12 col-md-12 ml-lg-auto mr-lg-auto col-lg-12' title='Noc kostelů'><a class='thumbnail gallery' href='#'><img src='https://picsum.photos/seed/a5/900/900' class='img-responsive' title='Noc kostelů'/></a></div></div>"
+      },
+      {
+        "title": "Koncert s absolventským vystoupením, 25. 5. 2026, Liptál",
+        "url": "/aktuality/6",
+        "text": "<div class='row'><div class='col-sm-12 col-md-12 ml-lg-auto mr-lg-auto col-lg-12' title='Koncert'><a class='thumbnail gallery' href='#'><img src='https://picsum.photos/seed/a6/900/1136' class='img-responsive' title='Koncert'/></a></div></div>"
       }
     ]
   },
   "section": {
-    "showDate": true,
-    "showAuthor": true,
-    "showDateOrAuthor": true
+    "showDate": false,
+    "showAuthor": false,
+    "showDateOrAuthor": false
   }
 }
