@@ -1,0 +1,40 @@
+{
+  "_comment": "Testovací data pro webScript kontakty.",
+  "data": {
+    "persons": [
+      {
+        "fullName": "Jana Nováková",
+        "image": {
+          "smallImage": "https://picsum.photos/seed/u1/400/400"
+        },
+        "pp": {
+          "zus-zam-info-funkce": "ředitelka",
+          "email": "novakova@zusmorava.cz",
+          "phone": "577 018 897"
+        }
+      },
+      {
+        "fullName": "Petr Mikl",
+        "image": {
+          "smallImage": "https://picsum.photos/seed/u2/400/400"
+        },
+        "pp": {
+          "zus-zam-info-funkce": "zástupce ředitelky",
+          "email": "mikl@zusmorava.cz",
+          "phone": "577 018 898"
+        }
+      },
+      {
+        "fullName": "Eva Teskova",
+        "image": {
+          "smallImage": "https://picsum.photos/seed/u3/400/400"
+        },
+        "pp": {
+          "zus-zam-info-funkce": "učitelka klavíru",
+          "email": "teskova@zusmorava.cz",
+          "phone": "577 018 899"
+        }
+      }
+    ]
+  }
+}

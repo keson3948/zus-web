@@ -120,7 +120,20 @@ pages/hudebniobor.json          <- { "page": { "pageTitle": "Hudební obor" } }
 
 ## Vzhled
 
-Písmo: **Poppins**, nahrané v Shipardu pod `/att/`. Žádné externí CDN.
+Písmo: **Poppins** na všechno, nahrané v Shipardu pod `/att/`. Žádné
+externí CDN. Patkový Playfair Display na nadpisy jsme zkusili a zahodili;
+`@font-heading` a `@font-body` zůstaly oddělené, takže jde nadpisové písmo
+kdykoliv změnit zvlášť.
+
+`old_style` se už nenačítá. Pravidla, která texty stránek ze Shipardu
+opravdu potřebovaly – karty kontaktů a článků, `card-deck`, `thumb`,
+tabulky – jsou přenesená ve `styles/style.less` v sekci **10b**.
+Prošel jsem 19 stránek na produkci a nic jiného z `old_style` v obsahu
+nezůstalo.
+
+Pozor na `.card-deck`: základ (`display`) dodával Bootstrap 4, který už
+na webu není, a `old_style` k němu doplňoval jen šířky. Bez sekce 10b by
+se karty poskládaly pod sebe.
 
 Aktuality jsou vyvěšované plakáty na A4, karta proto drží poměr 1 : 1,414
 a titulek je pod plakátem, ne přes něj. Dřív se plakát ořezával do vodorovné

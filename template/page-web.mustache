@@ -21,14 +21,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <!-- Playfair Display (nadpisy). Poppins se načítá z /att/ ve style.less.
-         Až budeš chtít pryč od CDN, nahraj Playfair do Shipardu stejně
-         jako Poppins a nahraď to @font-face pravidlem. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,800&display=swap" rel="stylesheet">
-
-    <link href="{{templateRoot}}/old_style.css?ver=4" rel="stylesheet">
+    <!-- old_style se už nenačítá. Pravidla, která obsah stránek opravdu
+         potřeboval (karty kontaktů a článků, thumb, tabulky), jsou
+         přenesená ve style.less v sekci 10b. -->
     <link href="{{templateRoot}}/style.css?ver=46" rel="stylesheet">
 		{{#page.params.almanachPage}}
 				<link href="{{templateRoot}}/almanach_style.css?ver=8" rel="stylesheet">

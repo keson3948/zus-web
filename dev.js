@@ -238,8 +238,13 @@ app.use(express.static(abs("js")));
 // CSS: kompilace LESS za běhu (/style.css -> styles/style.less)
 app.get(/.*\.css$/, async (req, res, next) => {
   const name = path.basename(req.path).replace(/\.css$/, "");
-  const lessPath = findFile("styles", name, ".less");
+  let lessPath = findFile("styles", name, ".less");
   const cssPath = findFile("styles", name, ".css");
+
+  // Prázdný .less přeskočíme. V Shipardu je old_style veden jako .less
+  // i .css; když je jeden z nich prázdný, tenhle server by jinak poslal
+  // prázdné CSS a základní téma by lokálně chybělo.
+  if (lessPath && !read(lessPath).trim()) lessPath = null;
 
   if (lessPath) {
     try {

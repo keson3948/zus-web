@@ -1,0 +1,24 @@
+<div class="row px-2 row-cols-1 row-cols-md-3 contact-cards-a hover-picture">
+{{#data.persons}}
+<div class="col">
+<div class="col card bg-white px-0 rounded-3">
+	<div class="card-header" style="background: rgb(202,224,255); background: linear-gradient(90deg, rgba(202,224,255,1) 0%, rgba(66,115,184,1) 100%);"></div>
+	{{#image.smallImage}}
+	<div class="card-picture" style="background-image:url({{image.smallImage}});"></div>
+	{{/image.smallImage}}
+
+	<div class="card-body">
+		<h5>{{fullName}}</h5>
+		<p class="card-text">
+			{{pp.zus-zam-info-funkce}}
+		</p>
+
+		<p class="card-text">
+			<span class="text-nowrap"><i class="fa fa-fw fa-envelope-o"></i> <a href="mailto:{{pp.email}}">{{pp.email}}</a></span><br>
+			<span class="text-nowrap"><i class="fa fa-fw fa-phone"></i>{{pp.phone}}</span>
+		</p>
+  </div>
+</div>
+</div>
+{{/data.persons}}
+</div>

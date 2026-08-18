@@ -89,8 +89,9 @@
 // ten proto bere tmavší odstín.
 @obor-litdram-text:   #C2410C;
 
-// Písmo: patkový Playfair na nadpisy, Poppins na text
-@font-heading: 'Playfair Display', Georgia, serif;
+// Písmo: Poppins na všechno. Patkový Playfair jsme zkusili a zahodili.
+// Obě proměnné zůstávají, ať jde nadpisové písmo kdykoliv oddělit zpátky.
+@font-heading: 'Poppins', sans-serif;
 @font-body:    'Poppins', sans-serif;
 
 // Poloměry – návrh je záměrně hranatý, zaoblení jen naznačené
@@ -200,16 +201,16 @@ h1, h2, h3, h4, h5, h6,
 .uk-heading-small, .uk-heading-xlarge {
   font-family: @font-heading;
   color: @primary;
-  font-weight: 700;
-  letter-spacing: -.01em;
-  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  line-height: 1.15;
 }
 
 // Vlnovka je tu nutná: LESS by `1.4rem + 2.6vw` spočítal jako matematiku
 // a slepil z toho jedno číslo (4rem), takže by se nadpis nikdy nezmenšil.
 // Escapováním se výraz propíše do CSS tak, jak je.
-h1 { font-size: ~"clamp(2.1rem, 1.4rem + 2.6vw, 3.4rem)"; font-weight: 800; }
-h2 { font-size: ~"clamp(1.7rem, 1.2rem + 1.8vw, 2.6rem)"; font-weight: 800; }
+h1 { font-size: ~"clamp(2.1rem, 1.4rem + 2.6vw, 3.4rem)"; font-weight: 600; }
+h2 { font-size: ~"clamp(1.7rem, 1.2rem + 1.8vw, 2.6rem)"; font-weight: 600; }
 h3 { font-size: ~"clamp(1.3rem, 1.1rem + .8vw, 1.65rem)"; }
 
 // Kurzíva v nadpisu jako barevný akcent (viz „Kde hudba *ožívá*")
@@ -771,10 +772,10 @@ li.menu-teacher-login {
   margin: 0 0 1rem;
   color: @primary;
   font-family: @font-heading;
-  font-weight: 800;
+  font-weight: 600;
   font-size: ~"clamp(1.85rem, 1rem + 3.4vw, 4.6rem)";
-  line-height: 1.05;
-  letter-spacing: -.01em;
+  line-height: 1.1;
+  letter-spacing: -.03em;
 }
 
 .hero-subtitle {
@@ -1219,8 +1220,8 @@ ul.pagination {
 .social-title {
   color: #fff;
   font-family: @font-heading;
-  font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2rem);
-  font-weight: 700;
+  font-size: ~"clamp(1.5rem, 1.1rem + 1.2vw, 2rem)";
+  font-weight: 600;
   margin: 0;
 }
 
@@ -1537,6 +1538,288 @@ div.contact-cards-a.hover-picture div.card-picture:hover {
   &::after { transform: translateY(-4px) rotate(-45deg); }
   &::before { transform: translateY(4px) rotate(45deg); }
 }
+
+
+// ---------------------------------------------------------------------
+// 10b. KARTY A OBSAH PŘEVZATÉ Z OLD_STYLE
+//
+//  old_style se přestal používat, ale texty stránek v Shipardu na jeho
+//  třídy pořád spoléhají. Tohle jsou jediná pravidla, která obsah webu
+//  opravdu potřebuje – přepsaná do zdejších proměnných.
+//
+//  Pozor na .card-deck: základ (display) měl Bootstrap 4, který tu už
+//  není, a old_style dodával jen šířky. Bez téhle sekce se karty
+//  poskládají pod sebe.
+// ---------------------------------------------------------------------
+
+.card-deck {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+
+  > .card { margin-bottom: 0; }
+}
+
+h3 + div.card-deck { padding-top: 1rem; }
+
+@media (min-width: @bp-sm) {
+  .card-deck { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: @bp-lg) {
+  .card-deck.contact-cards-a,
+  .card-deck.article-cards-b,
+  .card-deck.article-cards-x { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: @bp-xl) {
+  .card-deck.article-cards-b { grid-template-columns: repeat(4, 1fr); }
+}
+
+
+// --- Karty kontaktů --------------------------------------------------
+// Fotka je kolečko posazené přes barevnou hlavičku. Drží ji position:
+// absolute, takže karta musí zůstat position: relative (dává Bootstrap).
+
+div.contact-cards-a,
+div.contact-cards-b {
+  margin-bottom: 1rem;
+}
+
+div.contact-cards-a {
+  text-align: center;
+}
+
+div.contact-cards-a div.card,
+div.contact-cards-b div.card {
+  position: relative;
+  margin-bottom: 1.5rem;
+  background: @surface;
+  border: 1px solid @hairline;
+  border-radius: @radius;
+  overflow: hidden;
+  font-size: .95rem;
+}
+
+div.contact-cards-a div.card-header {
+  height: 9.3rem;
+  border: 0;
+  padding: 0;
+}
+
+div.contact-cards-a div.card-picture {
+  position: absolute;
+  left: calc((100% - 9rem) / 2);
+  width: 9rem;
+  height: 9rem;
+  margin-top: 1rem;
+  border: 5px solid @surface;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  transition: all @ease;
+}
+
+// Po najetí se fotka roztáhne přes celou kartu
+div.contact-cards-a.hover-picture div.card-picture:hover {
+  left: 0;
+  top: 0;
+  margin-top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  background-position: center 20%;
+}
+
+// Jména jsou bezpatková – patkové písmo je vyhrazené nadpisům
+div.contact-cards-a h5,
+div.contact-cards-b h5 {
+  font-family: @font-body;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: @primary;
+  margin-bottom: .35rem;
+}
+
+div.contact-cards-a .card-text,
+div.contact-cards-b .card-text {
+  font-size: .9rem;
+  color: @text-muted;
+  margin-bottom: .6rem;
+
+  &:last-child { margin-bottom: 0; }
+}
+
+div.contact-cards-b div.card-picture {
+  min-width: 27%;
+  background-size: cover;
+  background-position: center;
+}
+
+@media (min-width: @bp-md) {
+  div.contact-cards-b div.card {
+    flex-direction: row;
+
+    div.card-header { display: none; }
+  }
+}
+
+@media (max-width: @bp-md - 1px) {
+  div.contact-cards-b div.card {
+    text-align: center;
+
+    div.card-picture {
+      width: 9rem;
+      height: 9rem;
+      margin: -4rem auto 0;
+      border: 5px solid @surface;
+      border-radius: 50%;
+    }
+
+    div.card-header { height: 5rem; }
+  }
+}
+
+
+// --- Karty článků ----------------------------------------------------
+
+div.article-cards-a,
+div.article-cards-b,
+div.article-cards-x {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+div.article-cards-a div.card,
+div.article-cards-b div.card,
+div.article-cards-x div.card {
+  background: @surface;
+  border: 1px solid @hairline;
+  border-radius: @radius;
+  overflow: hidden;
+  font-size: .95rem;
+}
+
+div.article-cards-a div.card-picture,
+div.article-cards-b div.card-picture {
+  height: 14rem;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid @hairline;
+}
+
+.card-deck.article-cards-x .card div.card-picture { height: 10rem; }
+
+div.article-cards-a h5,
+div.article-cards-b h5,
+div.article-cards-x h5 {
+  font-family: @font-body;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+
+// --- Obrázky v textu -------------------------------------------------
+
+img.img-responsive { max-width: 100%; height: auto; }
+
+.thumb {
+  display: inline-block;
+  padding: .25rem;
+  border: 1px solid @hairline;
+  border-radius: @radius-sm;
+
+  > img { width: 100%; }
+
+  &.thumb-full {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+}
+
+a.thumbnail {
+  display: inline-block;
+  padding: 4px;
+  margin-bottom: .5rem;
+  border: 1px solid @hairline;
+  border-radius: @radius-sm;
+
+  > img { width: 100%; }
+
+  &:hover { border-color: @secondary; }
+}
+
+@media (min-width: @bp-md) {
+  .thumb.thumb-left  { float: left;  margin: .5rem 2rem .5rem 0; max-width: 50%; }
+  .thumb.thumb-right { float: right; margin: .5rem 0 .5rem 2rem; max-width: 50%; }
+}
+
+@media (max-width: @bp-md) {
+  .thumb.thumb-left,
+  .thumb.thumb-right { margin: 1rem 0; }
+}
+
+
+// --- Tabulky a drobnosti v textu stránky -----------------------------
+
+table.fullWidth { width: 100%; }
+
+table.default {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+
+  th, td {
+    padding: .6rem .75rem;
+    border: 1px solid @hairline;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  thead th {
+    background: @bg;
+    font-weight: 600;
+  }
+
+  tr.sum,
+  tr.subtotal {
+    font-weight: 600;
+    background: @bg;
+  }
+}
+
+.number { text-align: right !important; }
+
+.subtitle {
+  font-size: 1.2rem;
+
+  &:not(:first-child) { margin-top: 1em; }
+}
+
+div.pageText {
+  ul:not([class]) {
+    padding-left: 1.5rem;
+
+    li { list-style-type: disc; }
+  }
+
+  pre > code {
+    display: inline-block;
+    width: 100%;
+    padding: 1ex;
+    background: @bg;
+    border: 1px solid @hairline;
+    border-radius: @radius-sm;
+  }
+}
+
+article + article {
+  clear: both;
+  margin-top: 2rem;
+  padding-top: 1rem;
+}
+
+div.article-header { padding-bottom: 1rem; }
 
 
 // ---------------------------------------------------------------------
