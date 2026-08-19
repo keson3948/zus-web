@@ -440,7 +440,11 @@ border: 1px solid rgba(255, 255, 255, 0.32);">
           observer.disconnect();
         }
       });
-    }, { threshold: .3 });
+      // rootMargin zmenšuje efektivní okno o 20 % zdola – sekce se tak
+      // musí dostat kus přes spodní okraj obrazovky, ne jen ho lízat,
+      // než se animace spustí. Bez toho stačilo, aby vykouklo pár
+      // pixelů, a uživatel si přechod skoro nevšiml.
+    }, { threshold: .3, rootMargin: "0px 0px -20% 0px" });
 
     observer.observe(container);
   }
