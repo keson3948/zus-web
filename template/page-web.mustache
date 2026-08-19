@@ -21,10 +21,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <!-- old_style se už nenačítá. Pravidla, která obsah stránek opravdu
-         potřeboval (karty kontaktů a článků, thumb, tabulky), jsou
-         přenesená ve style.less v sekci 10b. -->
-    <link href="{{templateRoot}}/style.css?ver=46" rel="stylesheet">
+    <link href="{{templateRoot}}/style.css?ver=68" rel="stylesheet">
 		{{#page.params.almanachPage}}
 				<link href="{{templateRoot}}/almanach_style.css?ver=8" rel="stylesheet">
 				<script src="https://unpkg.com/scrollreveal"></script>
@@ -198,6 +195,7 @@
                         <ul class="dropdown-menu rounded shadow-sm animate slideIn" aria-labelledby="navbarDropdown1">
                             <li><a class="dropdown-item" href="/oskole">O škole</a></li>
                             <li><a class="dropdown-item" href="/kontakty">Kontakty</a></li>
+														<li><a class="dropdown-item" href="/ucitele">Učitelé</a></li>
                             <!--<li><a class="dropdown-item" href="#">Studium</a></li>-->
                             <li><a class="dropdown-item" href="/prihlaska">Přihláška</a></li>
                             <li><a class="dropdown-item" href="/dokumenty">Dokumenty</a></li>
@@ -381,6 +379,112 @@ border: 1px solid rgba(255, 255, 255, 0.32);">
             </button>
         </div>
     </div>
+
+		<section class="stats-strip">
+  <div class="stats-mist"></div>
+  <div class="stats-grid">
+
+    <div class="stat">
+      <span class="stat-icon"><i class="fa fa-graduation-cap"></i></span>
+      <span class="stat-number" data-count-to="700" data-suffix="+">700+</span>
+      <span class="stat-label">žáků</span>
+    </div>
+
+    <div class="stat">
+      <span class="stat-icon"><i class="fa fa-map-marker"></i></span>
+      <span class="stat-number" data-count-to="20">20</span>
+      <span class="stat-label">poboček</span>
+    </div>
+
+    <div class="stat">
+      <span class="stat-icon stat-icon-obory">
+        <i class="obor-hudebni"></i><i class="obor-vytvarny"></i><i class="obor-litdram"></i>
+      </span>
+      <span class="stat-number" data-count-to="3">3</span>
+      <span class="stat-label">obory</span>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  // Společný mechanismus pro "objeví se při scrollu" – používá ho pruh
+  // s čísly (.stats-strip) i mřížka oborů (.obory-grid). Container
+  // dostane .js-anim hned na startu (teprve pod tou třídou CSS schová
+  // položky – bez JS/IntersectionObserver by jinak zůstaly navždy
+  // neviditelné) a .in-view ve chvíli, kdy vjede do okna.
+  function initReveal(containerSelector, onReveal) {
+    var container = document.querySelector(containerSelector);
+    if (!container) return;
+
+    function reveal() {
+      container.classList.add("in-view");
+      if (onReveal) onReveal();
+    }
+
+    if (typeof IntersectionObserver === "undefined") {
+      reveal();
+      return;
+    }
+
+    container.classList.add("js-anim");
+
+    var seen = false;
+    var observer = new IntersectionObserver(function (entries) {
+      if (seen) return;
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          seen = true;
+          reveal();
+          observer.disconnect();
+        }
+      });
+    }, { threshold: .3 });
+
+    observer.observe(container);
+  }
+
+  function animateCount(el) {
+    var target = parseInt(el.getAttribute("data-count-to"), 10);
+    var suffix = el.getAttribute("data-suffix") || "";
+    var duration = 1400;
+    var start = null;
+
+    // Na "0" se přepisuje až tady, ne rovnou v HTML – prvek je v tuhle
+    // chvíli schovaný přes .js-anim (opacity: 0), takže se nula nikdy
+    // nezobrazí viditelně, jen jako výchozí bod animace.
+    el.textContent = "0";
+
+    function step(ts) {
+      if (start === null) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      // ease-out kubická – rychlý start, doběhne pomalu, ať to nepůsobí strojově
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // DOMContentLoaded, ne rovnou: .obory-grid je součástí pageText, který
+  // se v HTML vykresluje až pod tímhle skriptem – bez čekání na
+  // doparsování stránky by document.querySelector nic nenašel.
+  function start() {
+    initReveal(".stats-strip", function () {
+      document.querySelectorAll(".stat-number").forEach(animateCount);
+    });
+
+    initReveal(".obory-grid");
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start);
+  } else {
+    start();
+  }
+})();
+</script>
     {{/page.params.homePage}}
 
     {{#page.params.almanachCover}}
